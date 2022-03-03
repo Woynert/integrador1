@@ -1,6 +1,12 @@
 
-//import {driver_post_request} from '../post_request.js';
+import {get_siblings} from '../utilities/misc.js';
 
+export {create_driver_search_vehicle,
+		fetch_data_table_vehicles};
+
+/*export {driver_search_vehicle,
+        getSiblings,
+        create_driver_search_vehicle};*/
 
 // globals
 
@@ -10,25 +16,15 @@ class mod_search_vehicle
 	{
 		// vars
 
-		this.self_reference;
-
+		this.selected_row = -1;
 		this.data_rows;
-		this.post_request; // = post_request;
-
-		//console.log(this.post_request);
+		this.post_request;
 
 		// DOM elements
 
 		this.tbl_vehicles;
 		this.tbl_resume;
 	}
-
-	/*handle_data_table_vehicles(data)
-	{
-		console.log("Me llego esto");
-		console.log(data);
-	}*/
-
 
 	// create table headers
 
@@ -56,7 +52,6 @@ class mod_search_vehicle
 
 	populate_table ()
 	{
-		//console.log(rows)
 		let rows = this.data_rows;
 		var tr;
 		var td;
@@ -84,9 +79,6 @@ class mod_search_vehicle
 			tr.addEventListener('click',
 				function()
 				{
-					/*console.log(tr);
-					console.log(myself);
-					console.log("aboice");*/
 					row_click (this, myself);
 				}
 			);
@@ -150,91 +142,15 @@ class driver_search_vehicle
 		this.mod_search.tbl_resume   = document.getElementById ("tbl_resume");
 	}
 
-
-	/*fetch_data_table_vehicles()
+	get_data_rows()
 	{
-		let postObj = {
-		    id: 1
-		}
-
-		console.log(this.mod_search.post_request);
-
-		// call fetch object
-		//this.mod_search.post_request.request(postObj, this.mod_search.handle_data_table_vehicles);
-		this.mod_search.post_request.request(postObj,
-			function(data)
-			{
-				this.mod_search.handle_data_table_vehicles(data);
-				//console.log("MM")
-				//console.log(data)
-			}
-		);
-	}*/
-
-
-	/*// create table headers
-
-	populate_table_header (rows)
-	{
-		var tr;
-		var td;
-
-		// headers
-
-		tr = document.createElement('tr');
-
-		for (value in rows[0])
-		{
-			td = document.createElement('td');
-			td.innerHTML = value;
-			tr.appendChild(td);
-		}
-
-		tbl_vehicles.appendChild(tr);
+		return this.mod_search.data_rows;
 	}
 
-	// show data on table
-
-	populate_table (rows)
+	get_selected_row()
 	{
-		console.log(rows)
-		var tr;
-		var td;
-
-		// rows
-
-		for (i = 0; i < rows.length; i++)
-		{
-
-			tr = document.createElement('tr');
-
-			for (value in rows[i])
-			{
-
-				td = document.createElement('td');
-				td.innerHTML = rows[i][value];
-				tr.appendChild(td);
-
-			}
-
-			// add mouse event
-			tr.classList.add("row_item");
-			tr.addEventListener('click',
-				function()
-				{
-					console.log(this);
-					row_click(evt.currentTarget, this.mod_search);
-				}
-			);
-			tbl_vehicles.appendChild(tr);
-		}
-
-	}*/
-
-	// populate resume table with item values
-
-
-
+		return this.mod_search.selected_row;
+	}
 
 }
 
@@ -267,13 +183,11 @@ function fetch_data_table_vehicles(driver)
 	driver.mod_search.post_request.request(postObj,
 	function(rows)
 	{
-		//driver.mod_search.handle_data_table_vehicles(data);
-		console.log("MM")
-
 		// clear
 
         driver.mod_search.tbl_vehicles.innerHTML = "";
         driver.mod_search.tbl_resume.innerHTML = "";
+        driver.mod_search.selected_row = rows.data.length -1;
 
         // populate
 
@@ -292,17 +206,12 @@ function fetch_data_table_vehicles(driver)
 function row_click (target, ms)
 {
 
-	console.log(ms);
-
-	// select
-
-	//var tr = evt.currentTarget;
 	var tr = target;
 	tr.classList.add("selected");
 
 	// deselect siblings
 
-	var siblings = getSiblings(tr);
+	var siblings = get_siblings(tr);
 
 	for (var i = 0; i < siblings.length; i++)
 	{
@@ -311,33 +220,16 @@ function row_click (target, ms)
 
 	// populate
 
-	console.log(tr);
-	console.log(parseInt(tr.firstChild.innerHTML)-1);
+	ms.selected_row = parseInt(tr.firstChild.innerHTML) - 1;
 
-	ms.populate_resumen (ms.data_rows[parseInt(tr.firstChild.innerHTML)-1]);
+	ms.populate_resumen (ms.data_rows [ms.selected_row]);
 }
 
 
 
-function getSiblings (elem) {
 
-	// Setup siblings array and get the first sibling
-	var siblings = [];
-	var sibling = elem.parentNode.firstChild;
 
-	// Loop through each sibling and push to the array
-	while (sibling) {
-		if (sibling.nodeType === 1 && sibling !== elem) {
-			siblings.push(sibling);
-		}
-		sibling = sibling.nextSibling
-	}
 
-	return siblings;
-
-};
-
-export {driver_search_vehicle, getSiblings, create_driver_search_vehicle};
 
 
 /*/ DATABASE COMMUNICATION

@@ -7,17 +7,24 @@
 </head>
 <body>                                              	
 
-	<div>
-		<button id="btn_goto_search" >Buscar Registros</button>
-		<button id="btn_goto_edit" >Editar Registros</button>
+	<div class="header">
+		<p>Sistema de Informacion Concesionaria</p>
 	</div>
 
-	<h1>Title</h1>
+	<div class="separator">
 
-	<div id="mod_search_vehicles">
-	</div>
+		<div id="module_selection" class="separator_child">
+			<div class="module_subtitle">Modulos</div>
+			<button id="btn_goto_search" class="btn_module">Buscar Registros</button>
+			<button id="btn_goto_edit" class="btn_module">Editar Registros</button>
+		</div>
 
-	<div id="mod_edit_vehicle">
+		<div class="separator_child">
+			<div class="module_container" >
+			<div id="mod_search_vehicle"></div>
+			<div id="mod_edit_vehicle"></div>
+			</div>
+		<div>
 	</div>
 	
 </body>
