@@ -22,6 +22,28 @@ tr, td{
 	border-width: 1px;
 }
 
+button{
+	border-radius: 0px;
+	border-color: black;
+	border: none;
+	background: #8EA5B8;
+}
+
+button:hover {
+    background: #C9D3DB;
+}
+
+button:active{
+	/*background: #758FA5;*/
+	background: #8EA5B8;
+}
+
+.module_container button{
+	min-width: 150px;
+	min-height: 30px;
+	margin: 10px 0 10px 0;
+}
+
 /* main table */
 
 .row_item, .selected{
@@ -91,6 +113,7 @@ p{
 .btn_module{
 	width: 100%;
 	height: 38px;
+	margin-bottom: 5px;
 }
 
 .floating_message{
@@ -106,7 +129,7 @@ p{
 	background: green;
 }
 
-#edit_tbl_vehicle_properties input{
+#edit_tbl_vehicle_properties input, #reg_tbl_vehicle_properties input{
 	width: 100%;
 	box-sizing: border-box;
 }

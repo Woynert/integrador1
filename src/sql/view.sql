@@ -14,7 +14,7 @@ SELECT id AS `ID`,
         generacion AS `GENERACION`,
         placa AS `PLACA`,
         estado AS `ESTADO`,
-        DATE_FORMAT(fecha, '%Y:%c:%d') AS `FECHA`,
+        DATE_FORMAT(fecha, '%Y/%c/%d') AS `FECHA`,
         precio AS `PRECIO`
 FROM vehiculos
 ;

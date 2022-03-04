@@ -67,10 +67,34 @@ app.post ('/endpoint', function(req, res)
 					if (value == "PRECIO")
 						sql += ' ' + data[value] + ', '
 					else
-						sql += ' "' + data[value] + '", '
+						sql += ' "' + data[value] + '",'
 			}
 
 			sql += row_id + ");";
+			console.log(sql)
+
+			break;
+
+
+		case 3:
+			data = req.body.data;
+
+			//console.log(data);
+
+			sql = "CALL register_vehicle ( ";
+
+			for (var value in data)
+			{
+				console.log(data[value]);
+
+				if (value == "PRECIO")
+					sql += ' ' + data[value] + ','
+				else
+					sql += ' "' + data[value] + '",'
+			}
+
+			sql = sql.slice(0, -1);
+			sql += ");";
 			console.log(sql)
 
 			break;

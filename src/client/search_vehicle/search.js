@@ -2,6 +2,7 @@
 import {get_siblings} from '../utilities/misc.js';
 import {show_module} from '../client.js';
 import {press_edit_btn_fetch} from '../edit_vehicle/edit.js';
+import {press_reg_btn_fetch} from '../register_vehicle/register.js';
 
 export {create_driver_search_vehicle,
 		fetch_data_table_vehicles};
@@ -27,6 +28,7 @@ class mod_search_vehicle
 
 		// shared modules
 		this.mod_edit;
+		this.mod_register;
 	}
 
 	// create table headers
@@ -169,6 +171,10 @@ class driver_search_vehicle
 		this.mod_search.mod_edit = mod_edit;
 	}
 
+	set_mod_register(mod_register){
+		this.mod_search.mod_register = mod_register;
+	}
+
 }
 
 function create_driver_search_vehicle(post_request)
@@ -229,7 +235,14 @@ function fetch_data_table_vehicles(driver)
         {
         	driver.mod_search.selected_row = 0;
         	row_click (first_tr, driver.mod_search);
+
+	        // tell everione
+	        //driver.mod_search.mod_edit();
+
+	        press_reg_btn_fetch (driver.mod_search.mod_register);
+
         }
+
 
 	}
 	);
