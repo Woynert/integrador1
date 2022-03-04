@@ -1,12 +1,11 @@
 
 import {get_siblings} from '../utilities/misc.js';
+import {show_module} from '../client.js';
+import {press_edit_btn_fetch} from '../edit_vehicle/edit.js';
 
 export {create_driver_search_vehicle,
 		fetch_data_table_vehicles};
 
-/*export {driver_search_vehicle,
-        getSiblings,
-        create_driver_search_vehicle};*/
 
 // globals
 
@@ -24,6 +23,10 @@ class mod_search_vehicle
 
 		this.tbl_vehicles;
 		this.tbl_resume;
+		this.btn_edit_row;
+
+		// shared modules
+		this.mod_edit;
 	}
 
 	// create table headers
@@ -45,7 +48,7 @@ class mod_search_vehicle
 			tr.appendChild(td);
 		}
 
-		tbl_vehicles.appendChild(tr);
+		this.tbl_vehicles.appendChild(tr);
 	}
 
 	// show data on table
@@ -58,12 +61,19 @@ class mod_search_vehicle
 
 		var myself = this;
 
+		var first_tr = null;
+
 		// rows
 
 		for (var i = 0; i < rows.length; i++)
 		{
 
 			tr = document.createElement('tr');
+
+			if (first_tr == null)
+			{
+				first_tr = tr;
+			}
 
 			for (var value in rows[i])
 			{
@@ -82,8 +92,10 @@ class mod_search_vehicle
 					row_click (this, myself);
 				}
 			);
-			tbl_vehicles.appendChild(tr);
+			this.tbl_vehicles.appendChild(tr);
 		}
+
+		return first_tr;
 
 	}
 
@@ -115,7 +127,7 @@ class mod_search_vehicle
 			tr.appendChild(td);
 
 			// append to resume table
-			tbl_resume.appendChild(tr);
+			this.tbl_resume.appendChild(tr);
 		}
 
 	}
@@ -138,8 +150,9 @@ class driver_search_vehicle
 	{
 		// get elements
 
-		this.mod_search.tbl_vehicles = document.getElementById ("tbl_vehicles");
-		this.mod_search.tbl_resume   = document.getElementById ("tbl_resume");
+		this.mod_search.tbl_vehicles = document.getElementById ("srh_tbl_vehicles");
+		this.mod_search.tbl_resume   = document.getElementById ("srh_tbl_resume");
+		this.mod_search.btn_edit_row = document.getElementById ("srh_btn_edit_row");
 	}
 
 	get_data_rows()
@@ -152,6 +165,10 @@ class driver_search_vehicle
 		return this.mod_search.selected_row;
 	}
 
+	set_mod_edit(mod_edit){
+		this.mod_search.mod_edit = mod_edit;
+	}
+
 }
 
 function create_driver_search_vehicle(post_request)
@@ -160,9 +177,21 @@ function create_driver_search_vehicle(post_request)
 
 	// set event listeners
 
-	document.getElementById("btn_fetch").addEventListener('click',
+	document.getElementById("srh_btn_fetch").addEventListener('click',
 		function(){
 			fetch_data_table_vehicles(driver);
+		}
+	);
+
+	document.getElementById("srh_btn_edit_row").addEventListener('click',
+		function(){
+
+			//driver.mod_search.mod_edit
+
+			if (driver.mod_search.mod_edit){
+				show_module(1);
+				press_edit_btn_fetch(driver.mod_search.mod_edit);
+			}
 		}
 	);
 
@@ -187,13 +216,20 @@ function fetch_data_table_vehicles(driver)
 
         driver.mod_search.tbl_vehicles.innerHTML = "";
         driver.mod_search.tbl_resume.innerHTML = "";
-        driver.mod_search.selected_row = rows.data.length -1;
 
         // populate
 
         driver.mod_search.data_rows = rows.data;
         driver.mod_search.populate_table_header ();
-        driver.mod_search.populate_table ();
+        var first_tr = driver.mod_search.populate_table ();
+
+		// select the first one
+
+        if (rows.data.length > 0)
+        {
+        	driver.mod_search.selected_row = 0;
+        	row_click (first_tr, driver.mod_search);
+        }
 
 	}
 	);
@@ -224,11 +260,6 @@ function row_click (target, ms)
 
 	ms.populate_resumen (ms.data_rows [ms.selected_row]);
 }
-
-
-
-
-
 
 
 

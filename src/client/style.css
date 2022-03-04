@@ -91,5 +91,22 @@ p{
 .btn_module{
 	width: 100%;
 	height: 38px;
-	/*background: ;*/
+}
+
+.floating_message{
+	width: 100%;
+	height: 50px;
+	color: white;
+	padding: 10px;
+	box-sizing: border-box;
+}
+
+.floating_message > div{
+	padding: 10px;
+	background: green;
+}
+
+#edit_tbl_vehicle_properties input{
+	width: 100%;
+	box-sizing: border-box;
 }

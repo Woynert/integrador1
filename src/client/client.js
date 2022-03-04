@@ -5,6 +5,8 @@ import {create_driver_search_vehicle,
 import {create_edit_vehicle} from './edit_vehicle/edit.js';
 import {create_driver_post_request} from './post_request.js';
 
+export {show_module};
+
 console.log("Active");
 
 // modules
@@ -31,7 +33,10 @@ var files_to_load = [
 var current_loading_file = 0;
 
 
+// message
 
+var div_message;
+var message_timeout;
 
 
 
@@ -68,7 +73,7 @@ function read_file(){
 
 			case 1: // ./edit_vehicle/edit.html
 				div_edit_vehicle.innerHTML = reader.responseText;
-		       	edit_vehicle = create_edit_vehicle(search_vehicle);
+		       	edit_vehicle = create_edit_vehicle(search_vehicle, post_request);
 				//console.log(search_vehicle);
 				break;
 		}
@@ -82,6 +87,8 @@ function read_file(){
 		// all modules loaded
 		else
 		{
+			search_vehicle.set_mod_edit(edit_vehicle);
+
 			fetch_data_table_vehicles(search_vehicle);
 		}
 
@@ -102,6 +109,29 @@ function show_module(module_id)
 
 }
 
+function show_message(title, text)
+{
+
+	// make visible
+	div_message.style.display = 'block';
+
+	div_message.getElementsByTagName('b')[0].innerHTML = title;
+	div_message.getElementsByTagName('p')[0].innerHTML = text;
+
+	// set timeout
+	if (message_timeout){
+		clearTimeout(message_timeout);
+	}
+
+	setTimeout(
+		function()
+		{
+			div_message.style.display = 'none';
+		}
+	, 5000);
+}
+
+
 function init()
 {
 
@@ -121,11 +151,18 @@ function init()
 	);
 
 	// get div modules
+
+	div_message = document.getElementById("floating_message");
+	div_message.style.display = 'none';
+
 	div_search_vehicle = document.getElementById("mod_search_vehicle");
 	div_edit_vehicle   = document.getElementById("mod_edit_vehicle");
 
 	available_modules[0] = div_search_vehicle;
 	available_modules[1] = div_edit_vehicle;
+
+
+	show_message("Bienvenido", "");
 
 	// hidde modules
 	//div_search_vehicle.style.display="none";
