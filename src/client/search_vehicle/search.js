@@ -5,7 +5,8 @@ import {press_edit_btn_fetch} from '../edit_vehicle/edit.js';
 import {press_reg_btn_fetch} from '../register_vehicle/register.js';
 
 export {create_driver_search_vehicle,
-		fetch_data_table_vehicles};
+		fetch_data_table_vehicles,
+		fetch_data_table_vehicles_tipos};
 
 
 // globals
@@ -18,11 +19,13 @@ class mod_search_vehicle
 
 		this.selected_row = -1;
 		this.data_rows;
+		this.data_rows_tipos;
 		this.post_request;
 
 		// DOM elements
 
 		this.tbl_vehicles;
+		this.tbl_vehicles_filter;
 		this.tbl_resume;
 		this.btn_edit_row;
 
@@ -134,6 +137,76 @@ class mod_search_vehicle
 
 	}
 
+	populate_filter_form ()
+	{
+		let rows = this.data_rows_tipos;
+		var tr;
+		var td;
+		var input;
+
+		var myself = this;
+
+		// rows
+
+		for (var i = 0; i < rows.length; i++)
+		{
+
+			tr = document.createElement('tr');
+
+			for (var value in rows[i])
+			{
+
+				td = document.createElement('td');
+
+				if (value == "tipo")
+				{
+					// create respective input
+
+					input = document.createElement('input');
+
+					switch (rows[i][value])
+					{
+						case 0: // string
+							input.type = "text";
+							break;
+
+						case 1: // int
+							input.type = "number";
+							break;
+
+						case 2: // date
+							input.type = "date";
+							break;
+					}
+
+					td.appendChild(input);
+				}
+
+				else
+				{
+					td.innerHTML = rows[i][value];
+				}
+
+				tr.appendChild(td);
+
+
+			}
+
+			// add mouse event
+			/*tr.classList.add("row_item");
+			tr.addEventListener('click',
+				function()
+				{
+					row_click (this, myself);
+				}
+			);*/
+
+			this.tbl_vehicles_filter.appendChild(tr);
+		}
+
+		//return first_tr;
+	}
+
 }
 
 
@@ -153,6 +226,7 @@ class driver_search_vehicle
 		// get elements
 
 		this.mod_search.tbl_vehicles = document.getElementById ("srh_tbl_vehicles");
+		this.mod_search.tbl_vehicles_filter = document.getElementById ("srh_tbl_vehicles_filter");
 		this.mod_search.tbl_resume   = document.getElementById ("srh_tbl_resume");
 		this.mod_search.btn_edit_row = document.getElementById ("srh_btn_edit_row");
 	}
@@ -183,6 +257,12 @@ function create_driver_search_vehicle(post_request)
 
 	// set event listeners
 
+	document.getElementById("srh_btn_filter").addEventListener('click',
+		function(){
+			fetch_data_table_vehicles_with_filter(driver);
+		}
+	);
+
 	document.getElementById("srh_btn_fetch").addEventListener('click',
 		function(){
 			fetch_data_table_vehicles(driver);
@@ -207,6 +287,9 @@ function create_driver_search_vehicle(post_request)
 }
 
 
+function fetch_data_table_vehicles_with_filter(driver)
+{
+}
 
 function fetch_data_table_vehicles(driver)
 {
@@ -242,12 +325,45 @@ function fetch_data_table_vehicles(driver)
 	        press_reg_btn_fetch (driver.mod_search.mod_register);
 
         }
-
-
 	}
 	);
 }
 
+function fetch_data_table_vehicles_tipos(driver)
+{
+	let postObj = {
+	    id: 4
+	}
+
+	// call fetch object
+	driver.mod_search.post_request.request(postObj,
+	function(rows)
+	{
+
+        driver.mod_search.data_rows_tipos = rows.data;
+		driver.mod_search.populate_filter_form ();
+
+        /*/ populate
+
+        driver.mod_search.populate_table_header ();
+        var first_tr = driver.mod_search.populate_table ();
+
+		// select the first one
+
+        if (rows.data.length > 0)
+        {
+        	driver.mod_search.selected_row = 0;
+        	row_click (first_tr, driver.mod_search);
+
+	        // tell everione
+	        //driver.mod_search.mod_edit();
+
+	        press_reg_btn_fetch (driver.mod_search.mod_register);
+
+        }*/
+	}
+	);
+}
 
 
 // row click event

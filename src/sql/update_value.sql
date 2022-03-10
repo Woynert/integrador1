@@ -3,11 +3,11 @@ USE integrador;
 
 -- drop
 
---DROP PROCEDURE IF EXISTS update_vehicle_row;
+DROP PROCEDURE IF EXISTS update_vehicle_row;
 DROP PROCEDURE IF EXISTS register_vehicle;
 
 -- prepared
-/*
+
 DELIMITER //
 CREATE PROCEDURE update_vehicle_row (
 	IN _tipo_vehiculo CHAR(250),
@@ -36,7 +36,7 @@ BEGIN
 END ;
 //
 DELIMITER ;
-*/
+
 
 DELIMITER //
 CREATE PROCEDURE register_vehicle (
@@ -79,4 +79,4 @@ DELIMITER ;
 
 -- CALL update_vehicle_row ("Moto", "Toyota" ,"Prius" ,"2008","ABQ10",'NUEVO', '2001-11-13', 1501800, 1);
 
-CALL register_vehicle ("Moto", "Mercedes" ,"Prius" ,"2008","ZOK10",'USADO', '2001-11-13', 1501800);
+-- CALL register_vehicle ("Moto", "Mercedes" ,"Prius" ,"2008","ZOK10",'USADO', '2001-11-13', 1501800);

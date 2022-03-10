@@ -5,8 +5,6 @@ console.log("active");
 export {driver_post_request, create_driver_post_request};
 
 
-
-
 class mod_post_request
 {
 	constructor()
@@ -14,6 +12,12 @@ class mod_post_request
 		this.url = "/endpoint";
 		this.xhr = new XMLHttpRequest();
 		this.callback_pool = {};
+
+
+		// request pool
+		this.request_pool = [];
+		this.busy = false;
+
 
 		// GET DATA
 
@@ -37,7 +41,10 @@ class mod_post_request
 			delete this.callback_pool[id];
 		}
 	}
+
+
 }
+
 
 class driver_post_request
 {
@@ -54,18 +61,69 @@ class driver_post_request
 	request (dataObj, callback)
 	{
 
-		let pr = this.post_request;
+		if (this.post_request.busy)
+		{
+			this.queue (dataObj, callback);
+		}
 
-		// save callback
-		console.log("Makin a request with id " + dataObj.id);
-		pr.callback_pool[dataObj.id] = callback;
+		// available
+		else
+		{
 
-		// format data
-		var post = JSON.stringify(dataObj);
+			let pr = this.post_request;
 
-		pr.xhr.open ('POST', pr.url, true);
-		pr.xhr.setRequestHeader ('Content-type', 'application/json; charset=UTF-8');
-		pr.xhr.send (post);
+			// save callback
+			console.log("Makin a request with id " + dataObj.id);
+			pr.callback_pool[dataObj.id] = callback;
+
+			// format data
+			var post = JSON.stringify(dataObj);
+
+			pr.xhr.open ('POST', pr.url, true);
+			pr.xhr.setRequestHeader ('Content-type', 'application/json; charset=UTF-8');
+			pr.xhr.send (post);
+
+			// no longer available
+			this.post_request.busy = true;
+		}
+
+	}
+
+	queue (dataObj, callback)
+	{
+		var request = {};
+
+		request["dataObj"]  = dataObj;
+		request["callback"] = callback;
+
+		this.post_request.request_pool.push(request);
+	}
+
+
+	// finished. But we don't know if it succeeded or not
+
+	load_end( e)
+	{
+		console.log("The transfer finished.");
+
+		this.post_request.busy = false;
+
+		// check pending requests in queue
+
+		if (this.post_request.request_pool.length)
+		{
+			var request  = this.post_request.request_pool[0];
+			var dataObj  = request["dataObj"];
+			var callback = request["callback"];
+
+			// make request
+
+			this.request (dataObj, callback);
+
+			// remove from queue
+
+			this.post_request.request_pool.splice(0,1);
+		}
 
 	}
 
@@ -76,6 +134,13 @@ function create_driver_post_request()
 	var driver = new driver_post_request();
 
 	// events
+
+	driver.post_request.xhr.addEventListener ("loadend",
+		function ()
+		{
+			driver.load_end();
+		}
+	);
 
 	driver.post_request.xhr.onreadystatechange = function()
 	{

@@ -45,9 +45,14 @@ app.post ('/endpoint', function(req, res)
 
 	switch (id)
 	{
+
+		// select view_vehicles
+
 		case 1:
 			sql = "SELECT * FROM view_vehiculos";
 			break;
+
+		// update vehicle row
 
 		case 2:
 			data = req.body.data;
@@ -75,6 +80,7 @@ app.post ('/endpoint', function(req, res)
 
 			break;
 
+		// insert vehicles row
 
 		case 3:
 			data = req.body.data;
@@ -97,6 +103,13 @@ app.post ('/endpoint', function(req, res)
 			sql += ");";
 			console.log(sql)
 
+			break;
+
+		// get properties tipos
+
+		case 4:
+
+			sql = "SELECT * FROM vehiculos_tipos";
 			break;
 
 		default:

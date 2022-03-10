@@ -1,10 +1,15 @@
 
 import {get_siblings} from './utilities/misc.js';
+
 import {create_driver_search_vehicle,
-		fetch_data_table_vehicles} from './search_vehicle/search.js';
+		fetch_data_table_vehicles,
+		fetch_data_table_vehicles_tipos} from './search_vehicle/search.js';
+
 import {create_edit_vehicle,
 		press_edit_btn_fetch} from './edit_vehicle/edit.js';
+
 import {create_register_vehicle} from './register_vehicle/register.js';
+
 import {create_driver_post_request} from './post_request.js';
 
 
@@ -104,6 +109,7 @@ function read_file(){
 			search_vehicle.set_mod_register (register_vehicle);
 
 			// load data at the start
+			fetch_data_table_vehicles_tipos (search_vehicle);
 			fetch_data_table_vehicles (search_vehicle);
 
 			// show selected
