@@ -16,8 +16,6 @@ import {create_driver_post_request} from './post_request.js';
 export {show_module,
 		show_message};
 
-console.log("Active");
-
 // modules
 
 var selected_module = 0;

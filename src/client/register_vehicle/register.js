@@ -95,8 +95,8 @@ function create_register_vehicle(search_vehicle, post_request)
 			var value_list = {};
 
 			// extract values from inputs tags
-			for (var value in register.input_elements){
-				console.log(register.input_elements[value]);
+			for (var value in register.input_elements)
+			{
 				value_list[value] = register.input_elements[value].value;
 			}
 

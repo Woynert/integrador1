@@ -1,6 +1,5 @@
 // DATABASE COMMUNICATION
 
-console.log("active");
 
 export {driver_post_request, create_driver_post_request};
 

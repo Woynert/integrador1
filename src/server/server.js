@@ -112,6 +112,28 @@ app.post ('/endpoint', function(req, res)
 			sql = "SELECT * FROM vehiculos_tipos";
 			break;
 
+		// search with filters
+
+		case 5:
+
+			data = req.body.data;
+
+			sql = 'call search_filter_vehicle( "'
+			+ data['tipo_vehiculo']
+			+ '","' + data['marca']
+			+ '","' + data['modelo']
+			+ '","' + data['generacion']
+			+ '","' + data['placa']
+			+ '","' + data['estado']
+			+ '","' + data['fecha_start']
+			+ '","' + data['fecha_end']
+			+ '","' + data['precio']
+			+ '")';
+
+			console.log(sql);
+
+			break;
+
 		default:
 			console.log("WARNING: invalid id");
 			return;
