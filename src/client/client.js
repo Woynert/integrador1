@@ -1,14 +1,15 @@
 
 import {get_siblings} from './utilities/misc.js';
 
-import {create_driver_search_vehicle,
-		fetch_data_table_vehicles,
-		fetch_data_table_vehicles_tipos} from './search_vehicle/search.js';
+import {create_module_search_vehicle} from './search/vehicle.js';
+import {driver_module_search} from './search/driver.js';
+
 
 import {create_edit_vehicle,
 		press_edit_btn_fetch} from './edit_vehicle/edit.js';
 
-import {create_register_vehicle} from './register_vehicle/register.js';
+import {create_register_vehicle,
+		press_reg_btn_fetch} from './register_vehicle/register.js';
 
 import {create_driver_post_request} from './post_request.js';
 
@@ -37,7 +38,7 @@ var post_request;
 var reader = new XMLHttpRequest();
 
 var files_to_load = [
-	'./search_vehicle/search.html',
+	'./search/vehicle.html',
 	'./edit_vehicle/edit.html',
 	'./register_vehicle/register.html',
 	];
@@ -77,9 +78,9 @@ function read_file(){
 
 		switch (current_loading_file)
 		{
-			case 0: // ./search_vehicle/search.html
+			case 0: // ./search/vehicle.html
 				div_search_vehicle.innerHTML = reader.responseText;
-		       	search_vehicle = create_driver_search_vehicle(post_request);
+		       	search_vehicle = create_module_search_vehicle (post_request);
 				break;
 
 			case 1: // ./edit_vehicle/edit.html
@@ -107,8 +108,8 @@ function read_file(){
 			search_vehicle.set_mod_register (register_vehicle);
 
 			// load data at the start
-			fetch_data_table_vehicles_tipos (search_vehicle);
-			fetch_data_table_vehicles (search_vehicle);
+			driver_module_search.fetch_table_list_types (search_vehicle);
+			//fetch_data_table_vehicles_with_filter (search_vehicle);
 
 			// show selected
 			show_module (selected_module);
@@ -186,6 +187,7 @@ function init()
 		function (){
 			selected_module = 2;
 			show_module (selected_module);
+			press_reg_btn_fetch (register_vehicle);
 		}
 	);
 
@@ -206,9 +208,9 @@ function init()
 	show_message("Bienvenido", "");
 
 	// hidde modules
-	div_search_vehicle.style.display="none";
-	div_edit_vehicle.style.display="none";
-	div_register_vehicle.style.display="none";
+	div_search_vehicle.style.display   = "none";
+	div_edit_vehicle.style.display     = "none";
+	div_register_vehicle.style.display = "none";
 
 	// load html
 	load_file(files_to_load[current_loading_file]);

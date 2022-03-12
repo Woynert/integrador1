@@ -149,7 +149,7 @@ p{
 
 #edit_tbl_vehicle_properties input,
 #reg_tbl_vehicle_properties input,
-#srh_tbl_vehicles_filter input{
+#srh_tbl_filter input{
 	width: 100%;
 	box-sizing: border-box;
 }
