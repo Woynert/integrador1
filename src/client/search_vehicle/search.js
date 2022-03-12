@@ -92,7 +92,15 @@ class mod_search_vehicle
 				td.innerHTML = rows[i][value];
 				tr.appendChild(td);
 
+				/*if (value == "id")
+				{
+					tr.itemid = td.innerHTML;
+				}*/
+
 			}
+
+			// save the id inside the element
+			tr.arrayid = i;
 
 			// add mouse event
 			tr.classList.add("row_item");
@@ -162,6 +170,11 @@ class mod_search_vehicle
 
 			for (var value in rows[i])
 			{
+
+				// dont display default value
+
+				if (value == "defvalue")
+					continue;
 
 				td = document.createElement('td');
 
@@ -520,8 +533,7 @@ function row_click (target, ms)
 
 	// populate
 
-	ms.selected_row = parseInt(tr.firstChild.innerHTML) - 1;
-
+	ms.selected_row = parseInt(tr.arrayid);
 	ms.populate_resumen (ms.data_rows [ms.selected_row]);
 }
 
