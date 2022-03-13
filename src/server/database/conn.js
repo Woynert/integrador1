@@ -1,13 +1,15 @@
 
-const mariadb = require('mariadb/callback');
+import mariadb from 'mariadb/callback.js';
+
+export {dbconn};
 
 const server_data = {
 	host: '127.0.0.1',
-    port: 12345,
-    database: 'integrador',
-    user: 'reider',
-    password: 'upbbga'
-    };
+	port: 12345,
+	database: 'integrador',
+	user: 'reider',
+	password: 'upbbga'
+};
 
 class dbconn
 {
@@ -45,7 +47,3 @@ class dbconn
 		this.conn.end();
 	}
 }
-
-// export
-
-module.exports = dbconn;

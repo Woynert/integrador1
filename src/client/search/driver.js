@@ -35,7 +35,7 @@ class driver_module_search
 
 				var type;
 				var defvalue;
-				var rows = module.data_rows_tipos;
+				var rows = module.data_rows_type;
 
 				// get default value
 
@@ -43,7 +43,7 @@ class driver_module_search
 				{
 					if (rows[i]["property"] == value)
 					{
-						type     = rows[i]["tipo"];
+						type     = rows[i]["datatype"];
 						defvalue = rows[i]["defvalue"];
 						break;
 					}
@@ -65,10 +65,12 @@ class driver_module_search
 
 		// create object
 		var postObj = {
-			id: 5,
+			id: module.request.filter_search,
 			data: value_list
 		};
 
+		console.log("postObj");
+		console.log(postObj);
 
 		module.post_request.request(postObj,
 			function(rows)
@@ -105,7 +107,7 @@ class driver_module_search
 	static fetch_table_list_types (module)
 	{
 		let postObj = {
-		    id: 4
+		    id: module.request.get_column_data
 		}
 
 		// call fetch object
@@ -113,7 +115,7 @@ class driver_module_search
 		function(rows)
 		{
 
-	        module.data_rows_tipos = rows.data;
+	        module.data_rows_type = rows.data;
 
 	        // populate just after
 			if (driver_module_search.populate_tbl_filter (module))
@@ -256,7 +258,7 @@ class driver_module_search
 
 	static populate_tbl_filter (module)
 	{
-		let rows = module.data_rows_tipos;
+		let rows = module.data_rows_type;
 		var tr;
 		var td;
 
@@ -300,7 +302,7 @@ class driver_module_search
 					td.appendChild(input);
 				}
 
-				else if (value == "tipo")
+				else if (value == "datatype")
 				{
 
 					// create respective input

@@ -1,11 +1,9 @@
 
 USE integrador;
 
--- clear tables
-
 -- sample data
 
-INSERT INTO vehiculos (tipo_vehiculo,
+INSERT INTO vehicles (tipo_vehiculo,
 						marca,
 						modelo,
 						generacion,

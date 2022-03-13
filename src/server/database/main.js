@@ -1,7 +1,9 @@
 
 
-const dbconn = require('./conn.js')
+//const dbconn = require('./conn.js')
+import {dbconn} from './conn.js';
 
+console.log(dbconn);
 
 // start connection
 
@@ -11,7 +13,7 @@ myconn.start_connection()
 
 // execute sql
 
-var sql = "SELECT * FROM clientes";
+var sql = "SELECT * FROM view_clients";
 
 myconn.print_query(sql, obtener_clientes);
 

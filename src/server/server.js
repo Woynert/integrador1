@@ -1,8 +1,14 @@
-const express    = require('express');
-const path       = require('path')
-const bodyParser = require('body-parser');
 
-const dbconn     = require('./database/conn.js');
+import express    from 'express';
+import path       from 'path';
+import bodyParser from 'body-parser';
+import {fileURLToPath} from 'url';
+
+import {dbconn} from './database/conn.js';
+import {macro} from './macro.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // MARIADB CONNECTION
 
@@ -34,6 +40,8 @@ BigInt.prototype.toJSON = function() { return this.toString() };
 
 app.post ('/endpoint', function(req, res)
 {
+
+
 	var body = JSON.stringify(req.body);
 	var id   = req.body.id;
 	var data;
@@ -46,20 +54,37 @@ app.post ('/endpoint', function(req, res)
 	switch (id)
 	{
 
-		// select view_vehicles
+		case macro.VEHICLE_GET_COLUMN_DATA:
 
-		case 1:
-			sql = "SELECT * FROM view_vehiculos";
+			sql = "SELECT * FROM vehicle_column_data";
 			break;
 
-		// update vehicle row
+		case macro.VEHICLE_FILTER_SEARCH:
 
-		case 2:
+			data = req.body.data;
+
+			sql = 'call vehicle_filter_search( "'
+			+ data['tipo_vehiculo']
+			+ '","' + data['marca']
+			+ '","' + data['modelo']
+			+ '","' + data['generacion']
+			+ '","' + data['placa']
+			+ '","' + data['estado']
+			+ '","' + data['fecha_start']
+			+ '","' + data['fecha_end']
+			+ '","' + data['precio']
+			+ '")';
+
+			console.log(sql);
+
+			break;
+
+		case macro.VEHICLE_UPDATE_ROW:
 			data = req.body.data;
 
 			//console.log(data);
 
-			sql = "CALL update_vehicle_row ( ";
+			sql = "CALL vehicle_update_row ( ";
 			var row_id;
 
 			for (var value in data)
@@ -80,14 +105,12 @@ app.post ('/endpoint', function(req, res)
 
 			break;
 
-		// insert vehicles row
-
-		case 3:
+		case macro.VEHICLE_INSERT_ROW:
 			data = req.body.data;
 
 			//console.log(data);
 
-			sql = "CALL register_vehicle ( ";
+			sql = "CALL vehicle_register ( ";
 
 			for (var value in data)
 			{
@@ -105,29 +128,26 @@ app.post ('/endpoint', function(req, res)
 
 			break;
 
-		// get properties tipos
 
-		case 4:
+		case macro.CLIENT_GET_COLUMN_DATA:
 
-			sql = "SELECT * FROM vehiculos_tipos";
+			sql = "SELECT * FROM client_column_data";
 			break;
 
-		// search with filters
-
-		case 5:
+		case macro.CLIENT_FILTER_SEARCH:
 
 			data = req.body.data;
 
-			sql = 'call search_filter_vehicle( "'
-			+ data['tipo_vehiculo']
-			+ '","' + data['marca']
-			+ '","' + data['modelo']
-			+ '","' + data['generacion']
-			+ '","' + data['placa']
-			+ '","' + data['estado']
-			+ '","' + data['fecha_start']
-			+ '","' + data['fecha_end']
-			+ '","' + data['precio']
+			sql = 'call client_filter_search( "'
+			+ data['nombres']
+			+ '","' + data['apellidos']
+			+ '","' + data['domicilio']
+			+ '","' + data['correo']
+			+ '","' + data['cedula']
+			+ '","' + data['fecha_nacimiento_start']
+			+ '","' + data['fecha_nacimiento_end']
+			+ '","' + data['fecha_registro_start']
+			+ '","' + data['fecha_registro_end']
 			+ '")';
 
 			console.log(sql);
@@ -153,10 +173,10 @@ function send_query_result (data, res, id)
 
 	console.log("PACKAGE");
 
-	var package = {"id_pkg": id, "data": data};
+	var pack = {"id_pkg": id, "data": data};
 
-	console.log(JSON.stringify(package));
+	console.log(JSON.stringify(pack));
 
-	res.send(package);
+	res.send(pack);
 	myconn.end_connection();
 }

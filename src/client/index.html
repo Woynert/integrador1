@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Table Demo</title>
+	<link rel="icon" type="image/svg+xml" href="/favicon.svg" sizes="any">
+	<link rel="stylesheet" href="./style.css">
+	<script type="module" src="./index.js"></script>
+</head>
+<body>                                              	
+
+	<div class="header">
+		<p>Sistema de Informacion Concesionaria</p>
+	</div>
+
+
+
+	<div class="separator">
+
+		<!-- menu -->
+
+		<div id="module_selection" class="separator_child">
+
+			<div class="module_subtitle">Vehiculos</div>
+			<button id="btn_goto_vehicle_search"   class="btn_module">Buscar Vehiculo</button>
+			<button id="btn_goto_vehicle_edit"     class="btn_module">Editar Vehiculo</button>
+			<button id="btn_goto_vehicle_register" class="btn_module">Registrar Vehiculo</button>
+
+			<div class="module_subtitle">Clientes</div>
+			<button id="btn_goto_client_search"   class="btn_module">Buscar Cliente</button>
+			<button id="btn_goto_client_edit"     class="btn_module">Editar Datos Cliente</button>
+			<button id="btn_goto_client_register" class="btn_module">Registrar Cliente</button>
+		</div>
+
+		<!-- content -->
+	
+		<div class="separator_child ">
+
+			<div class="floating_message" id="floating_message">
+				<div>
+					<b></b>
+					<p></p>
+				</div>
+			</div>
+
+			<!-- modules -->
+			
+			<div class="module_container" >
+				<div id="module_vehicle_search"></div>
+				<div id="module_vehicle_edit"></div>
+				<div id="module_vehicle_register"></div>
+				
+				<div id="module_client_search"></div>
+				<div id="module_client_edit"></div>
+			</div>
+
+		<div>
+	</div>
+	
+</body>
+</html>

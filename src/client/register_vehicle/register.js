@@ -1,5 +1,5 @@
 
-import {show_message} from '../client.js';
+import {show_message} from '../index.js';
 
 export {create_register_vehicle,
 		press_reg_btn_fetch};
