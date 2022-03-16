@@ -3,36 +3,34 @@ USE integrador;
 
 -- drop
 
---DROP PROCEDURE IF EXISTS vehicle_update_row;
---DROP PROCEDURE IF EXISTS vehicle_register;
-DROP PROCEDURE IF EXISTS vehicle_filter_search;
+DROP PROCEDURE IF EXISTS client_update_row;
+DROP PROCEDURE IF EXISTS client_register;
+DROP PROCEDURE IF EXISTS client_filter_search;
 
 -- update
 
-/*DELIMITER //
-CREATE PROCEDURE vehicle_update_row (
-	IN _tipo_vehiculo CHAR(250),
-	IN _marca  CHAR(250),
-	IN _modelo CHAR(250),
-	IN _generacion CHAR(250),
-	IN _placa  CHAR(250),
-	IN _estado CHAR(250),
-	IN _fecha  CHAR(250),
-	IN _precio INT,
-	IN _id     INT
+DELIMITER //
+CREATE PROCEDURE client_update_row (
+    IN ar_nombres    CHAR(250),
+    IN ar_apellidos  CHAR(250),
+    IN ar_domicilio  CHAR(250),
+    IN ar_cedula     CHAR(250),
+    IN ar_correo     CHAR(250),
+    IN ar_nacimiento DATE,
+    IN ar_registro   DATE,
+	IN ar_id         INT
 )
 BEGIN
 
-	UPDATE vehicles
-	SET tipo_vehiculo = _tipo_vehiculo,
-		marca      = _marca,
-		modelo     = _modelo,
-		generacion = _generacion,
-		placa      = _placa,
-		estado     = _estado,
-		fecha      = _fecha,
-		precio     = _precio
-	WHERE id = _id;
+	UPDATE clients
+	SET nombres   = ar_nombres,
+		apellidos = ar_apellidos,
+		domicilio = ar_domicilio,
+		cedula    = ar_cedula,
+		correo    = ar_correo,
+		fecha_nacimiento = ar_nacimiento,
+		fecha_registro   = ar_registro
+	WHERE id = ar_id;
 
 END ;
 //
@@ -41,41 +39,42 @@ DELIMITER ;
 -- register
 
 DELIMITER //
-CREATE PROCEDURE vehicle_register (
-	IN _tipo_vehiculo CHAR(250),
-	IN _marca  CHAR(250),
-	IN _modelo CHAR(250),
-	IN _generacion CHAR(250),
-	IN _placa  CHAR(250),
-	IN _estado CHAR(250),
-	IN _fecha  CHAR(250),
-	IN _precio INT
+CREATE PROCEDURE client_register (
+    IN ar_nombres    CHAR(250),
+    IN ar_apellidos  CHAR(250),
+    IN ar_domicilio  CHAR(250),
+    IN ar_cedula     CHAR(250),
+    IN ar_correo     CHAR(250),
+    IN ar_nacimiento DATE,
+    IN ar_registro   DATE
 )
 BEGIN
 
-	INSERT INTO vehicles
-	(tipo_vehiculo,
-		marca     ,
-		modelo    ,
-		generacion,
-		placa     ,
-		estado    ,
-		fecha     ,
-		precio    )
+	INSERT INTO clients
+		(
+		nombres,
+		apellidos ,
+		domicilio ,
+		cedula    ,
+		correo    ,
+		fecha_nacimiento,
+		fecha_registro
+		)
 
-	VALUES (_tipo_vehiculo,
-		_marca,
-		_modelo,
-		_generacion,
-		_placa,
-		_estado,
-		_fecha,
-		_precio);
+	VALUES
+		(
+		ar_nombres,
+		ar_apellidos ,
+		ar_domicilio ,
+		ar_cedula    ,
+		ar_correo    ,
+		ar_nacimiento,
+		ar_registro
+		);
 
 END ;
 //
-DELIMITER ;*/
-
+DELIMITER ;
 
 -- search by filters
 
@@ -111,9 +110,10 @@ DELIMITER ;
 
 -- test
 
-CALL client_filter_search ("a", "a", "0", "", ".com",
-"1900-01-01", "2000-01-01", "1900-01-01", "3000-01-01");
+-- CALL client_filter_search ("a", "a", "0", "", ".com", "1900-01-01", "2000-01-01", "1900-01-01", "3000-01-01");
 
 -- CALL update_vehicle_row ("Moto", "Toyota" ,"Prius" ,"2008","ABQ10",'NUEVO', '2001-11-13', 1501800, 1);
+
+
 
 -- CALL register_vehicle ("Moto", "Mercedes" ,"Prius" ,"2008","ZOK10",'USADO', '2001-11-13', 1501800);

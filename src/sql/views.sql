@@ -13,7 +13,7 @@ SELECT id AS `ID`,
         generacion AS `GENERACION`,
         placa AS `PLACA`,
         estado AS `ESTADO`,
-        DATE_FORMAT(fecha, '%Y/%m/%d') AS `FECHA`,
+        DATE_FORMAT(fecha, '%Y-%m-%d') AS `FECHA`,
         precio AS `PRECIO`
 FROM vehicles
 ;
@@ -23,9 +23,9 @@ SELECT id AS `ID`,
         nombres AS `NOMBRES`,
         apellidos AS `APELLIDOS`,
         domicilio AS `DOMICILIO`,
-        correo AS `CORREO`,
         cedula AS `CEDULA`,
-        DATE_FORMAT(fecha_nacimiento, '%Y/%m/%d') AS `NACIMIENTO`,
-        DATE_FORMAT(fecha_registro, '%Y/%m/%d') AS `REGISTRO`
+        correo AS `CORREO`,
+        DATE_FORMAT(fecha_nacimiento, '%Y-%m-%d') AS `NACIMIENTO`,
+        DATE_FORMAT(fecha_registro, '%Y-%m-%d') AS `REGISTRO`
 FROM clients
 ;

@@ -1,6 +1,6 @@
 body, html, button, input {
     /*height: 100%;*/
-    font-family: sans;
+    font-family: sans-serif;
     font-size: 1.01em;
 }
 
@@ -149,7 +149,8 @@ p{
 
 #edit_tbl_vehicle_properties input,
 #reg_tbl_vehicle_properties input,
-#srh_vehicle_tbl_filter input{
+#srh_vehicle_tbl_filter input,
+#srh_client_tbl_filter input{
 	width: 100%;
 	box-sizing: border-box;
 }

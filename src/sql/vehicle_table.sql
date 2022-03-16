@@ -3,7 +3,7 @@ USE integrador;
 
 -- drop
 
-DROP TABLE IF EXISTS vehicles;
+-- DROP TABLE IF EXISTS vehicles;
 DROP TABLE IF EXISTS vehicle_column_data;
 
 -- vehicles
@@ -28,22 +28,23 @@ CREATE TABLE IF NOT EXISTS vehicles
 
 CREATE TABLE IF NOT EXISTS vehicle_column_data
 (
-	id       INT      AUTO_INCREMENT PRIMARY KEY,
-	property CHAR(50) NULL DEFAULT NULL,
-	datatype INT      NULL DEFAULT NULL,
-	defvalue CHAR(50) NULL DEFAULT NULL
+	id        INT      AUTO_INCREMENT PRIMARY KEY,
+	property  CHAR(50) NULL DEFAULT NULL,
+	datatype  INT      NULL DEFAULT NULL,
+	defvalue  CHAR(50) NULL DEFAULT NULL,
+	printname CHAR(50) NULL DEFAULT NULL
 );
 
-INSERT INTO vehicle_column_data (property, datatype, defvalue)
+INSERT INTO vehicle_column_data (property, datatype, defvalue, printname)
 VALUES
-("tipo_vehiculo", 0, ''),
-("marca"        , 0, ''),
-("modelo"       , 0, ''),
-("generacion"   , 1, ''),
-("placa"        , 0, ''),
-("estado"       , 1, ''),
-("fecha"        , 2, ''),
-("precio"       , 1, '0')
+("tipo_vehiculo", 0, '', "TIPO"),
+("marca"        , 0, '', "MARCA"),
+("modelo"       , 0, '', "MODELO"),
+("generacion"   , 1, '', "GENERACION"),
+("placa"        , 0, '', "PLACA"),
+("estado"       , 0, '', "ESTADO"),
+("fecha"        , 2, '', "FECHA"),
+("precio"       , 1, '0', "PRECIO")
 ;
 
 

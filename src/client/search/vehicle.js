@@ -1,9 +1,9 @@
 
-//const macro = require('../../macro.js');
 import {macro} from '../macro.js';
 import {driver_module_search} from './driver.js';
 import {show_module} from '../index.js';
-import {press_edit_btn_fetch} from '../edit_vehicle/edit.js';
+import {driver_module_edit} from '../edit/driver.js';
+//import {press_edit_btn_fetch} from '../edit/vehicle.js';
 
 export {create_module_search_vehicle};
 
@@ -103,7 +103,7 @@ function create_module_search_vehicle (post_request)
 
 			if (module.mod_edit){
 				show_module(1);
-				press_edit_btn_fetch(module.mod_edit);
+				driver_module_edit.press_edit_btn_fetch(module.mod_edit);
 			}
 		}
 	);
@@ -112,6 +112,5 @@ function create_module_search_vehicle (post_request)
 
 	return module;
 }
-
 
 

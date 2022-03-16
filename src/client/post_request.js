@@ -31,8 +31,8 @@ class mod_post_request
 	    	var rows = JSON.parse(this.xhr.responseText);
 			var id   = rows.id_pkg
 
-			console.log(rows)
 	    	console.log("Recibido pkg " + id)
+			console.log(rows)
 
 			// callback
 
@@ -72,7 +72,7 @@ class driver_post_request
 			let pr = this.post_request;
 
 			// save callback
-			console.log("Makin a request with id " + dataObj.id);
+			console.log("Making request id " + dataObj.id);
 			pr.callback_pool[dataObj.id] = callback;
 
 			// format data
@@ -103,7 +103,7 @@ class driver_post_request
 
 	load_end( e)
 	{
-		console.log("The transfer finished.");
+		console.log("Transfer finished.");
 
 		this.post_request.busy = false;
 

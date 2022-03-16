@@ -142,8 +142,8 @@ app.post ('/endpoint', function(req, res)
 			+ data['nombres']
 			+ '","' + data['apellidos']
 			+ '","' + data['domicilio']
-			+ '","' + data['correo']
 			+ '","' + data['cedula']
+			+ '","' + data['correo']
 			+ '","' + data['fecha_nacimiento_start']
 			+ '","' + data['fecha_nacimiento_end']
 			+ '","' + data['fecha_registro_start']
@@ -151,6 +151,44 @@ app.post ('/endpoint', function(req, res)
 			+ '")';
 
 			console.log(sql);
+
+			break;
+
+		case macro.CLIENT_UPDATE_ROW:
+			data = req.body.data;
+
+			sql = "CALL client_update_row ( ";
+			var row_id;
+
+			for (var value in data)
+			{
+				console.log(data[value]);
+
+				if (value == "ID")
+					row_id = data[value];
+				else
+					sql += ' "' + data[value] + '",'
+			}
+
+			sql += row_id + ");";
+			console.log(sql)
+
+			break;
+
+
+		case macro.CLIENT_INSERT_ROW:
+			data = req.body.data;
+
+			sql = "CALL client_register ( ";
+
+			for (var value in data)
+			{
+				sql += ' "' + data[value] + '",'
+			}
+
+			sql = sql.slice(0, -1);
+			sql += ");";
+			console.log(sql)
 
 			break;
 

@@ -27,19 +27,20 @@ CREATE TABLE IF NOT EXISTS clients
 
 CREATE TABLE IF NOT EXISTS client_column_data
 (
-	id       INT      AUTO_INCREMENT PRIMARY KEY,
-	property CHAR(50) NULL DEFAULT NULL,
-	datatype INT      NULL DEFAULT NULL,
-	defvalue CHAR(50) NULL DEFAULT NULL
+	id        INT      AUTO_INCREMENT PRIMARY KEY,
+	property  CHAR(50) NULL DEFAULT NULL,
+	datatype  INT      NULL DEFAULT NULL,
+	defvalue  CHAR(50) NULL DEFAULT NULL,
+	printname CHAR(50) NULL DEFAULT NULL
 );
 
-INSERT INTO client_column_data (property, datatype, defvalue)
+INSERT INTO client_column_data (property, datatype, defvalue, printname)
 VALUES
-("nombres"         , 0, ''),
-("apellidos"       , 0, ''),
-("domicilio"       , 0, ''),
-("correo"          , 0, ''),
-("cedula"          , 0, ''),
-("fecha_nacimiento", 2, ''),
-("fecha_registro"  , 2, '')
+("nombres"         , 0, '', "NOMBRES"),
+("apellidos"       , 0, '', "APELLIDOS"),
+("domicilio"       , 0, '', "DOMICILIO"),
+("cedula"          , 0, '', "CEDULA"),
+("correo"          , 0, '', "CORREO"),
+("fecha_nacimiento", 2, '', "NACIMIENTO"),
+("fecha_registro"  , 2, '', "REGISTRO")
 ;

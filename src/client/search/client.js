@@ -1,7 +1,8 @@
-
 import {macro} from '../macro.js';
 import {driver_module_search} from './driver.js';
 import {show_module} from '../index.js';
+import {driver_module_edit} from '../edit/driver.js';
+
 //import {press_edit_btn_fetch} from '../edit_vehicle/edit.js';
 
 export {create_module_search_client};
@@ -95,17 +96,17 @@ function create_module_search_client (post_request)
 		}
 	);
 
-	/*document.getElementById("srh_client_btn_edit_row").addEventListener('click',
+	document.getElementById("srh_client_btn_edit_row").addEventListener('click',
 		function(){
 
 			//driver.mod_search.mod_edit
 
 			if (module.mod_edit){
-				show_module(1);
-				press_edit_btn_fetch(module.mod_edit);
+				show_module(4);
+				driver_module_edit.press_edit_btn_fetch(module.mod_edit);
 			}
 		}
-	);*/
+	);
 
 	module.init();
 

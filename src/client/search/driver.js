@@ -69,9 +69,6 @@ class driver_module_search
 			data: value_list
 		};
 
-		console.log("postObj");
-		console.log(postObj);
-
 		module.post_request.request(postObj,
 			function(rows)
 			{
