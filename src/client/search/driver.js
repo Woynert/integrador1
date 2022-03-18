@@ -372,6 +372,47 @@ class driver_module_search
 		return true;
 
 	}
+
+	/*static set_dialog_mode (module, boolean)
+	{
+
+		module.mode_dialog_select = boolean
+
+		// activate
+		if (boolean)
+		{
+			module.btn_confirm_selection.style.display = "block";
+		}
+
+		// deactivate
+		else
+		{
+			module.btn_confirm_selection.style.display = "none";
+		}
+	}*/
+
+	static toggle_dialog_mode (search_module, boolean, new_dom_parent)
+	{
+
+		search_module.mode_dialog_select = boolean;
+
+		// activate
+		if (boolean)
+		{
+			new_dom_parent.appendChild (search_module.dom_element);
+			search_module.dom_element.style.display = "block";
+			//search_module.btn_confirm_selection.style.display = "block";
+		}
+
+		// deactivate
+		else
+		{
+			search_module.dom_original_parent.appendChild (search_module.dom_element);
+			search_module.dom_element.style.display = "none";
+			//search_module.btn_confirm_selection.style.display = "none";
+		}
+	}
+
 }
 
 

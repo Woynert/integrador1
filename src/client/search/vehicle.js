@@ -17,11 +17,17 @@ class module_search_vehicle
 		this.data_rows;
 		this.data_rows_type;
 
+		this.mode_dialog_select = false;
+
 		// DOM elements
+
+		this.dom_element;
+		this.dom_original_parent;
 
 		this.tbl_list;
 		this.tbl_resume;
 		this.btn_edit_row;
+		//this.btn_confirm_selection;
 
 		this.tbl_filter;
 		this.input_filter = {};
@@ -54,6 +60,10 @@ class module_search_vehicle
 		this.tbl_filter   = document.getElementById ("srh_vehicle_tbl_filter");
 		this.tbl_resume   = document.getElementById ("srh_vehicle_tbl_resume");
 		this.btn_edit_row = document.getElementById ("srh_vehicle_btn_edit_row");
+		//this.btn_confirm_selection = document.getElementById ("srh_vehicle_btn_confirm_selection");
+
+		// hide
+		//this.btn_confirm_selection.style.display = "none";
 	}
 
 	set_post_request (post_request){
@@ -66,6 +76,14 @@ class module_search_vehicle
 
 	set_mod_register(mod_register){
 		this.mod_register = mod_register;
+	}
+
+	set_dom_element (dom_element){
+		this.dom_element = dom_element;
+	}
+
+	set_dom_original_parent (dom_original_parent){
+		this.dom_original_parent = dom_original_parent;
 	}
 
 	get_data_rows()
@@ -107,6 +125,13 @@ function create_module_search_vehicle (post_request)
 			}
 		}
 	);
+
+	/*document.getElementById("srh_vehicle_btn_confirm_selection").addEventListener('click',
+		function(){
+			//driver_module_search.fetch_table_list_with_filter(module);
+			console.log(module.get_selected_row());
+		}
+	);*/
 
 	module.init();
 

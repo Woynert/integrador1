@@ -17,11 +17,17 @@ class module_search_client
 		this.data_rows;
 		this.data_rows_type;
 
+		this.mode_dialog_select = false;
+
 		// DOM elements
+
+		this.dom_element;
+		this.dom_original_parent;
 
 		this.tbl_list;
 		this.tbl_resume;
 		this.btn_edit_row;
+		//this.btn_confirm_selection;
 
 		this.tbl_filter;
 		this.input_filter = {};
@@ -54,6 +60,7 @@ class module_search_client
 		this.tbl_filter   = document.getElementById ("srh_client_tbl_filter");
 		this.tbl_resume   = document.getElementById ("srh_client_tbl_resume");
 		this.btn_edit_row = document.getElementById ("srh_client_btn_edit_row");
+		//this.btn_confirm_selection = document.getElementById ("srh_client_btn_confirm_selection");
 	}
 
 	set_post_request (post_request){
@@ -66,6 +73,14 @@ class module_search_client
 
 	set_mod_register(mod_register){
 		this.mod_register = mod_register;
+	}
+
+	set_dom_element (dom_element){
+		this.dom_element = dom_element;
+	}
+
+	set_dom_original_parent (dom_original_parent){
+		this.dom_original_parent = dom_original_parent;
 	}
 
 	get_data_rows()

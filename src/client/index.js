@@ -14,6 +14,9 @@ import {driver_module_register} from './register/driver.js';
 import {create_module_register_vehicle} from './register/vehicle.js'
 import {create_module_register_client} from './register/client.js'
 
+import {create_module_sale} from './sale/sale.js';
+import {create_dialog_picker} from './sale/dialog_picker.js';
+
 export {show_module,
 		show_message};
 
@@ -21,6 +24,7 @@ export {show_module,
 
 var selected_module = 0;
 var available_modules = [];
+var module_container;
 
 // vehicle
 
@@ -40,6 +44,14 @@ var client_edit_div;
 var client_register;
 var client_register_div;
 
+// sale
+
+var sale;
+var sale_div;
+var dialog_picker;
+var dialog_picker_div;
+
+
 // XHR
 
 var post_request;
@@ -53,7 +65,10 @@ var files_to_load = [
 
 	'./search/client.html',
 	'./edit/client.html',
-	'./register/client.html'
+	'./register/client.html',
+
+	'./sale/sale.html',
+	'./sale/dialog_picker.html'
 	];
 var current_loading_file = 0;
 
@@ -132,6 +147,19 @@ function read_file(){
 		       	client_register = create_module_register_client (post_request);
 				break;
 
+			// ./sale/sale.html
+			case 6:
+				sale_div.innerHTML = reader.responseText;
+		       	sale = create_module_sale (post_request);
+				break;
+
+			// ./sale/dialog_picker.html
+			case 7:
+				dialog_picker_div.innerHTML = reader.responseText;
+				dialog_picker = create_dialog_picker();
+				console.log(dialog_picker)
+				break;
+
 		}
 
 
@@ -145,23 +173,35 @@ function read_file(){
 		// all modules loaded
 		else
 		{
+
 			// vehicle module
 			vehicle_search.set_mod_edit (vehicle_edit);
+			vehicle_search.set_dom_element (vehicle_search_div);
+			vehicle_search.set_dom_original_parent (vehicle_search_div.parentElement);
+
 			vehicle_edit.set_mod_search (vehicle_search);
 			vehicle_register.set_mod_search (vehicle_search);
 
 			driver_module_search.fetch_table_list_types (vehicle_search);
 			//fetch_data_table_vehicles_with_filter (search_vehicle);
 
+			//driver_module_search.set_dialog_mode(vehicle_search, true);
 
 			// client module
 			client_search.set_mod_edit (client_edit);
+			client_search.set_dom_element (client_search_div);
+			client_search.set_dom_original_parent (client_search_div.parentElement);
+
 			client_edit.set_mod_search (client_search);
 			client_register.set_mod_search (client_search);
 
 			driver_module_search.fetch_table_list_types (client_search);
 
 
+			// sale
+			sale.set_mod_search_vehicle (vehicle_search);
+			sale.set_mod_search_client (client_search);
+			sale.set_dialog_picker (dialog_picker);
 
 
 			// show selected
@@ -173,12 +213,13 @@ function read_file(){
 
 function show_module(module_id)
 {
-	let div_selected_module = available_modules[module_id];
-	let siblings = get_siblings(div_selected_module);
 
-	for (var i = 0; i < siblings.length; i++)
+	let div_selected_module = available_modules[module_id];
+	let children = module_container.children;
+
+	for (var i = 0; i < children.length; i++)
 	{
-		siblings[i].style.display="none";
+		children[i].style.display="none";
 	}
 
 	div_selected_module.style.display="block";
@@ -266,8 +307,18 @@ function init()
 		}
 	);
 
+	document.getElementById("btn_goto_sale").addEventListener('click',
+		function (){
+			selected_module = 6;
+			show_module (selected_module);
+		}
+	);
+
+	// 7 dialog picker
 
 	// get div modules
+
+	module_container = document.getElementById('module_container');
 
 	div_message = document.getElementById("floating_message");
 	div_message.style.display = 'none';
@@ -277,7 +328,9 @@ function init()
 	vehicle_register_div = document.getElementById("module_vehicle_register");
 	client_search_div    = document.getElementById("module_client_search");
 	client_edit_div      = document.getElementById("module_client_edit");
-	client_register_div = document.getElementById("module_client_register");
+	client_register_div  = document.getElementById("module_client_register");
+	sale_div             = document.getElementById("module_sale");
+	dialog_picker_div    = document.getElementById("module_dialog_picker");
 
 	available_modules[0] = vehicle_search_div;
 	available_modules[1] = vehicle_edit_div;
@@ -285,6 +338,8 @@ function init()
 	available_modules[3] = client_search_div;
 	available_modules[4] = client_edit_div;
 	available_modules[5] = client_register_div;
+	available_modules[6] = sale_div;
+	//available_modules[7] = sale_div;
 
 	show_message("Bienvenido", "");
 
@@ -296,6 +351,9 @@ function init()
 	client_search_div.style.display   = "none";
 	client_edit_div.style.display     = "none";
 	client_register_div.style.display = "none";
+
+	sale_div.style.display = "none";
+	//dialog_picker_div.style.display = "none"; its display its managed by itself
 
 	// load html
 	load_file(files_to_load[current_loading_file]);

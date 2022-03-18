@@ -160,3 +160,40 @@ p{
 #reg_btn_fetch, #edit_btn_fetch{
 	display:none;
 }
+
+/* DIALOG */
+
+#module_dialog_picker{
+	position: fixed;
+	background: rgba(0,0,0,0.5);
+	top: 0;
+	height: 100%;
+	/*bottom: 0;
+	right: 0;*/
+	left: 0;
+	width: 100%;
+	padding: 40px;
+	box-sizing: border-box;
+}
+
+#dialog_container{
+	width: 100%;
+	height: 100%;
+	background-color: white;
+
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 55px auto 55px;
+    grid-gap: 0px;
+}
+
+#dialog_module_container{
+	height: 100%;
+	overflow: scroll;
+}
+
+#dialog_header, #dialog_footer{
+	width: 100%;
+	height: 100%;
+	background: brown;
+}
