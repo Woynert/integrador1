@@ -186,6 +186,16 @@ app.post ('/endpoint', function(req, res)
 
 			break;
 
+		case macro.SALE_GET_COLUMN_DATA:
+
+			sql = "SELECT * FROM sale_filter_search_column_data";
+			break;
+
+		case macro.SALE_FILTER_SEARCH:
+			//sql = "SELECT * FROM sales_pending;"
+			sql = "call sale_filter_search ('', '1990-02-02', '2030-01-02')";
+			break;
+
 		default:
 			console.log("WARNING: invalid id");
 			return;

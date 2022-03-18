@@ -5,8 +5,11 @@ USE integrador;
 
 DROP PROCEDURE IF EXISTS sales_pending_new;
 DROP PROCEDURE IF EXISTS sales_pending_delete;
+DROP PROCEDURE IF EXISTS sale_filter_search;
 
 -- procedure
+
+-- create
 
 DELIMITER //
 CREATE PROCEDURE sales_pending_new (
@@ -32,6 +35,8 @@ END ;
 //
 DELIMITER ;
 
+-- delete
+
 DELIMITER //
 CREATE PROCEDURE sales_pending_delete (
     IN ar_id_sale INT
@@ -45,3 +50,28 @@ END ;
 //
 DELIMITER ;
 
+-- filter search
+
+DELIMITER //
+CREATE PROCEDURE sale_filter_search (
+	IN ar_cedula CHAR(250),
+	IN ar_fecha_inicio  DATE,
+	IN ar_fecha_fin     DATE
+)
+BEGIN
+
+	SELECT sp.id, sp.state, c.cedula, v.modelo, v.precio, sp.created
+	FROM
+		sales_pending sp,
+		clients c,
+		vehicles v
+	WHERE
+		sp.id_client  = c.id AND
+		sp.id_vehicle = v.id AND
+		c.cedula   LIKE CONCAT('%',ar_cedula,'%') AND
+		sp.created BETWEEN ar_fecha_inicio AND ar_fecha_fin
+	;
+
+END ;
+//
+DELIMITER ;

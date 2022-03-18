@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<Html>
+<body>
+
+	<h1 class="h1" id="h1">Transacción</h1>
+	
+	<b>Detalles de la transacción</b>
+    <!-- <div id="payment_container"> -->
+	<div id="payment_details">
+		<div id="payment_lbl_client">WHAYNER PORRAS 100716510</div>
+		<div id="payment_lbl_vehicle">TOYOTA SUTIN 2005</div>
+		<div id="payment_lbl_price">15000000$</div>
+	</div>
+
+	<br>
+	<br>
+	<br>
+
+	<b>Metodo de pago</b>
+	<br>
+	<br>
+	
+	<select id="payment_cbx_method">
+	    <option value="paypal">PayPal</option>
+	    <option value="visa">Visa</option>
+	    <option value="mastercard">MasterCard</option>
+	</select>
+
+	<br>
+	<br>
+
+	<b></b>
+
+	<div>
+		Numero tarjeta de credito
+		<input id="payment_tbx_credit_number" type="text">
+		<br>
+
+		CVV
+		<input id="payment_tbx_cvv" type="text">
+		<br>
+	
+		Fecha de expiración
+		<input id="payment_date_expiration" type="date">
+
+		<br>
+		<button id="payment_btn_submit" >Confirmar</button>
+
+		
+	</div>
+
+</body>
+</Html>

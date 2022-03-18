@@ -74,6 +74,8 @@ class driver_module_search
 			{
 				// show search result
 
+				console.log(rows);
+
 				// clear
 
 			    module.tbl_list.innerHTML = "";
