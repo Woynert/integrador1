@@ -9,7 +9,7 @@ INSERT INTO vehicles (tipo_vehiculo,
 						generacion,
 						placa,
 						fecha,
-						estado,
+						condicion,
 						precio)
 VALUES
 ("Moto"  ,"Toyota"   ,"Prius" ,"2008","ABQ10", '2001-11-13', 'NUEVO', 1500900),

@@ -12,14 +12,15 @@ DROP PROCEDURE IF EXISTS vehicle_filter_search;
 DELIMITER //
 CREATE PROCEDURE vehicle_update_row (
 	IN _tipo_vehiculo CHAR(250),
-	IN _marca  CHAR(250),
-	IN _modelo CHAR(250),
+	IN _marca      CHAR(250),
+	IN _modelo     CHAR(250),
 	IN _generacion CHAR(250),
-	IN _placa  CHAR(250),
-	IN _estado CHAR(250),
-	IN _fecha  CHAR(250),
-	IN _precio INT,
-	IN _id     INT
+	IN _placa      CHAR(250),
+	IN _condicion  CHAR(250),
+	IN _fecha      CHAR(250),
+	IN _precio     INT,
+	IN _estado     CHAR(250),
+	IN _id         INT
 )
 BEGIN
 
@@ -29,9 +30,10 @@ BEGIN
 		modelo     = _modelo,
 		generacion = _generacion,
 		placa      = _placa,
-		estado     = _estado,
+		condicion  = _condicion,
 		fecha      = _fecha,
-		precio     = _precio
+		precio     = _precio,
+		estado     = _estado
 	WHERE id = _id;
 
 END ;
@@ -47,7 +49,7 @@ CREATE PROCEDURE vehicle_register (
 	IN _modelo CHAR(250),
 	IN _generacion CHAR(250),
 	IN _placa  CHAR(250),
-	IN _estado CHAR(250),
+	IN _condicion CHAR(250),
 	IN _fecha  CHAR(250),
 	IN _precio INT
 )
@@ -59,7 +61,7 @@ BEGIN
 		modelo    ,
 		generacion,
 		placa     ,
-		estado    ,
+		condicion ,
 		fecha     ,
 		precio    )
 
@@ -68,7 +70,7 @@ BEGIN
 		_modelo,
 		_generacion,
 		_placa,
-		_estado,
+		_condicion,
 		_fecha,
 		_precio);
 
@@ -86,10 +88,11 @@ CREATE PROCEDURE vehicle_filter_search (
 	IN ar_modelo        CHAR(250),
 	IN ar_generacion    CHAR(250),
 	IN ar_placa         CHAR(250),
-	IN ar_estado        CHAR(250),
+	IN ar_condicion     CHAR(250),
 	IN ar_fecha_inicio  DATE,
 	IN ar_fecha_fin     DATE,
-	IN ar_precio_max    INT UNSIGNED
+	IN ar_precio_max    INT UNSIGNED,
+	IN ar_estado        CHAR(250)
 )
 BEGIN
 
@@ -102,9 +105,10 @@ BEGIN
 	modelo     LIKE CONCAT('%',ar_modelo,'%') AND
 	generacion LIKE CONCAT('%',ar_generacion,'%') AND
 	placa      LIKE CONCAT('%',ar_placa,'%') AND
-	estado     LIKE CONCAT('%',ar_estado,'%') AND
+	condicion  LIKE CONCAT('%',ar_condicion,'%') AND
 	fecha      BETWEEN ar_fecha_inicio AND ar_fecha_fin AND
-	precio <= IF ( ar_precio_max = 0 , @precio_max , ar_precio_max )
+	precio <= IF ( ar_precio_max = 0 , @precio_max , ar_precio_max ) AND
+	estado     LIKE CONCAT('%',ar_estado,'%')
 	;
 
 END ;

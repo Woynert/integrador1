@@ -117,6 +117,9 @@ class driver_module_register
 				if (rows.data){
 					show_message("Completado", "El registro fue ejecutado correctamente.");
 				}
+				else{
+                    show_message("Error", "Hubo un error al realizar la operación.");
+                }
 			}
 		);
 	}

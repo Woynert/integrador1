@@ -189,7 +189,9 @@ p{
 
 #dialog_module_container{
 	height: 100%;
-	overflow: scroll;
+	overflow-y: scroll;
+	padding-left: 20px;
+	padding-right: 20px;
 }
 
 #dialog_header, #dialog_footer{

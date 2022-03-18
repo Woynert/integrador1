@@ -12,9 +12,10 @@ SELECT id AS `ID`,
         modelo AS `MODELO`,
         generacion AS `GENERACION`,
         placa AS `PLACA`,
-        estado AS `ESTADO`,
+        condicion AS `CONDICION`,
         DATE_FORMAT(fecha, '%Y-%m-%d') AS `FECHA`,
-        precio AS `PRECIO`
+        precio AS `PRECIO`,
+        estado AS `ESTADO`
 FROM vehicles
 ;
 

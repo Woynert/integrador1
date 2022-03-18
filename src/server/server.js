@@ -44,7 +44,7 @@ app.post ('/endpoint', function(req, res)
 
 	var body = JSON.stringify(req.body);
 	var id   = req.body.id;
-	var data;
+	var data = req.body.data;
 	var sql = '';
 
 	console.log('body: ' + body);
@@ -61,28 +61,22 @@ app.post ('/endpoint', function(req, res)
 
 		case macro.VEHICLE_FILTER_SEARCH:
 
-			data = req.body.data;
-
 			sql = 'call vehicle_filter_search( "'
 			+ data['tipo_vehiculo']
 			+ '","' + data['marca']
 			+ '","' + data['modelo']
 			+ '","' + data['generacion']
 			+ '","' + data['placa']
-			+ '","' + data['estado']
+			+ '","' + data['condicion']
 			+ '","' + data['fecha_start']
 			+ '","' + data['fecha_end']
 			+ '","' + data['precio']
+			+ '","' + data['estado']
 			+ '")';
-
-			console.log(sql);
 
 			break;
 
 		case macro.VEHICLE_UPDATE_ROW:
-			data = req.body.data;
-
-			//console.log(data);
 
 			sql = "CALL vehicle_update_row ( ";
 			var row_id;
@@ -101,14 +95,10 @@ app.post ('/endpoint', function(req, res)
 			}
 
 			sql += row_id + ");";
-			console.log(sql)
 
 			break;
 
 		case macro.VEHICLE_INSERT_ROW:
-			data = req.body.data;
-
-			//console.log(data);
 
 			sql = "CALL vehicle_register ( ";
 
@@ -124,10 +114,8 @@ app.post ('/endpoint', function(req, res)
 
 			sql = sql.slice(0, -1);
 			sql += ");";
-			console.log(sql)
 
 			break;
-
 
 		case macro.CLIENT_GET_COLUMN_DATA:
 
@@ -135,8 +123,6 @@ app.post ('/endpoint', function(req, res)
 			break;
 
 		case macro.CLIENT_FILTER_SEARCH:
-
-			data = req.body.data;
 
 			sql = 'call client_filter_search( "'
 			+ data['nombres']
@@ -150,12 +136,9 @@ app.post ('/endpoint', function(req, res)
 			+ '","' + data['fecha_registro_end']
 			+ '")';
 
-			console.log(sql);
-
 			break;
 
 		case macro.CLIENT_UPDATE_ROW:
-			data = req.body.data;
 
 			sql = "CALL client_update_row ( ";
 			var row_id;
@@ -171,13 +154,11 @@ app.post ('/endpoint', function(req, res)
 			}
 
 			sql += row_id + ");";
-			console.log(sql)
 
 			break;
 
 
 		case macro.CLIENT_INSERT_ROW:
-			data = req.body.data;
 
 			sql = "CALL client_register ( ";
 
@@ -188,7 +169,20 @@ app.post ('/endpoint', function(req, res)
 
 			sql = sql.slice(0, -1);
 			sql += ");";
-			console.log(sql)
+
+			break;
+
+		case macro.SALES_PENDING_NEW:
+
+			sql = "CALL sales_pending_new ( " +
+				data.id_client + ", "+
+				data.id_vehicle + ");";
+
+			break;
+
+		case macro.SALES_PENDING_DELETE:
+
+			sql = "CALL sales_pending_delete (" + data.id + ");";
 
 			break;
 
@@ -196,6 +190,8 @@ app.post ('/endpoint', function(req, res)
 			console.log("WARNING: invalid id");
 			return;
 	}
+
+	console.log(sql);
 
 	// start connection
 

@@ -108,7 +108,10 @@ class driver_module_edit
 			function(rows)
 			{
 				if (rows.data){
-					show_message("Exito", "El registro fue actualizado correctamente.");
+					show_message("Completado", "El registro fue actualizado correctamente.");
+				}
+				else{
+					show_message("Error", "Hubo un error al realizar la operación.");
 				}
 			}
 		);

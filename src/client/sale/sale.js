@@ -1,4 +1,6 @@
 
+import {macro} from '../macro.js';
+import {show_message} from '../index.js';
 import {driver_module_search} from '../search/driver.js';
 
 export {create_module_sale};
@@ -9,12 +11,13 @@ class module_sale
 	{
 
 		// transaccional
-		this.id_selected_vehicle;
-		this.id_selected_client;
+		this.id_selected_vehicle = null;
+		this.id_selected_client = null;
 
 		// elements
 		this.btn_invoke_vehicle;
 		this.btn_invoke_client;
+		this.btn_send;
 
 		this.lbl_selected_vehicle;
 		this.lbl_selected_client;
@@ -31,10 +34,12 @@ class module_sale
 		// get elements
 		this.btn_invoke_vehicle = document.getElementById("sale_btn_invoke_vehicle");
 		this.btn_invoke_client = document.getElementById("sale_btn_invoke_client");
+		this.btn_send = document.getElementById("sale_btn_send");
 
 		this.lbl_selected_vehicle = document.getElementById("sale_lbl_selected_vehicle");
 		this.lbl_selected_client = document.getElementById("sale_lbl_selected_client");
 
+		this.reset();
 	}
 
 	set_post_request (post_request){
@@ -53,14 +58,25 @@ class module_sale
     	this.dialog_picker = dialog_picker
     }
 
+    reset ()
+    {
+    	this.id_selected_vehicle = null;
+		this.id_selected_client = null;
+
+		this.lbl_selected_vehicle.innerHTML = "Ningún vehiculo seleccionado";
+		this.lbl_selected_client.innerHTML = "Ningún cliente seleccionado";
+    }
+
 	static callback_select_vehicle (module, data)
 	{
 		if (data != null)
 		{
-			module.id_selected_vehicle = data;
+			var rows = module.mod_search_vehicle.get_data_rows();
+
+			console.log("Selected vehicle id: " + rows[data].ID);
+			module.id_selected_vehicle = rows[data].ID;
 
 			// set label
-			var rows = module.mod_search_vehicle.get_data_rows();
 			var format = rows[data].TIPO +" "+
 						rows[data].MARCA +" "+
 						rows[data].MODELO +" "+
@@ -76,11 +92,13 @@ class module_sale
 	{
 		if (data != null)
 		{
-			module.id_selected_client = data;
+			var rows = module.mod_search_client.get_data_rows();
+
+			console.log("Selected client id: " + rows[data].ID);
+			module.id_selected_client = rows[data].ID;
 
 			// set label
 
-			var rows = module.mod_search_client.get_data_rows();
 			console.log(rows[data]);
 
 			var format = rows[data].NOMBRES +" "+
@@ -121,6 +139,41 @@ function create_module_sale(post_request)
         		module,
         		module_sale.callback_select_client
         	);
+        }
+    );
+
+	module.btn_send.addEventListener('click',
+        function(){
+
+			// send
+
+			console.log(module.id_selected_client);
+			console.log(module.id_selected_vehicle);
+
+			var value_list = {};
+			value_list["id_client"] = module.id_selected_client;
+			value_list["id_vehicle"] = module.id_selected_vehicle;
+
+        	var postObj = {
+        		id: macro.SALES_PENDING_NEW,
+        		data: value_list
+        	};
+
+        	module.post_request.request ( postObj,
+				function(rows)
+				{
+					if (rows.data){
+						show_message("Completado", "Solicitud de venta registrada correctamente.");
+					}
+					else{
+	                    show_message("Error", "Hubo un error al realizar la operación.");
+	                }
+				}
+        	);
+
+        	// clear
+
+        	module.reset()
         }
     );
 

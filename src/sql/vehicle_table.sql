@@ -16,9 +16,10 @@ CREATE TABLE IF NOT EXISTS vehicles
 	modelo        CHAR(50) NULL DEFAULT NULL,
 	generacion    CHAR(50) NULL DEFAULT NULL,
 	placa         CHAR(50) NULL DEFAULT NULL,
-	estado        CHAR(50) NULL DEFAULT NULL,
+	condicion     CHAR(50) NULL DEFAULT 'NUEVO',
 	fecha         DATE NULL DEFAULT NULL,
-	precio        INT
+	precio        INT,
+	estado        CHAR(50) NULL DEFAULT 'DISPONIBLE'
 );
 
 -- Data type
@@ -42,9 +43,10 @@ VALUES
 ("modelo"       , 0, '', "MODELO"),
 ("generacion"   , 1, '', "GENERACION"),
 ("placa"        , 0, '', "PLACA"),
-("estado"       , 0, '', "ESTADO"),
+("condicion"    , 0, '', "CONDICION"),
 ("fecha"        , 2, '', "FECHA"),
-("precio"       , 1, '0', "PRECIO")
+("precio"       , 1, '0', "PRECIO"),
+("estado"       , 0, '', "ESTADO")
 ;
 
 
