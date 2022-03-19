@@ -6,6 +6,8 @@ USE integrador;
 DROP PROCEDURE IF EXISTS sales_pending_new;
 DROP PROCEDURE IF EXISTS sales_pending_delete;
 DROP PROCEDURE IF EXISTS sale_filter_search;
+DROP PROCEDURE IF EXISTS sale_confirm_payment;
+DROP PROCEDURE IF EXISTS sale_cancel_payment;
 
 -- procedure
 
@@ -60,7 +62,19 @@ CREATE PROCEDURE sale_filter_search (
 )
 BEGIN
 
-	SELECT sp.id, sp.state, c.cedula, v.modelo, v.precio, sp.created
+	SELECT
+		sp.id,
+		sp.state,
+		c.id id_client,
+		c.nombres,
+		c.apellidos,
+		c.cedula,
+		v.id id_vehicle,
+		v.marca,
+		v.modelo,
+		v.generacion,
+		v.precio,
+		DATE_FORMAT(sp.created, '%Y-%m-%d') AS `created`
 	FROM
 		sales_pending sp,
 		clients c,
@@ -70,6 +84,51 @@ BEGIN
 		sp.id_vehicle = v.id AND
 		c.cedula   LIKE CONCAT('%',ar_cedula,'%') AND
 		sp.created BETWEEN ar_fecha_inicio AND ar_fecha_fin
+	;
+
+END ;
+//
+DELIMITER ;
+
+-- confirm payment
+
+DELIMITER //
+CREATE PROCEDURE sale_confirm_payment (
+	IN ar_id_sale INT,
+	IN ar_method CHAR(50)
+)
+BEGIN
+
+	UPDATE
+		sales_pending
+	SET
+		state  = "PAGADO",
+		payed  = CURRENT_TIMESTAMP(),
+		payment_method = ar_method
+	WHERE
+		id = ar_id_sale
+	;
+
+END ;
+//
+DELIMITER ;
+
+-- cancel payment
+
+DELIMITER //
+CREATE PROCEDURE sale_cancel_payment (
+	IN ar_id_sale INT
+)
+BEGIN
+
+	UPDATE
+		sales_pending
+	SET
+		state  = "CANCELADO",
+		payed  = NULL,
+		payment_method = NULL
+	WHERE
+		id = ar_id_sale
 	;
 
 END ;

@@ -47,7 +47,7 @@ app.post ('/endpoint', function(req, res)
 	var data = req.body.data;
 	var sql = '';
 
-	console.log('body: ' + body);
+	console.log('\nbody: ' + body);
 	console.log(req.body.id);
 	//console.log('body: ' + JSON.stringify(req.body));
 
@@ -194,6 +194,38 @@ app.post ('/endpoint', function(req, res)
 		case macro.SALE_FILTER_SEARCH:
 			//sql = "SELECT * FROM sales_pending;"
 			sql = "call sale_filter_search ('', '1990-02-02', '2030-01-02')";
+			break;
+
+		case macro.SALE_CONFIRM_PAYMENT:
+			sql = "call sale_confirm_payment (" +
+				data.id_sale + ", '" +
+				data.payment_method + "');"
+			break;
+
+		case macro.SALE_CANCEL_PAYMENT:
+			sql = "call sale_cancel_payment (" +data.id_sale+ ");"
+			break;
+
+		case macro.EMPLOYEE_GET_COLUMN_DATA:
+
+			sql = "SELECT * FROM employee_column_data";
+			break;
+
+		case macro.EMPLOYEE_FILTER_SEARCH:
+
+			sql = 'call employee_filter_search( "'
+			+ data['nombres']
+			+ '","' + data['apellidos']
+			+ '","' + data['domicilio']
+			+ '","' + data['cedula']
+			+ '","' + data['correo']
+			+ '","' + data['fecha_nacimiento_start']
+			+ '","' + data['fecha_nacimiento_end']
+			+ '","' + data['fecha_registro_start']
+			+ '","' + data['fecha_registro_end']
+			+ '", ' + data['role']
+			+ ')';
+
 			break;
 
 		default:

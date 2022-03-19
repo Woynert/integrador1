@@ -107,12 +107,10 @@ class driver_module_edit
 		module.post_request.request (postObj,
 			function(rows)
 			{
-				if (rows.data){
+				if (rows.data)
 					show_message("Completado", "El registro fue actualizado correctamente.");
-				}
-				else{
+				else
 					show_message("Error", "Hubo un error al realizar la operación.");
-				}
 			}
 		);
 	}

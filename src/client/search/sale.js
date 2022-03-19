@@ -1,6 +1,7 @@
 import {macro} from '../macro.js';
 import {driver_module_search} from './driver.js';
 import {show_module} from '../index.js';
+import {show_message} from '../index.js';
 
 export {create_module_search_sale};
 
@@ -33,6 +34,7 @@ class module_search_sale
 
 		this.mod_edit;
 		this.mod_register;
+		this.mod_payment;
 		this.post_request;
 
 		// request
@@ -74,6 +76,10 @@ class module_search_sale
 		this.mod_register = mod_register;
 	}
 
+	set_mod_payment(mod_payment){
+		this.mod_payment = mod_payment;
+	}
+
 	set_dom_element (dom_element){
 		this.dom_element = dom_element;
 	}
@@ -90,6 +96,30 @@ class module_search_sale
 	get_selected_row()
 	{
 		return this.selected_row;
+	}
+
+	static cancel_payment (module)
+	{
+
+		var item = module.data_rows[module.selected_row];
+
+		var value_list = {}
+		value_list.id_sale = item.id;
+
+		var postObj = {
+			id: macro.SALE_CANCEL_PAYMENT,
+			data: value_list
+		};
+
+		module.post_request.request (postObj,
+			function(rows)
+			{
+				if (rows.data)
+					show_message("Completado", "Transacción cancelada con exito.");
+				else
+					show_message("Error", "Hubo un error al realizar la operación.");
+			}
+		);
 	}
 }
 
@@ -112,22 +142,29 @@ function create_module_search_sale (post_request)
 
 	document.getElementById("srh_sale_btn_payment").addEventListener('click',
 		function(){
-			console.log("B");
+			var rows = module.get_data_rows();
+			var table_item_id = module.get_selected_row();
+			var item = rows[table_item_id];
+
+			console.log("MY VENTA");
+			console.log("id_client " + item.id_client);
+			console.log("id_vehicle " + item.id_vehicle);
+
 			//driver_module_search.fetch_table_list_with_filter(module);
+
+			module.mod_payment.setup(item);
+
+			// show module payment
+			show_module(9);
 		}
 	);
 
-	/*document.getElementById("srh_client_btn_edit_row").addEventListener('click',
+
+	document.getElementById("srh_sale_btn_cancel_payment").addEventListener('click',
 		function(){
-
-			//driver.mod_search.mod_edit
-
-			if (module.mod_edit){
-				show_module(4);
-				driver_module_edit.press_edit_btn_fetch(module.mod_edit);
-			}
+			module_search_sale.cancel_payment (module);
 		}
-	);*/
+	);
 
 	module.init();
 

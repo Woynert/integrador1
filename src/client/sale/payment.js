@@ -7,9 +7,15 @@ class module_sale
 {
 	constructor()
 	{
+
+		// vars
+		this.curret_item;
+
 		// shared modules
 		this.post_request;
 		this.mod_search_sale;
+		//this.mod_search_vehicle;
+		//this.mod_search_client;
 
 		// elements
 		this.lbl_client;
@@ -41,6 +47,69 @@ class module_sale
     set_mod_search_sale (mod_search_sale){
         this.mod_search_sale = mod_search_sale;
     }
+
+	// venta item from module_search_venta
+    setup (item)
+    {
+
+    	this.current_item = item;
+
+    	// set client info
+    	this.lbl_client.innerHTML = item.nombres +" "+ item.apellidos +" "+ item.cedula;
+
+    	// set vehicle info
+    	this.lbl_vehicle.innerHTML = item.marca +" "+ item.modelo +" "+ item.generacion;
+
+    	// set price
+    	this.lbl_price.innerHTML = item.precio + " $";
+    	console.log(this.lbl_price);
+
+    }
+
+	static submit_payment(module)
+	{
+		// check input filled
+		if ((module.tbx_credit_number.value == '') ||
+			(module.tbx_cvv.value == '') ||
+			(module.date_expiration.value == ''))
+		{
+			console.log ("Campos vacios");
+			return;
+		}
+
+		console.log(module.current_item);
+
+		var value_list = {}
+		value_list.id_sale = module.current_item.id;
+		value_list.payment_method = module.cbx_method.value;
+
+		console.log("value_list");
+		console.log(value_list);
+
+		// create object
+		var postObj = {
+			id: macro.SALE_CONFIRM_PAYMENT,
+			data: value_list
+		};
+
+
+		module.post_request.request(postObj,
+			function(rows)
+			{
+				if (rows.data){
+					show_message("Completado", "Transacción correcta.");
+				}
+				else{
+					show_message("Error", "Hubo un error al realizar la operación.");
+				}
+			}
+		);
+
+	}
+
+    /*fetch_info (id_client, id_vehicle)
+    {
+    }*/
 }
 
 function create_module_payment (post_request)
@@ -53,7 +122,7 @@ function create_module_payment (post_request)
 	// eventos
 	module.btn_submit.addEventListener('click',
         function(){
-        	console.log("Culaquier cosa");
+        	module_sale.submit_payment(module);
         }
     );
 

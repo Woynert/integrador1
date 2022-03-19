@@ -10,11 +10,13 @@ DROP TABLE IF EXISTS sale_filter_search_column_data;
 
 CREATE TABLE IF NOT EXISTS sales_pending
 (
-	id            INT AUTO_INCREMENT PRIMARY KEY,
-	id_client     INT NOT NULL,
-	id_vehicle    INT NOT NULL,
-	state         CHAR(50) NOT NULL DEFAULT 'PENDIENTE',
-	created       TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
+	id             INT AUTO_INCREMENT PRIMARY KEY,
+	id_client      INT NOT NULL,
+	id_vehicle     INT NOT NULL,
+	state          CHAR(50) NOT NULL DEFAULT 'PENDIENTE',
+	created        DATETIME DEFAULT CURRENT_TIMESTAMP(),
+	payed          DATETIME NULL DEFAULT NULL,
+	payment_method CHAR(50) NULL DEFAULT NULL,
 
 	FOREIGN KEY (id_client) REFERENCES clients(id),
     FOREIGN KEY (id_vehicle) REFERENCES vehicles(id)
