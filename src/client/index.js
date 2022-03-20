@@ -9,15 +9,16 @@ import {create_module_search_sale}     from './search/sale.js';
 import {create_module_search_employee} from './search/employee.js';
 
 import {driver_module_edit} from './edit/driver.js';
-import {create_module_edit_vehicle} from './edit/vehicle.js'
-import {create_module_edit_client}  from './edit/client.js'
-import {create_module_edit_employee}  from './edit/employee.js'
+import {create_module_edit_vehicle}  from './edit/vehicle.js'
+import {create_module_edit_client}   from './edit/client.js'
+import {create_module_edit_employee} from './edit/employee.js'
 
 import {driver_module_register} from './register/driver.js';
-import {create_module_register_vehicle} from './register/vehicle.js'
-import {create_module_register_client} from './register/client.js'
+import {create_module_register_vehicle}  from './register/vehicle.js'
+import {create_module_register_client}   from './register/client.js'
+import {create_module_register_employee} from './register/employee.js'
 
-import {create_module_sale} from './sale/sale.js';
+import {create_module_sale}   from './sale/sale.js';
 import {create_dialog_picker} from './sale/dialog_picker.js';
 
 import {create_module_payment} from './sale/payment.js';
@@ -99,8 +100,8 @@ var files_to_load = [
 	'./sale/payment.html',
 
 	'./search/employee.html',
-	'./edit/employee.html'
-	// './register/employee.html',
+	'./edit/employee.html',
+	'./register/employee.html'
 	];
 var current_loading_file = 0;
 
@@ -205,6 +206,12 @@ function read_file(){
 				employee_edit_div.innerHTML = reader.responseText;
 		       	employee_edit = create_module_edit_employee (post_request);
 				break;
+
+			// ./register/client.html
+			case 12:
+				employee_register_div.innerHTML = reader.responseText;
+		       	employee_register = create_module_register_employee (post_request);
+				break;
 		}
 
 
@@ -227,10 +234,6 @@ function read_file(){
 			vehicle_edit.set_mod_search (vehicle_search);
 			vehicle_register.set_mod_search (vehicle_search);
 
-			driver_module_search.fetch_table_list_types (vehicle_search);
-			//fetch_data_table_vehicles_with_filter (search_vehicle);
-
-			//driver_module_search.set_dialog_mode(vehicle_search, true);
 
 			// client module
 			client_search.set_mod_edit (client_edit);
@@ -240,23 +243,26 @@ function read_file(){
 			client_edit.set_mod_search (client_search);
 			client_register.set_mod_search (client_search);
 
-			driver_module_search.fetch_table_list_types (client_search);
 
 			// employeee
 			employee_search.set_mod_edit (employee_edit);
-			driver_module_search.fetch_table_list_types (employee_search);
-
 			employee_edit.set_mod_search (employee_search);
-			//employee_register.set_mod_search (employee_search);
+			employee_register.set_mod_search (employee_search);
 
 
 			// sale
 			sale.set_mod_search_vehicle (vehicle_search);
 			sale.set_mod_search_client (client_search);
 			sale.set_dialog_picker (dialog_picker);
-
 			sale_search.set_mod_payment (payment);
+
+
+			// fetch
+
+			driver_module_search.fetch_table_list_types (vehicle_search);
+			driver_module_search.fetch_table_list_types (client_search);
 			driver_module_search.fetch_table_list_types (sale_search);
+			driver_module_search.fetch_table_list_types (employee_search);
 
 
 
@@ -400,12 +406,13 @@ function init()
 		}
 	);
 
-	/*document.getElementById("btn_goto_employee_register").addEventListener('click',
+	document.getElementById("btn_goto_employee_register").addEventListener('click',
 		function (){
 			selected_module = 12;
 			show_module (selected_module);
+			driver_module_register.press_reg_btn_fetch (employee_register);
 		}
-	);*/
+	);
 
 
 

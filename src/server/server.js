@@ -244,9 +244,9 @@ app.post ('/endpoint', function(req, res)
 			break;
 
 
-		/*case macro.CLIENT_INSERT_ROW:
+		case macro.EMPLOYEE_INSERT_ROW:
 
-			sql = "CALL client_register ( ";
+			sql = "CALL employee_register ( ";
 
 			for (var value in data)
 			{
@@ -256,7 +256,7 @@ app.post ('/endpoint', function(req, res)
 			sql = sql.slice(0, -1);
 			sql += ");";
 
-			break;*/
+			break;
 
 		default:
 			console.log("WARNING: invalid id");
