@@ -17,8 +17,7 @@ CREATE TABLE IF NOT EXISTS clients
     cedula               CHAR(250) NULL DEFAULT NULL,
     correo               CHAR(250) NULL DEFAULT NULL,
     fecha_nacimiento     DATE NULL DEFAULT NULL,
-    fecha_registro       DATE NULL DEFAULT NULL
-);
+    fecha_registro       DATETIME DEFAULT CURRENT_TIMESTAMP());
 
 -- Data type
 -- 0 string
@@ -28,19 +27,26 @@ CREATE TABLE IF NOT EXISTS clients
 CREATE TABLE IF NOT EXISTS client_column_data
 (
 	id        INT      AUTO_INCREMENT PRIMARY KEY,
+	event     CHAR(40) NULL DEFAULT NULL,
 	property  CHAR(50) NULL DEFAULT NULL,
 	datatype  INT      NULL DEFAULT NULL,
-	defvalue  CHAR(50) NULL DEFAULT NULL,
-	printname CHAR(50) NULL DEFAULT NULL
+	defvalue  CHAR(50) NULL DEFAULT NULL
+	-- printname CHAR(50) NULL DEFAULT NULL
 );
 
-INSERT INTO client_column_data (property, datatype, defvalue, printname)
+INSERT INTO client_column_data (event, property, datatype, defvalue)
 VALUES
-("nombres"         , 0, '', "NOMBRES"),
-("apellidos"       , 0, '', "APELLIDOS"),
-("domicilio"       , 0, '', "DOMICILIO"),
-("cedula"          , 0, '', "CEDULA"),
-("correo"          , 0, '', "CORREO"),
-("fecha_nacimiento", 2, '', "NACIMIENTO"),
-("fecha_registro"  , 2, '', "REGISTRO")
+("FILTER", "nombres"         , 0, ''),
+("FILTER", "apellidos"       , 0, ''),
+("FILTER", "domicilio"       , 0, ''),
+("FILTER", "cedula"          , 0, ''),
+("FILTER", "correo"          , 0, ''),
+("FILTER", "fecha_nacimiento", 2, ''),
+("FILTER", "fecha_registro"  , 2, ''),
+("EDIT", "nombres"         , 0, ''),
+("EDIT", "apellidos"       , 0, ''),
+("EDIT", "domicilio"       , 0, ''),
+("EDIT", "cedula"          , 0, ''),
+("EDIT", "correo"          , 0, ''),
+("EDIT", "fecha_nacimiento", 2, '')
 ;

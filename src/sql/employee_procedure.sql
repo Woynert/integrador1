@@ -7,6 +7,37 @@ DROP PROCEDURE IF EXISTS employee_update_row;
 DROP PROCEDURE IF EXISTS employee_register;
 DROP PROCEDURE IF EXISTS employee_filter_search;
 
+-- update
+
+DELIMITER //
+CREATE PROCEDURE employee_update_row (
+    IN ar_nombres    CHAR(250),
+    IN ar_apellidos  CHAR(250),
+    IN ar_domicilio  CHAR(250),
+    IN ar_cedula     CHAR(250),
+    IN ar_correo     CHAR(250),
+    IN ar_nacimiento DATE,
+    IN ar_role       INT,
+    IN ar_password   CHAR(250),
+	IN ar_id         INT
+)
+BEGIN
+
+	UPDATE employees
+	SET nombres   = ar_nombres,
+		apellidos = ar_apellidos,
+		domicilio = ar_domicilio,
+		cedula    = ar_cedula,
+		correo    = ar_correo,
+		fecha_nacimiento = ar_nacimiento,
+		role      = ar_role,
+		password  = IF(ar_password='',password,ar_password)
+	WHERE id = ar_id;
+
+END ;
+//
+DELIMITER ;
+
 -- register
 
 DELIMITER //

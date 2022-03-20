@@ -22,3 +22,4 @@ SOURCE ./employee_procedure.sql;
 SOURCE ./vehicle_sample_data.sql;
 SOURCE ./client_sample_data.sql;
 SOURCE ./employee_sample_data.sql;
+SOURCE ./sale_sample_data.sql;

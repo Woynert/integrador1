@@ -17,9 +17,7 @@ CREATE PROCEDURE vehicle_update_row (
 	IN _generacion CHAR(250),
 	IN _placa      CHAR(250),
 	IN _condicion  CHAR(250),
-	IN _fecha      CHAR(250),
 	IN _precio     INT,
-	IN _estado     CHAR(250),
 	IN _id         INT
 )
 BEGIN
@@ -31,9 +29,7 @@ BEGIN
 		generacion = _generacion,
 		placa      = _placa,
 		condicion  = _condicion,
-		fecha      = _fecha,
-		precio     = _precio,
-		estado     = _estado
+		precio     = _precio
 	WHERE id = _id;
 
 END ;
@@ -50,7 +46,6 @@ CREATE PROCEDURE vehicle_register (
 	IN _generacion CHAR(250),
 	IN _placa  CHAR(250),
 	IN _condicion CHAR(250),
-	IN _fecha  CHAR(250),
 	IN _precio INT
 )
 BEGIN
@@ -62,7 +57,6 @@ BEGIN
 		generacion,
 		placa     ,
 		condicion ,
-		fecha     ,
 		precio    )
 
 	VALUES (_tipo_vehiculo,
@@ -71,7 +65,6 @@ BEGIN
 		_generacion,
 		_placa,
 		_condicion,
-		_fecha,
 		_precio);
 
 END ;
@@ -98,17 +91,28 @@ BEGIN
 
 	SELECT max(precio) INTO @precio_max FROM vehicles;
 
-	SELECT * FROM view_vehicles
+	SELECT
+		id,
+		tipo_vehiculo,
+		marca,
+		modelo,
+		generacion,
+		placa,
+		condicion,
+		DATE_FORMAT(fecha, '%Y-%m-%d') AS `fecha`,
+		precio,
+		estado
+	FROM vehicles
 	WHERE
-	tipo       LIKE CONCAT('%',ar_tipo_vehiculo,'%') AND
-	marca      LIKE CONCAT('%',ar_marca,'%') AND
-	modelo     LIKE CONCAT('%',ar_modelo,'%') AND
-	generacion LIKE CONCAT('%',ar_generacion,'%') AND
-	placa      LIKE CONCAT('%',ar_placa,'%') AND
-	condicion  LIKE CONCAT('%',ar_condicion,'%') AND
-	fecha      BETWEEN ar_fecha_inicio AND ar_fecha_fin AND
+	tipo_vehiculo LIKE CONCAT('%',ar_tipo_vehiculo,'%') AND
+	marca         LIKE CONCAT('%',ar_marca,'%') AND
+	modelo        LIKE CONCAT('%',ar_modelo,'%') AND
+	generacion    LIKE CONCAT('%',ar_generacion,'%') AND
+	placa         LIKE CONCAT('%',ar_placa,'%') AND
+	condicion     LIKE CONCAT('%',ar_condicion,'%') AND
+	fecha         BETWEEN ar_fecha_inicio AND ar_fecha_fin AND
 	precio <= IF ( ar_precio_max = 0 , @precio_max , ar_precio_max ) AND
-	estado     LIKE CONCAT('%',ar_estado,'%')
+	estado        LIKE CONCAT('%',ar_estado,'%')
 	;
 
 END ;

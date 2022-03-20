@@ -62,7 +62,6 @@ class module_sale
 
     	// set price
     	this.lbl_price.innerHTML = item.precio + " $";
-    	console.log(this.lbl_price);
 
     }
 
@@ -77,14 +76,9 @@ class module_sale
 			return;
 		}
 
-		console.log(module.current_item);
-
 		var value_list = {}
 		value_list.id_sale = module.current_item.id;
 		value_list.payment_method = module.cbx_method.value;
-
-		console.log("value_list");
-		console.log(value_list);
 
 		// create object
 		var postObj = {

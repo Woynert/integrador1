@@ -17,7 +17,6 @@ CREATE PROCEDURE client_update_row (
     IN ar_cedula     CHAR(250),
     IN ar_correo     CHAR(250),
     IN ar_nacimiento DATE,
-    IN ar_registro   DATE,
 	IN ar_id         INT
 )
 BEGIN
@@ -28,8 +27,7 @@ BEGIN
 		domicilio = ar_domicilio,
 		cedula    = ar_cedula,
 		correo    = ar_correo,
-		fecha_nacimiento = ar_nacimiento,
-		fecha_registro   = ar_registro
+		fecha_nacimiento = ar_nacimiento
 	WHERE id = ar_id;
 
 END ;
@@ -45,8 +43,7 @@ CREATE PROCEDURE client_register (
     IN ar_domicilio  CHAR(250),
     IN ar_cedula     CHAR(250),
     IN ar_correo     CHAR(250),
-    IN ar_nacimiento DATE,
-    IN ar_registro   DATE
+    IN ar_nacimiento DATE
 )
 BEGIN
 
@@ -57,8 +54,7 @@ BEGIN
 		domicilio ,
 		cedula    ,
 		correo    ,
-		fecha_nacimiento,
-		fecha_registro
+		fecha_nacimiento
 		)
 
 	VALUES
@@ -68,8 +64,7 @@ BEGIN
 		ar_domicilio ,
 		ar_cedula    ,
 		ar_correo    ,
-		ar_nacimiento,
-		ar_registro
+		ar_nacimiento
 		);
 
 END ;
@@ -92,15 +87,24 @@ CREATE PROCEDURE client_filter_search (
 )
 BEGIN
 
-	SELECT * FROM view_clients
+	SELECT
+		id,
+		nombres,
+		apellidos,
+		domicilio,
+		cedula,
+		correo,
+		DATE_FORMAT(fecha_nacimiento, '%Y-%m-%d') AS `fecha_nacimiento`,
+		DATE_FORMAT(fecha_registro, '%Y-%m-%d') AS `fecha_registro`
+	FROM clients
 	WHERE
 	nombres    LIKE CONCAT('%',ar_nombres,'%')   AND
 	apellidos  LIKE CONCAT('%',ar_apellidos,'%') AND
 	domicilio  LIKE CONCAT('%',ar_domicilio,'%') AND
 	cedula     LIKE CONCAT('%',ar_cedula,'%')    AND
 	correo     LIKE CONCAT('%',ar_correo,'%')    AND
-	nacimiento BETWEEN ar_nacimiento_inicio AND ar_nacimiento_fin AND
-	registro   BETWEEN ar_registro_inicio   AND ar_registro_fin
+	fecha_nacimiento BETWEEN ar_nacimiento_inicio AND ar_nacimiento_fin AND
+	fecha_registro   BETWEEN ar_registro_inicio   AND ar_registro_fin
 	;
 
 END ;

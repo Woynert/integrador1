@@ -47,10 +47,6 @@ app.post ('/endpoint', function(req, res)
 	var data = req.body.data;
 	var sql = '';
 
-	console.log('\nbody: ' + body);
-	console.log(req.body.id);
-	//console.log('body: ' + JSON.stringify(req.body));
-
 	switch (id)
 	{
 
@@ -85,10 +81,10 @@ app.post ('/endpoint', function(req, res)
 			{
 				console.log(data[value]);
 
-				if (value == "ID")
+				if (value == "id")
 					row_id = data[value];
 				else
-					if (value == "PRECIO")
+					if (value == "precio")
 						sql += ' ' + data[value] + ', '
 					else
 						sql += ' "' + data[value] + '",'
@@ -106,7 +102,7 @@ app.post ('/endpoint', function(req, res)
 			{
 				console.log(data[value]);
 
-				if (value == "PRECIO")
+				if (value == "precio")
 					sql += ' ' + data[value] + ','
 				else
 					sql += ' "' + data[value] + '",'
@@ -147,7 +143,7 @@ app.post ('/endpoint', function(req, res)
 			{
 				console.log(data[value]);
 
-				if (value == "ID")
+				if (value == "id")
 					row_id = data[value];
 				else
 					sql += ' "' + data[value] + '",'
@@ -228,12 +224,50 @@ app.post ('/endpoint', function(req, res)
 
 			break;
 
+		case macro.EMPLOYEE_UPDATE_ROW:
+
+			sql = "CALL employee_update_row ( ";
+			var row_id;
+
+			for (var value in data)
+			{
+				console.log(data[value]);
+
+				if (value == "id")
+					row_id = data[value];
+				else
+					sql += ' "' + data[value] + '",'
+			}
+
+			sql += row_id + ");";
+
+			break;
+
+
+		/*case macro.CLIENT_INSERT_ROW:
+
+			sql = "CALL client_register ( ";
+
+			for (var value in data)
+			{
+				sql += ' "' + data[value] + '",'
+			}
+
+			sql = sql.slice(0, -1);
+			sql += ");";
+
+			break;*/
+
 		default:
 			console.log("WARNING: invalid id");
 			return;
 	}
 
+
+	console.log('\n');
+	console.log(req.body.id);
 	console.log(sql);
+	console.log('body: ' + body);
 
 	// start connection
 

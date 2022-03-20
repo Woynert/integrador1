@@ -11,6 +11,7 @@ import {create_module_search_employee} from './search/employee.js';
 import {driver_module_edit} from './edit/driver.js';
 import {create_module_edit_vehicle} from './edit/vehicle.js'
 import {create_module_edit_client}  from './edit/client.js'
+import {create_module_edit_employee}  from './edit/employee.js'
 
 import {driver_module_register} from './register/driver.js';
 import {create_module_register_vehicle} from './register/vehicle.js'
@@ -97,9 +98,9 @@ var files_to_load = [
 	'./search/sale.html',
 	'./sale/payment.html',
 
-	'./search/employee.html'
-	// './edit/client.html',
-	// './register/client.html',
+	'./search/employee.html',
+	'./edit/employee.html'
+	// './register/employee.html',
 	];
 var current_loading_file = 0;
 
@@ -179,7 +180,6 @@ function read_file(){
 			case 7:
 				dialog_picker_div.innerHTML = reader.responseText;
 				dialog_picker = create_dialog_picker();
-				console.log(dialog_picker)
 				break;
 
 			// ./search/sale.html
@@ -198,6 +198,12 @@ function read_file(){
 			case 10:
 				employee_search_div.innerHTML = reader.responseText;
 		       	employee_search = create_module_search_employee (post_request);
+				break;
+
+			// ./edit/employee.html
+			case 11:
+				employee_edit_div.innerHTML = reader.responseText;
+		       	employee_edit = create_module_edit_employee (post_request);
 				break;
 		}
 
@@ -236,6 +242,13 @@ function read_file(){
 
 			driver_module_search.fetch_table_list_types (client_search);
 
+			// employeee
+			employee_search.set_mod_edit (employee_edit);
+			driver_module_search.fetch_table_list_types (employee_search);
+
+			employee_edit.set_mod_search (employee_search);
+			//employee_register.set_mod_search (employee_search);
+
 
 			// sale
 			sale.set_mod_search_vehicle (vehicle_search);
@@ -245,9 +258,7 @@ function read_file(){
 			sale_search.set_mod_payment (payment);
 			driver_module_search.fetch_table_list_types (sale_search);
 
-			// employeee
-			//employee_search.set_mod_edit (client_edit);
-			driver_module_search.fetch_table_list_types (employee_search);
+
 
 			// show selected
 			show_module (selected_module);
@@ -382,14 +393,14 @@ function init()
 		}
 	);
 
-	/*document.getElementById("btn_goto_employee_edit").addEventListener('click',
+	document.getElementById("btn_goto_employee_edit").addEventListener('click',
 		function (){
 			selected_module = 11;
 			show_module (selected_module);
 		}
 	);
 
-	document.getElementById("btn_goto_employee_register").addEventListener('click',
+	/*document.getElementById("btn_goto_employee_register").addEventListener('click',
 		function (){
 			selected_module = 12;
 			show_module (selected_module);
@@ -427,7 +438,7 @@ function init()
 	available_modules[4] = client_edit_div;
 	available_modules[5] = client_register_div;
 	available_modules[6] = sale_div;
-	//available_modules[7] = sale_div;
+	//available_modules[7] = dialog;
 	available_modules[8] = sale_search_div;
 	available_modules[9] = payment_div;
 	available_modules[10] = employee_search_div;

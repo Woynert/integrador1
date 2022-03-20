@@ -32,17 +32,18 @@ CREATE TABLE IF NOT EXISTS sales_pending
 CREATE TABLE IF NOT EXISTS sale_filter_search_column_data
 (
 	id        INT      AUTO_INCREMENT PRIMARY KEY,
+	event     CHAR(40) NULL DEFAULT NULL,
 	property  CHAR(50) NULL DEFAULT NULL,
 	datatype  INT      NULL DEFAULT NULL,
-	defvalue  CHAR(50) NULL DEFAULT NULL,
-	printname CHAR(50) NULL DEFAULT NULL
+	defvalue  CHAR(50) NULL DEFAULT NULL
+	-- printname CHAR(50) NULL DEFAULT NULL
 );
 
-INSERT INTO sale_filter_search_column_data (property, datatype, defvalue, printname)
+INSERT INTO sale_filter_search_column_data (event, property, datatype, defvalue)
 VALUES
-("cedula" , 0, '', "CEDULA"),
-("modelo" , 0, '', "MODELO"),
-("precio" , 1, '0', "PRECIO"),
-("estado" , 0, '', "ESTADO"),
-("created", 2, '', "CREATED")
+("FILTER","cedula" , 0, ''),
+("FILTER","modelo" , 0, ''),
+("FILTER","precio" , 1, '0'),
+("FILTER","estado" , 0, ''),
+("FILTER","created", 2, '')
 ;

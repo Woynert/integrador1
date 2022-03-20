@@ -1,6 +1,8 @@
 import {macro} from '../macro.js';
 import {driver_module_search} from './driver.js';
-//import {show_module} from '../index.js';
+import {show_module} from '../index.js';
+import {driver_module_edit} from '../edit/driver.js';
+
 //import {show_message} from '../index.js';
 
 export {create_module_search_employee};
@@ -112,10 +114,14 @@ function create_module_search_employee (post_request)
 		}
 	);
 
-	/*document.getElementById("srh_sale_btn_edit").addEventListener('click',
+	document.getElementById("srh_employee_btn_edit").addEventListener('click',
 		function(){
+			if (module.mod_edit){
+				show_module(11);
+				driver_module_edit.press_edit_btn_fetch(module.mod_edit);
+			}
 		}
-	);*/
+	);
 
 	module.init();
 

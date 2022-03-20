@@ -14,33 +14,57 @@ class driver_module_edit
 		// populate
 
 		var rows_type = module.mod_search.data_rows_type;
-        var types = {}
-
-        for (var i = 0; i < rows_type.length; i++)
-        {
-            types[rows_type[i].printname] = rows_type[i].datatype;
-        }
 
 		var tr;
 		var td;
 		var input;
 
-		for (var value in module.item)
-		{
+		// add id (non editable)
+
+		tr = document.createElement('tr');
+
+		// label
+
+		td = document.createElement('td');
+		td.innerHTML = "id";
+		tr.appendChild(td);
+
+		td = document.createElement('td');
+		input = document.createElement('input');
+		input.type = 'text';
+		input.disabled = "disabled";
+		input.value = module.item.id
+
+		td.appendChild(input);
+		tr.appendChild(td);
+
+		module.tbl_properties.appendChild(tr);
+		module.input_elements['id'] = input;
+
+		// editable values
+
+		for (var i = 0; i < rows_type.length; i++ ){
+
+			// only EDIT events
+
+			if (rows_type[i].event != "EDIT")
+				continue;
 
 			tr = document.createElement('tr');
 
+			// label
+
 			td = document.createElement('td');
-			td.classList.add("myprp");
-			td.innerHTML = value;
+			td.innerHTML = rows_type[i].property;
 			tr.appendChild(td);
 
-			td = document.createElement('td');
+			// input
 
+			td    = document.createElement('td');
 			input = document.createElement('input');
 
 			// set input type
-            switch (types[value])
+            switch (rows_type[i].datatype)
             {
                 case 0: // string
                     input.type = "text";
@@ -52,21 +76,16 @@ class driver_module_edit
 
                 case 2: // date
                     input.type = "date";
-                    //.replace(/\//g,"-")
                     break;
             }
 
-			input.value = module.item[value];
+			input.value = module.item[rows_type[i].property];
 			td.appendChild(input);
 			tr.appendChild(td);
 
-			// firt item "ID"
-			if (value == Object.keys(module.item)[0])
-			{
-				input.disabled = "disabled";
-			}
+			// add to list
 
-			module.input_elements[value] = input;
+			module.input_elements[rows_type[i].property] = input;
 
 			// append to resume table
 			module.tbl_properties.appendChild(tr);

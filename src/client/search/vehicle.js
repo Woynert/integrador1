@@ -3,7 +3,6 @@ import {macro} from '../macro.js';
 import {driver_module_search} from './driver.js';
 import {show_module} from '../index.js';
 import {driver_module_edit} from '../edit/driver.js';
-//import {press_edit_btn_fetch} from '../edit/vehicle.js';
 
 export {create_module_search_vehicle};
 
@@ -126,12 +125,6 @@ function create_module_search_vehicle (post_request)
 		}
 	);
 
-	/*document.getElementById("srh_vehicle_btn_confirm_selection").addEventListener('click',
-		function(){
-			//driver_module_search.fetch_table_list_with_filter(module);
-			console.log(module.get_selected_row());
-		}
-	);*/
 
 	module.init();
 

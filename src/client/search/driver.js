@@ -74,8 +74,6 @@ class driver_module_search
 			{
 				// show search result
 
-				console.log(rows);
-
 				// clear
 
 			    module.tbl_list.innerHTML = "";
@@ -273,101 +271,93 @@ class driver_module_search
 
 			tr = document.createElement('tr');
 
-			for (var value in rows[i])
+			// only FILTER event
+
+			if ((rows[i]["event"]) != "FILTER")
+				continue;
+
+
+			// checkbox
+
+			input      = document.createElement('input');
+			input.type = "checkbox";
+
+			module.input_filter[ rows[i]['property'] ] =
 			{
+				"check" : input,
+				"input" : null
+			};
 
-				// dont display default value
+			td = document.createElement('td');
+			td.appendChild(input);
+			tr.appendChild(td);
 
-				if (value == "defvalue")
-					continue;
 
-				td = document.createElement('td');
+			// label
 
-				// column name for property's type (see table_vehicle.sql)
+			td = document.createElement('td');
+			td.innerHTML = rows[i]['property'];
+			tr.appendChild(td);
 
-				if (value == "id")
-				{
-					// input_filter_checkbox
+
+			// input
+
+			input = null
+
+			switch (rows[i]['datatype'])
+			{
+				case 0: // string
 
 					input      = document.createElement('input');
-					input.type = "checkbox";
+					input.type = "text";
 
-					module.input_filter[ rows[i]['property'] ] =
-					{
-						"check" : input,
-						"input" : null
-					};
+					module.input_filter[ rows[i]['property'] ]["input"] = [input];
 
-					td.appendChild(input);
-				}
+					break;
 
-				else if (value == "datatype")
-				{
+				case 1: // int
 
-					// create respective input
+					input      = document.createElement('input');
+					input.type = "number";
 
-					switch (rows[i][value])
-					{
-						case 0: // string
+					module.input_filter[ rows[i]['property'] ]["input"] = [input];
 
-							input      = document.createElement('input');
-							input.type = "text";
+					break;
 
-							module.input_filter[ rows[i]['property'] ]["input"] = [input];
+				case 2: // date
+					input = document.createElement('div');
 
-							break;
+					var input_date_start = document.createElement('input');
+					var input_date_end   = document.createElement('input');
 
-						case 1: // int
+					input_date_start.type = "date";
+					input_date_end.type   = "date";
 
-							input      = document.createElement('input');
-							input.type = "number";
+					input_date_start.value = '1976-01-01';
+					input_date_end.value   = '2030-01-01';
 
-							module.input_filter[ rows[i]['property'] ]["input"] = [input];
+					input.appendChild(input_date_start);
+					input.appendChild(input_date_end);
 
-							break;
+					// column name for property's name (see table_vehicle.sql and server.js)
 
-						case 2: // date
-							input = document.createElement('div');
+					module.input_filter[ rows[i]['property'] ]["input"] =
+					[
+						input_date_start,
+						input_date_end
+					];
 
-							var input_date_start = document.createElement('input');
-							var input_date_end   = document.createElement('input');
+					break;
+			}
 
-							input_date_start.type = "date";
-							input_date_end.type   = "date";
-
-							input_date_start.value = '1976-01-01';
-							input_date_end.value   = '2030-01-01';
-
-							input.appendChild(input_date_start);
-							input.appendChild(input_date_end);
-
-							// column name for property's name (see table_vehicle.sql and server.js)
-
-							module.input_filter[ rows[i]['property'] ]["input"] =
-							[
-								input_date_start,
-								input_date_end
-							];
-
-							break;
-					}
-
-					td.appendChild(input);
-
-				}
-
-				else
-				{
-					td.innerHTML = rows[i][value];
-				}
-
+			if (input)
+			{
+				td = document.createElement('td');
+				td.appendChild(input);
 				tr.appendChild(td);
-
-
 			}
 
 			module.tbl_filter.appendChild(tr);
-
 
 		}
 

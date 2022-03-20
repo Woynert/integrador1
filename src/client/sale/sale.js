@@ -73,15 +73,15 @@ class module_sale
 		{
 			var rows = module.mod_search_vehicle.get_data_rows();
 
-			console.log("Selected vehicle id: " + rows[data].ID);
-			module.id_selected_vehicle = rows[data].ID;
+			console.log("Selected vehicle id: " + rows[data].id);
+			module.id_selected_vehicle = rows[data].id;
 
 			// set label
-			var format = rows[data].TIPO +" "+
-						rows[data].MARCA +" "+
-						rows[data].MODELO +" "+
-						rows[data].GENERACION +"<br>"+
-						rows[data].PRECIO +" $";
+			var format = rows[data].tipo_vehiculo +" "+
+						rows[data].marca  +" "+
+						rows[data].modelo +" "+
+						rows[data].generacion +"<br>"+
+						rows[data].precio +" $";
 
 			module.lbl_selected_vehicle.innerHTML = format;
 
@@ -94,16 +94,16 @@ class module_sale
 		{
 			var rows = module.mod_search_client.get_data_rows();
 
-			console.log("Selected client id: " + rows[data].ID);
-			module.id_selected_client = rows[data].ID;
+			console.log("Selected client id: " + rows[data].id);
+			module.id_selected_client = rows[data].id;
 
 			// set label
 
-			console.log(rows[data]);
+			//console.log(rows[data]);
 
-			var format = rows[data].NOMBRES +" "+
-						rows[data].APELLIDOS +"<br>"+
-						rows[data].CEDULA +" ";
+			var format = rows[data].nombres +" "+
+						rows[data].apellidos +"<br>"+
+						rows[data].cedula +" ";
 
 			module.lbl_selected_client.innerHTML = format;
 		}

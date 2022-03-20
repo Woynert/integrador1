@@ -31,8 +31,7 @@ class mod_post_request
 	    	var rows = JSON.parse(this.xhr.responseText);
 			var id   = rows.id_pkg
 
-	    	console.log("Recibido pkg " + id)
-			console.log(rows)
+	    	console.log("Recibido pkg " + id,rows);
 
 			// callback
 

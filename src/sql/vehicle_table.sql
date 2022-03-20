@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS vehicles
 	generacion    CHAR(50) NULL DEFAULT NULL,
 	placa         CHAR(50) NULL DEFAULT NULL,
 	condicion     CHAR(50) NULL DEFAULT 'NUEVO',
-	fecha         DATE NULL DEFAULT NULL,
+	fecha         DATETIME DEFAULT CURRENT_TIMESTAMP(),
 	precio        INT,
 	estado        CHAR(50) NULL DEFAULT 'DISPONIBLE'
 );
@@ -30,23 +30,31 @@ CREATE TABLE IF NOT EXISTS vehicles
 CREATE TABLE IF NOT EXISTS vehicle_column_data
 (
 	id        INT      AUTO_INCREMENT PRIMARY KEY,
+	event     CHAR(40) NULL DEFAULT NULL,
 	property  CHAR(50) NULL DEFAULT NULL,
 	datatype  INT      NULL DEFAULT NULL,
-	defvalue  CHAR(50) NULL DEFAULT NULL,
-	printname CHAR(50) NULL DEFAULT NULL
+	defvalue  CHAR(50) NULL DEFAULT NULL
+	-- printname CHAR(50) NULL DEFAULT NULL
 );
 
-INSERT INTO vehicle_column_data (property, datatype, defvalue, printname)
+INSERT INTO vehicle_column_data (event, property, datatype, defvalue)
 VALUES
-("tipo_vehiculo", 0, '', "TIPO"),
-("marca"        , 0, '', "MARCA"),
-("modelo"       , 0, '', "MODELO"),
-("generacion"   , 1, '', "GENERACION"),
-("placa"        , 0, '', "PLACA"),
-("condicion"    , 0, '', "CONDICION"),
-("fecha"        , 2, '', "FECHA"),
-("precio"       , 1, '0', "PRECIO"),
-("estado"       , 0, '', "ESTADO")
+("FILTER", "tipo_vehiculo", 0, ''),
+("FILTER", "marca"        , 0, ''),
+("FILTER", "modelo"       , 0, ''),
+("FILTER", "generacion"   , 1, ''),
+("FILTER", "placa"        , 0, ''),
+("FILTER", "condicion"    , 0, ''),
+("FILTER", "fecha"        , 2, ''),
+("FILTER", "precio"       , 1, '0'),
+("FILTER", "estado"       , 0, ''),
+("EDIT", "tipo_vehiculo", 0, ''),
+("EDIT", "marca"        , 0, ''),
+("EDIT", "modelo"       , 0, ''),
+("EDIT", "generacion"   , 1, ''),
+("EDIT", "placa"        , 0, ''),
+("EDIT", "condicion"    , 0, ''),
+("EDIT", "precio"       , 1, '0')
 ;
 
 

@@ -23,62 +23,70 @@ class driver_module_register
 		// populate
 
 		var rows_type = module.mod_search.data_rows_type;
-		var types = {}
-		//var defvalues = {}
-
-		for (var i = 0; i < rows_type.length; i++)
-		{
-			types[rows_type[i].printname] = rows_type[i].datatype;
-			//defvalues[rows_type[i].printname] = rows_type[i].defvalue;
-		}
-		//console.log(defvalues);
 
 		var tr;
 		var td;
 		var input;
 
-		for (var value in module.item)
-		{
+		// editable values
 
-			// first item "ID"
-			if (value == Object.keys(module.item)[0])
+		for (var i = 0; i < rows_type.length; i++ ){
+
+			// only EDIT events
+
+			if (rows_type[i].event != "EDIT")
 				continue;
+
 
 			tr = document.createElement('tr');
 
+			// label
+
 			td = document.createElement('td');
-			td.classList.add("myprp");
-			td.innerHTML = value;
+			td.innerHTML = rows_type[i].property;
 			tr.appendChild(td);
 
-			td = document.createElement('td');
+			// input
 
+			td    = document.createElement('td');
 			input = document.createElement('input');
 
 			// set input type
-			switch (types[value])
-			{
-				case 0: // string
-					input.type = "text";
-					break;
+            switch (rows_type[i].datatype)
+            {
+                case 0: // string
+                    input.type = "text";
+                    break;
 
-				case 1: // int
-					input.type = "number";
-					break;
+                case 1: // int
+                    input.type = "number";
+                    break;
 
-				case 2: // date
-					input.type = "date";
-					break;
-			}
+                case 2: // date
+                    input.type = "date";
+                    break;
+            }
 
-			//input.value = module.item[value];
+			//input.value = module.item[rows_type[i].property];
 			td.appendChild(input);
 			tr.appendChild(td);
 
-			module.input_elements[value] = input;
+			// add to list
+
+			module.input_elements[rows_type[i].property] = input;
 
 			// append to resume table
 			module.tbl_properties.appendChild(tr);
+		}
+
+
+	}
+
+	static reset_input(module)
+	{
+		for (var value in module.input_elements)
+		{
+			module.input_elements[value].value = '';
 		}
 	}
 
@@ -90,7 +98,7 @@ class driver_module_register
 
 		if (id >= 0)
 		{
-			driver_module_register.get_item_from_row(module);
+			//driver_module_register.get_item_from_row(module);
 			driver_module_register.populate_table_properties(module);
 		}
 	}
@@ -116,6 +124,7 @@ class driver_module_register
 			{
 				if (rows.data){
 					show_message("Completado", "El registro fue ejecutado correctamente.");
+					driver_module_register.reset_input(module);
 				}
 				else{
                     show_message("Error", "Hubo un error al realizar la operación.");
