@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Table Demo</title>
+	<link rel="icon" type="image/svg+xml" href="/favicon.svg" sizes="any">
+	<link rel="stylesheet" href="./style.css">
+	<script type="module" src="./session_manager.js"></script>
+</head>
+<body>                                              	
+
+	<div class="header">
+		<p>Sistema de Informacion Concesionaria</p>
+	</div>
+
+
+
+	<div class="separator">
+
+		<!-- menu -->
+
+		<div id="module_selection" class="separator_child">
+
+			<div class="module_subtitle">Login</div>
+			<button id="btn_goto_login" class="btn_module">Login</button>
+			<button id="btn_goto_password_recovery" class="btn_module">Recuperar contraseña</button>
+			
+		</div>
+
+		<!-- content -->
+	
+		<div class="separator_child ">
+
+			<div class="floating_message" id="floating_message">
+				<div>
+					<b></b>
+					<p></p>
+				</div>
+			</div>
+
+			<!-- modules -->
+			
+			<div id="module_container" class="module_container" >
+				<div id="module_login"></div>
+				<div id="module_password_recovery"></div>
+			</div>
+
+		</div>
+	</div>
+	
+</body>
+</html>

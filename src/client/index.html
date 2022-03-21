@@ -8,18 +8,11 @@
 </head>
 <body>                                              	
 
-	<div class="header">
-		<p>Sistema de Informacion Concesionaria</p>
-	</div>
+	<!-- menu -->
 
-
-
-	<div class="separator">
-
-		<!-- menu -->
-
-		<div id="module_selection" class="separator_child">
-
+	<div class="container_module_selection">
+		<div></div>
+		<div class="module_selection">
 			<div class="module_subtitle">Ventas</div>
 			<button id="btn_goto_sale"   class="btn_module">Vender Vehiculo</button>
 			<button id="btn_goto_sale_search" class="btn_module">Ventas</button>
@@ -34,49 +27,60 @@
 			<button id="btn_goto_client_search"   class="btn_module">Buscar Cliente</button>
 			<button id="btn_goto_client_edit"     class="btn_module">Editar Datos Cliente</button>
 			<button id="btn_goto_client_register" class="btn_module">Registrar Cliente</button>
+			
 			<div class="module_subtitle">Empleados</div>
 			<button id="btn_goto_employee_search"   class="btn_module">Buscar Empleado</button>
 			<button id="btn_goto_employee_edit"     class="btn_module">Editar Datos Empleados</button>
 			<button id="btn_goto_employee_register" class="btn_module">Registrar Empleados</button>
 			
 		</div>
+	</div>
 
-		<!-- content -->
-	
-		<div class="separator_child ">
+	<!-- header -->
 
-			<div class="floating_message" id="floating_message">
-				<div>
-					<b></b>
-					<p></p>
-				</div>
+	<div class="header">
+		<p>Sistema de Informacion Concesionaria</p>
+
+		<!-- user info -->
+		
+		<button id="btn_logout">Cerrar Sesión</button>
+	</div>
+
+	<!-- content -->
+
+	<div class="content_container">
+
+		<div class="floating_message" id="floating_message">
+			<div>
+				<b></b>
+				<p></p>
 			</div>
-
-
-			<div id="module_dialog_picker"></div>
-
-			<!-- modules -->
-			
-			<div id="module_container" class="module_container" >
-				<div id="module_vehicle_search"></div>
-				<div id="module_vehicle_edit"></div>
-				<div id="module_vehicle_register"></div>
-				
-				<div id="module_client_search"></div>
-				<div id="module_client_edit"></div>
-				<div id="module_client_register"></div>
-
-				<div id="module_employee_search"></div>
-				<div id="module_employee_edit"></div>
-				<div id="module_employee_register"></div>
-				
-				<div id="module_sale"></div>
-				<div id="module_sale_search"></div>
-				<div id="module_payment"></div>
-				
-			</div>
-
 		</div>
+
+
+		<div id="module_dialog_picker" style="display: none;"></div>
+
+		<!-- modules -->
+		
+		<div id="module_container" class="module_container" >
+			<div id="module_vehicle_search"></div>
+			<div id="module_vehicle_edit"></div>
+			<div id="module_vehicle_register"></div>
+			
+			<div id="module_client_search"></div>
+			<div id="module_client_edit"></div>
+			<div id="module_client_register"></div>
+
+			<div id="module_employee_search"></div>
+			<div id="module_employee_edit"></div>
+			<div id="module_employee_register"></div>
+			
+			<div id="module_sale"></div>
+			<div id="module_sale_search"></div>
+			<div id="module_payment"></div>
+			
+		</div>
+
 	</div>
 	
 </body>

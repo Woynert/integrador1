@@ -50,6 +50,10 @@ app.post ('/endpoint', function(req, res)
 	switch (id)
 	{
 
+		case macro.LOGIN:
+			sql = "call login('" + data.user + "','" + data.password + "');"
+			break;
+
 		case macro.VEHICLE_GET_COLUMN_DATA:
 
 			sql = "SELECT * FROM vehicle_column_data";
@@ -262,7 +266,6 @@ app.post ('/endpoint', function(req, res)
 			console.log("WARNING: invalid id");
 			return;
 	}
-
 
 	console.log('\n');
 	console.log(req.body.id);

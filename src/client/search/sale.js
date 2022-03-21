@@ -155,7 +155,7 @@ function create_module_search_sale (post_request)
 			module.mod_payment.setup(item);
 
 			// show module payment
-			show_module(9);
+			show_module('payment');
 		}
 	);
 

@@ -117,7 +117,7 @@ function create_module_search_employee (post_request)
 	document.getElementById("srh_employee_btn_edit").addEventListener('click',
 		function(){
 			if (module.mod_edit){
-				show_module(11);
+				show_module('employee_edit');
 				driver_module_edit.press_edit_btn_fetch(module.mod_edit);
 			}
 		}

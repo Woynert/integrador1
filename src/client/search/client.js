@@ -117,7 +117,7 @@ function create_module_search_client (post_request)
 			//driver.mod_search.mod_edit
 
 			if (module.mod_edit){
-				show_module(4);
+				show_module("client_edit");
 				driver_module_edit.press_edit_btn_fetch(module.mod_edit);
 			}
 		}

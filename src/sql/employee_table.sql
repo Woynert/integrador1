@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS employees
     cedula               CHAR(250) NULL DEFAULT NULL,
     correo               CHAR(250) NULL DEFAULT NULL,
     fecha_nacimiento     DATE NULL DEFAULT NULL,
-    fecha_registro       DATETIME NULL DEFAULT NULL,
+	fecha_registro       DATETIME DEFAULT CURRENT_TIMESTAMP(),
     role                 INT,
     password             CHAR(250) NULL DEFAULT NULL
 );

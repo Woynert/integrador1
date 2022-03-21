@@ -17,7 +17,8 @@ CREATE TABLE IF NOT EXISTS clients
     cedula               CHAR(250) NULL DEFAULT NULL,
     correo               CHAR(250) NULL DEFAULT NULL,
     fecha_nacimiento     DATE NULL DEFAULT NULL,
-    fecha_registro       DATETIME DEFAULT CURRENT_TIMESTAMP());
+    fecha_registro       DATETIME DEFAULT CURRENT_TIMESTAMP()
+);
 
 -- Data type
 -- 0 string

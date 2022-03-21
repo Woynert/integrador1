@@ -1,0 +1,1 @@
+pkg install coreutils curl debianutils findutils git grep lighttpd man mariadb nano nodejs openssh termux-services tree unzip wget

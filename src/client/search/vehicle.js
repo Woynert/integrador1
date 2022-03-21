@@ -119,7 +119,7 @@ function create_module_search_vehicle (post_request)
 			//driver.mod_search.mod_edit
 
 			if (module.mod_edit){
-				show_module(1);
+				show_module('vehicle_edit');
 				driver_module_edit.press_edit_btn_fetch(module.mod_edit);
 			}
 		}
