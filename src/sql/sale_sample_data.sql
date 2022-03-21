@@ -3,12 +3,17 @@ USE integrador;
 
 -- sample data
 
-INSERT INTO sales_pending (
+call sales_pending_new(5,3,7,'',25);
+call sales_pending_new(2,1,1,'',0);
+call sales_pending_new(1,1,2,'',50);
+
+/*INSERT INTO sales (
 	id_client,
-	id_vehicle
+	id_employee,
+	id_vehicle,
 )
 VALUES
 (5, 7),
 (2, 1)
-;
+;*/
 

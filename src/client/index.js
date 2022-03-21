@@ -1,6 +1,8 @@
 
 import {get_siblings,
-		get_cookie} from './utilities/misc.js';
+		get_cookie,
+		delete_cookie} from './utilities/misc.js';
+
 import {create_driver_post_request} from './post_request.js';
 
 import {driver_module_search} from './search/driver.js';
@@ -25,7 +27,8 @@ import {create_dialog_picker} from './sale/dialog_picker.js';
 import {create_module_payment} from './sale/payment.js';
 
 
-export {show_module,
+export {USER,
+		show_module,
 		show_message};
 
 // modules
@@ -38,20 +41,7 @@ var module_container;
 
 // buttons
 
-var btn_logout;
-/*var btn_goto_vehicle_search;
-var btn_goto_vehicle_edit;
-var btn_goto_vehicle_register;
-var btn_goto_client_search;
-var btn_goto_client_edit;
-var btn_goto_client_register;
-var btn_goto_sale;
-var btn_goto_payment;
-var btn_goto_sale_search;
-var btn_goto_employee_search;
-var btn_goto_employee_edit;
-var btn_goto_employee_register;*/
-
+//var btn_logout;
 var btns = {};
 
 // vehicle
@@ -128,20 +118,20 @@ const files =
 
 const elements_by_module = {};
 
-elements_by_module.vehicle_search   = ['btn_goto_vehicle_search'];
+elements_by_module.vehicle_search   = ['btn_goto_vehicle_search', 'subtitle_vehicle'];
 elements_by_module.vehicle_edit     = ['btn_goto_vehicle_edit'];
 elements_by_module.vehicle_register = ['btn_goto_vehicle_register'];
 
-elements_by_module.client_search   = ['btn_goto_client_search'];
+elements_by_module.client_search   = ['btn_goto_client_search', 'subtitle_client'];
 elements_by_module.client_edit     = ['btn_goto_client_edit'];
 elements_by_module.client_register = ['btn_goto_client_register'];
 
 elements_by_module.sale          = ['btn_goto_sale'];
 elements_by_module.dialog_picker = [''];
-elements_by_module.sale_search   = ['btn_goto_sale_search'];
+elements_by_module.sale_search   = ['btn_goto_sale_search', 'subtitle_sale'];
 elements_by_module.payment       = ['btn_goto_payment'];
 
-elements_by_module.employee_search   = ['btn_goto_employee_search'];
+elements_by_module.employee_search   = ['btn_goto_employee_search', 'subtitle_employee'];
 elements_by_module.employee_edit     = ['btn_goto_employee_edit'];
 elements_by_module.employee_register = ['btn_goto_employee_register'];
 
@@ -152,7 +142,7 @@ var current_loading_file = 0;
 
 // session
 
-var user = {}
+const USER = {}
 
 // wait till fully loaded
 
@@ -165,10 +155,20 @@ if (document.readyState == "complete")
 	console.log(get_cookie("userlastname"));
 	console.log(get_cookie("userrole"));
 
-	user.id       = get_cookie("userid");
-	user.name     = get_cookie("username");
-	user.lastname = get_cookie("userlastname");
-	user.role     = get_cookie("userrole");
+	USER.id       = get_cookie("userid");
+	USER.name     = get_cookie("username");
+	USER.lastname = get_cookie("userlastname");
+	USER.role     = get_cookie("userrole");
+
+	// not loged in -> go back to login
+	if (!USER.role)
+	{
+		window.location.replace(window.location.origin);
+		return;
+	}
+
+	document.getElementById("header_userinfo").innerHTML =
+	USER.name.toUpperCase() + " " + USER.lastname.toUpperCase();
 
 	files_to_load_by_role();
 
@@ -177,7 +177,7 @@ if (document.readyState == "complete")
 
 function files_to_load_by_role()
 {
-	switch (user.role)
+	switch (USER.role)
 	{
 		// ADMIN
 		case '0':
@@ -245,12 +245,6 @@ function load_file(url)
 function read_file(){
     if (reader.readyState == 4)
     {
-
-		//console.log("my files");
-		//console.log(files[files_to_load[current_loading_file]]);
-		//console.log(files['vehicle_search']);
-		//console.log("my reader response");
-		//console.log(reader.responseText);
 
 		switch (files[files_to_load[current_loading_file]])
 		{
@@ -342,7 +336,6 @@ function read_file(){
 		// next
 		if (current_loading_file < files_to_load.length-1)
 		{
-			console.log(1);
 			current_loading_file += 1;
 			load_file(files[files_to_load[current_loading_file]]);
 		}
@@ -446,7 +439,7 @@ function show_message(title, text)
 		clearTimeout(message_timeout);
 	}
 
-	setTimeout(
+	message_timeout = setTimeout(
 		function()
 		{
 			div_message.style.display = 'none';
@@ -462,112 +455,27 @@ function set_btn_events()
 	if (btn_logout)
 	btn_logout.addEventListener('click',
 		function (){
+			// delete cookies
+			delete_cookie ("userrole");
+
+			// go to login
 			window.location.replace(window.location.origin);
 		}
 	);
 
-	// menu buttons
 
-	/*var btn;
-	btn = document.getElementByName
-
-	if (btns.btn_goto_vehicle_search)
-	btns.btn_goto_vehicle_search.addEventListener('click',
-		function (){
-			selected_module = 'vehicle_search';
-			show_module (selected_module);
-		});
-
-	if (btns.btn_goto_vehicle_edit)
-	btns.btn_goto_vehicle_edit.addEventListener('click',
-		function (){
-			selected_module = 'vehicle_edit';
-			show_module (selected_module);
-		});
-
-	if (btns.btn_goto_vehicle_register)
+	// special events on module change
+	/*if (btns.btn_goto_vehicle_register)
 	btns.btn_goto_vehicle_register.addEventListener('click',
-		function (){
-			selected_module = 2;
-			show_module (selected_module);
 			driver_module_register.press_reg_btn_fetch (vehicle_register);
-		}
 	);
-
-	if (btns.btn_goto_client_search)
-	btns.btn_goto_client_search.addEventListener('click',
-		function (){
-			selected_module = 3;
-			show_module (selected_module);
-		}
-	);
-
-	if (btns.btn_goto_client_edit)
-	btns.btn_goto_client_edit.addEventListener('click',
-		function (){
-			selected_module = 4;
-			show_module (selected_module);
-		}
-	);
-
 	if (btns.btn_goto_client_register)
 	btns.btn_goto_client_register.addEventListener('click',
-		function (){
-			selected_module = 5;
-			show_module (selected_module);
 			driver_module_register.press_reg_btn_fetch (client_register);
-		}
 	);
-
-	if (btns.btn_goto_sale)
-	btns.btn_goto_sale.addEventListener('click',
-		function (){
-			selected_module = 6;
-			show_module (selected_module);
-		}
-	);
-
-	// 7 dialog picker
-
-	if (btns.btn_goto_sale_search)
-	btns.btn_goto_sale_search.addEventListener('click',
-		function (){
-			selected_module = 8;
-			show_module (selected_module);
-		}
-	);
-
-	if (btns.btn_goto_payment)
-	btns.btn_goto_payment.addEventListener('click',
-		function (){
-			selected_module = 9;
-			show_module (selected_module);
-		}
-	);
-
-	if (btns.btn_goto_employee_search)
-	btns.btn_goto_employee_search.addEventListener('click',
-		function (){
-			selected_module = 10;
-			show_module (selected_module);
-		}
-	);
-
-	if (btns.btn_goto_employee_edit)
-	btns.btn_goto_employee_edit.addEventListener('click',
-		function (){
-			selected_module = 11;
-			show_module (selected_module);
-		}
-	);
-
 	if (btns.btn_goto_employee_register)
 	btns.btn_goto_employee_register.addEventListener('click',
-		function (){
-			selected_module = 12;
-			show_module (selected_module);
 			driver_module_register.press_reg_btn_fetch (employee_register);
-		}
 	);*/
 }
 
@@ -612,7 +520,7 @@ function init()
 				// if it's a button
 				if (element.id.includes("btn_goto_"))
 				{
-					console.log("id: "+element.id + " " + files_to_load[i]);
+					//console.log("id: "+element.id + " " + files_to_load[i]);
 					let mod = files_to_load[i];
 
 					// make event
@@ -630,98 +538,6 @@ function init()
 
 	// button events
 	set_btn_events();
-
-	/*/ optional
-
-
-	for (var i = 0; i < files_to_load.length; i++)
-	{
-		switch (files_to_load[i])
-		{
-
-		case files.vehicle_search:
-			btn_goto_vehicle_search = document.getElementById('btn_goto_vehicle_search');
-			btn_goto_vehicle_search.style.display = "block";
-			break;
-
-		case files.vehicle_edit:
-			btn_goto_vehicle_edit = document.getElementById('btn_goto_vehicle_edit');
-			btn_goto_vehicle_edit.style.display = "block";
-			break;
-
-		case files.vehicle_register:
-			btn_goto_vehicle_register = document.getElementById('btn_goto_vehicle_register');
-			btn_goto_vehicle_register.style.display = "block";
-			break;
-
-		// client
-		case files.client_search:
-			btn_goto_client_search = document.getElementById('btn_goto_client_search');
-			btn_goto_client_search.style.display = "block";
-			break;
-
-		case files.client_edit:
-			btn_goto_client_edit = document.getElementById('btn_goto_client_edit');
-			btn_goto_client_edit.style.display = "block";
-			break;
-
-		case files.client_register:
-			btn_goto_client_register = document.getElementById('btn_goto_client_register');
-			btn_goto_client_register.style.display = "block";
-			break;
-
-		// payment
-		case files.sale:
-			btn_goto_sale = document.getElementById('btn_goto_sale');
-			btn_goto_sale.style.display = "block";
-			break;
-
-		//case files.dialog_picker:
-
-		case files.sale_search:
-			btn_goto_sale_search = document.getElementById('btn_goto_sale_search');
-			btn_goto_sale_search.style.display = "block";
-			break;
-
-		case files.payment:
-			btn_goto_payment = document.getElementById('btn_goto_payment');
-			btn_goto_payment.style.display = "block";
-			break;
-
-		// employee
-		case files.employee_search:
-			btn_goto_employee_search = document.getElementById('btn_goto_employee_search');
-			btn_goto_employee_search.style.display = "block";
-			break;
-
-		case files.employee_edit:
-			btn_goto_employee_edit = document.getElementById('btn_goto_employee_edit');
-			btn_goto_employee_edit.style.display = "block";
-			break;
-
-		case files.employee_register:
-			btn_goto_employee_register = document.getElementById('btn_goto_employee_register');
-			btn_goto_employee_register.style.display = "block";
-			break;
-
-		}
-	}
-
-	set_btn_events();*/
-
-	/*btn_logout = document.getElementById('btn_logout');
-	btn_goto_vehicle_search = document.getElementById('btn_goto_vehicle_search');
-	btn_goto_vehicle_edit = document.getElementById('btn_goto_vehicle_edit');
-	btn_goto_vehicle_register = document.getElementById('btn_goto_vehicle_register');
-	btn_goto_client_search = document.getElementById('btn_goto_client_search');
-	btn_goto_client_edit = document.getElementById('btn_goto_client_edit');
-	btn_goto_client_register = document.getElementById('btn_goto_client_register');
-	btn_goto_sale = document.getElementById('btn_goto_sale');
-	btn_goto_payment = document.getElementById('btn_goto_payment');
-	btn_goto_sale_search = document.getElementById('btn_goto_sale_search');
-	btn_goto_employee_search = document.getElementById('btn_goto_employee_search');
-	btn_goto_employee_edit = document.getElementById('btn_goto_employee_edit');
-	btn_goto_employee_register = document.getElementById('btn_goto_employee_register');*/
 
 	// get div modules
 

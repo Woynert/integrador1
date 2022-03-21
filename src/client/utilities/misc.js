@@ -1,6 +1,7 @@
 
 export {get_siblings,
-		get_cookie};
+		get_cookie,
+		delete_cookie};
 
 function get_siblings (elem) {
 
@@ -44,4 +45,17 @@ function get_cookie(cname)
 	}
 
 	return "";
+}
+
+
+function delete_cookie (name, path, domain)
+{
+	if (get_cookie( name ))
+	{
+		document.cookie =
+			name + "=" +
+			((path) ? ";path="+path:"")+
+			((domain)?";domain="+domain:"") +
+			";expires=Thu, 01 Jan 1970 00:00:01 GMT";
+	}
 }

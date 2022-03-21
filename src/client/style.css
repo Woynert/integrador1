@@ -100,6 +100,13 @@ td{
 	display: inline-block;
 }
 
+#header_userinfo{
+	display: inline-block;
+	position: fixed;
+	right: 6px;
+	top: 6px;
+}
+
 p{
 	margin: 0;
 }
@@ -133,8 +140,8 @@ p{
 .container_module_selection{
 	background: #A4AFB8;
 	position: fixed;
-	top: 0
-	left: 0
+	top: 0;
+	left: 0;
 	
 	width: 200px;
 	height: 100%;

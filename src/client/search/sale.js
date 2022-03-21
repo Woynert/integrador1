@@ -60,7 +60,7 @@ class module_search_sale
 
 		this.btn_edit_row = document.getElementById ("srh_sale_btn_edit_row");
 
-		this.tbl_resume.style.display = "none";
+		//this.tbl_resume.style.display = "none";
 		//this.btn_confirm_selection = document.getElementById ("srh_client_btn_confirm_selection");
 	}
 

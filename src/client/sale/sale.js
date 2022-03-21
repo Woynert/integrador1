@@ -1,6 +1,7 @@
 
 import {macro} from '../macro.js';
-import {show_message} from '../index.js';
+import {USER,
+		show_message} from '../index.js';
 import {driver_module_search} from '../search/driver.js';
 
 export {create_module_sale};
@@ -15,8 +16,9 @@ class module_sale
 		this.id_selected_client = null;
 
 		// elements
-		this.btn_invoke_vehicle;
 		this.btn_invoke_client;
+		this.btn_invoke_vehicle;
+		this.num_discount;
 		this.btn_send;
 
 		this.lbl_selected_vehicle;
@@ -32,8 +34,9 @@ class module_sale
 	init ()
 	{
 		// get elements
-		this.btn_invoke_vehicle = document.getElementById("sale_btn_invoke_vehicle");
 		this.btn_invoke_client = document.getElementById("sale_btn_invoke_client");
+		this.btn_invoke_vehicle = document.getElementById("sale_btn_invoke_vehicle");
+		this.num_discount = document.getElementById("sale_num_discount");
 		this.btn_send = document.getElementById("sale_btn_send");
 
 		this.lbl_selected_vehicle = document.getElementById("sale_lbl_selected_vehicle");
@@ -65,6 +68,7 @@ class module_sale
 
 		this.lbl_selected_vehicle.innerHTML = "Ningún vehiculo seleccionado";
 		this.lbl_selected_client.innerHTML = "Ningún cliente seleccionado";
+		this.num_discount.value = '';
     }
 
 	static callback_select_vehicle (module, data)
@@ -146,13 +150,27 @@ function create_module_sale(post_request)
         function(){
 
 			// send
-
-			console.log(module.id_selected_client);
-			console.log(module.id_selected_vehicle);
-
 			var value_list = {};
-			value_list["id_client"] = module.id_selected_client;
-			value_list["id_vehicle"] = module.id_selected_vehicle;
+			value_list["id_client"]   = module.id_selected_client;
+			value_list["id_employee"] = USER.id;
+			value_list["id_vehicle"]  = module.id_selected_vehicle;
+			value_list["discount"]    = module.num_discount.value;
+			value_list["responsible"] = ''; // depends on matriz
+
+			// check all input is filled
+			if ((value_list["id_client"]   == null) ||
+				(value_list["id_employee"] == null) ||
+				(value_list["id_vehicle"]  == null) ||
+				(value_list["discount"]    == ''))
+			{
+				show_message("Alerta","Por favor rellena todos los campos.");
+				return;
+			}
+			if (value_list["discount"] > 100)
+			{
+				show_message("Alerta","El descuento no puede exceder el 100%.");
+				return;
+			}
 
         	var postObj = {
         		id: macro.SALES_PENDING_NEW,
@@ -164,6 +182,8 @@ function create_module_sale(post_request)
 				{
 					if (rows.data){
 						show_message("Completado", "Solicitud de venta registrada correctamente.");
+			        	// clear
+			        	module.reset()
 					}
 					else{
 	                    show_message("Error", "Hubo un error al realizar la operación.");
@@ -171,9 +191,7 @@ function create_module_sale(post_request)
 				}
         	);
 
-        	// clear
 
-        	module.reset()
         }
     );
 

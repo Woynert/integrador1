@@ -15,23 +15,68 @@ DROP PROCEDURE IF EXISTS sale_cancel_payment;
 
 DELIMITER //
 CREATE PROCEDURE sales_pending_new (
-    IN ar_id_client  INT,
-    IN ar_id_vehicle INT
+    IN ar_id_client   INT,
+    IN ar_id_employee INT,
+    IN ar_id_vehicle  INT,
+    IN ar_responsible CHAR(50),
+    IN ar_discount_perce INT
 )
 BEGIN
 
-	-- TODO: check is available 'DISPONIBLE'
+	-- declare vars
 
+	DECLARE p_subtotal  INT;
+	DECLARE p_total     FLOAT;
+	DECLARE p_discount  FLOAT;
+	DECLARE p_tax       FLOAT;
+
+	DECLARE p_tax_perce INT;
+	SET @p_tax_perce = 3; -- static tax
+
+	-- TODO: check is available 'DISPONIBLE'
 	-- set is no longer available 'EN TRAMITE'
 
 	UPDATE vehicles
-	SET estado = 'EN TRAMITE'
-	WHERE id = ar_id_vehicle;
+	SET    estado = 'EN TRAMITE'
+	WHERE  id = ar_id_vehicle;
+
+	-- set vars
+
+	SET @p_subtotal = (
+		SELECT precio
+		FROM   vehicles
+		WHERE  id = ar_id_vehicle);
+
+	-- apply discount & taxes
+
+	SET @p_discount = @p_subtotal * (ar_discount_perce/100);
+	SET @p_tax      = @p_subtotal * (@p_tax_perce/100);
+
+	SET @p_total = @p_subtotal - @p_discount + @p_tax;
+	-- SELECT @p_subtotal, @p_discount, @p_tax, @p_total;
 
 	-- insert
 
-	INSERT INTO sales_pending (id_client, id_vehicle)
-	VALUES (ar_id_client, ar_id_vehicle);
+	INSERT INTO sales (
+		id_client,
+		id_employee,
+		id_vehicle,
+		responsible,
+		subtotal,
+		discount,
+		tax,
+		total
+	)
+	VALUES (
+		ar_id_client,
+		ar_id_employee,
+		ar_id_vehicle,
+		IF (ar_responsible = '', "concesionaria", ar_responsible),
+		@p_subtotal,
+		ar_discount_perce,
+		@p_tax_perce,
+		@p_total
+	);
 
 END ;
 //
@@ -45,7 +90,9 @@ CREATE PROCEDURE sales_pending_delete (
 )
 BEGIN
 
-	DELETE FROM sales_pending
+	-- TODO: Only delete sales with state 'PENDIENTE'
+
+	DELETE FROM sales
 	WHERE id = ar_id_sale;
 
 END ;
@@ -76,7 +123,7 @@ BEGIN
 		v.precio,
 		DATE_FORMAT(sp.created, '%Y-%m-%d') AS `created`
 	FROM
-		sales_pending sp,
+		sales sp,
 		clients c,
 		vehicles v
 	WHERE
@@ -100,7 +147,7 @@ CREATE PROCEDURE sale_confirm_payment (
 BEGIN
 
 	UPDATE
-		sales_pending
+		sales
 	SET
 		state  = "PAGADO",
 		payed  = CURRENT_TIMESTAMP(),
@@ -122,7 +169,7 @@ CREATE PROCEDURE sale_cancel_payment (
 BEGIN
 
 	UPDATE
-		sales_pending
+		sales
 	SET
 		state  = "CANCELADO",
 		payed  = NULL,

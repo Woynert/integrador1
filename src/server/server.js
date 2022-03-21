@@ -175,8 +175,11 @@ app.post ('/endpoint', function(req, res)
 		case macro.SALES_PENDING_NEW:
 
 			sql = "CALL sales_pending_new ( " +
-				data.id_client + ", "+
-				data.id_vehicle + ");";
+				data.id_client   + ", "+
+				data.id_employee + ", "+
+				data.id_vehicle  + ", '"+
+				data.responsible + "', "+
+				data.discount    + ");";
 
 			break;
 

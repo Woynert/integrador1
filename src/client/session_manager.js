@@ -1,5 +1,7 @@
 
-import {get_siblings} from './utilities/misc.js';
+import {get_siblings,
+        get_cookie,
+        delete_cookie} from './utilities/misc.js';
 import {create_driver_post_request} from './post_request.js';
 
 import {create_module_login}  from './session/login.js';
@@ -47,6 +49,16 @@ var current_loading_file = 0;
 document.onreadystatechange = function () {
 if (document.readyState == "complete")
 {
+	var userrole = get_cookie("userrole");
+
+    // already loged in -> go back to home
+    if (userrole)
+    {
+		console.log (userrole);
+        window.location.replace(window.location.origin + "/index.html");
+        return;
+    }
+
 	init();
 }}
 
