@@ -1,0 +1,11 @@
+*
+{
+  margin:0;
+  padding:0;
+  visibility: hidden;
+}
+
+#facture_main_viewer>*
+{
+    visibility: visible;
+}

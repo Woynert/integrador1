@@ -25,6 +25,7 @@ import {create_module_sale}   from './sale/sale.js';
 import {create_dialog_picker} from './sale/dialog_picker.js';
 
 import {create_module_payment} from './sale/payment.js';
+import {create_module_facture_viewer} from './sale/facture.js';
 
 
 export {USER,
@@ -75,6 +76,9 @@ var payment_div;
 var dialog_picker;
 var dialog_picker_div;
 
+var facture_viewer;
+var facture_viewer_div;
+
 // employee
 
 var employee_search;
@@ -106,10 +110,11 @@ const files =
 	client_edit     : './edit/client.html',
 	client_register : './register/client.html',
 
-	sale          : './sale/sale.html',
-	dialog_picker : './sale/dialog_picker.html',
-	sale_search   : './search/sale.html',
-	payment       : './sale/payment.html',
+	sale           : './sale/sale.html',
+	dialog_picker  : './sale/dialog_picker.html',
+	sale_search    : './search/sale.html',
+	payment        : './sale/payment.html',
+	facture_viewer : './sale/facture.html',
 
 	employee_search   : './search/employee.html',
 	employee_edit     : './edit/employee.html',
@@ -126,10 +131,11 @@ elements_by_module.client_search   = ['btn_goto_client_search', 'subtitle_client
 elements_by_module.client_edit     = ['btn_goto_client_edit'];
 elements_by_module.client_register = ['btn_goto_client_register'];
 
-elements_by_module.sale          = ['btn_goto_sale'];
-elements_by_module.dialog_picker = [''];
-elements_by_module.sale_search   = ['btn_goto_sale_search', 'subtitle_sale'];
-elements_by_module.payment       = ['btn_goto_payment'];
+elements_by_module.sale           = ['btn_goto_sale'];
+elements_by_module.dialog_picker  = [''];
+elements_by_module.sale_search    = ['btn_goto_sale_search', 'subtitle_sale'];
+elements_by_module.payment        = ['btn_goto_payment'];
+elements_by_module.facture_viewer = [''];
 
 elements_by_module.employee_search   = ['btn_goto_employee_search', 'subtitle_employee'];
 elements_by_module.employee_edit     = ['btn_goto_employee_edit'];
@@ -198,6 +204,7 @@ function files_to_load_by_role()
 			files_to_load.push('dialog_picker')
 			files_to_load.push('sale_search')
 			files_to_load.push('payment')
+			files_to_load.push('facture_viewer')
 			break;
 
 		// asesor comercial
@@ -223,6 +230,7 @@ function files_to_load_by_role()
 			//files_to_load.push('dialog_picker')
 			files_to_load.push('sale_search')
 			files_to_load.push('payment')
+			files_to_load.push('facture_viewer')
 			break;
 
 		default:
@@ -313,6 +321,11 @@ function read_file(){
 		       	payment = create_module_payment (post_request);
 				break;
 
+			case files.facture_viewer:
+				facture_viewer_div.innerHTML = reader.responseText;
+		       	facture_viewer = create_module_facture_viewer (post_request);
+				break;
+
 			// ./search/employee.html
 			case files.employee_search:
 				employee_search_div.innerHTML = reader.responseText;
@@ -394,8 +407,12 @@ function read_file(){
 
 			if (sale_search){
 				sale_search.set_mod_payment (payment);
+				sale_search.set_mod_facture_viewer (facture_viewer);
 				driver_module_search.fetch_table_list_types (sale_search);
 			}
+
+			//if (facture_viewer){
+			//}
 
 			// show selected
 			show_module (selected_module);
@@ -556,14 +573,13 @@ function init()
 	sale_search_div       = document.getElementById("module_sale_search");
 	dialog_picker_div     = document.getElementById("module_dialog_picker");
 	payment_div           = document.getElementById("module_payment");
+	facture_viewer_div    = document.getElementById("module_facture_viewer");
 	employee_search_div   = document.getElementById("module_employee_search");
 	employee_edit_div     = document.getElementById("module_employee_edit");
 	employee_register_div = document.getElementById("module_employee_register");
 
-	available_modules['vehicle_search'] =
-	vehicle_search_div;
-	available_modules['vehicle_edit'] =
-	vehicle_edit_div;
+	available_modules['vehicle_search'] = vehicle_search_div;
+	available_modules['vehicle_edit'] = vehicle_edit_div;
 	available_modules['vehicle_register'] = vehicle_register_div;
 	available_modules['client_search'] = client_search_div;
 	available_modules['client_edit'] = client_edit_div;
@@ -572,6 +588,7 @@ function init()
 	//available_modules[7] = dialog;
 	available_modules['sale_search'] = sale_search_div;
 	available_modules['payment'] = payment_div;
+	available_modules['facture_viewer'] = facture_viewer_div;
 	available_modules['employee_search'] = employee_search_div;
 	available_modules['employee_edit'] = employee_edit_div;
 	available_modules['employee_register'] = employee_register_div;
@@ -591,6 +608,7 @@ function init()
 	//dialog_picker_div.style.display = "none"; its display its managed by itself
 	sale_search_div.style.display = "none";
 	payment_div.style.display = "none";
+	facture_viewer_div.style.display = "none";
 
 	employee_search_div.style.display   = "none";
 	employee_edit_div.style.display     = "none";

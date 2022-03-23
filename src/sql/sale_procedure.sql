@@ -8,6 +8,7 @@ DROP PROCEDURE IF EXISTS sales_pending_delete;
 DROP PROCEDURE IF EXISTS sale_filter_search;
 DROP PROCEDURE IF EXISTS sale_confirm_payment;
 DROP PROCEDURE IF EXISTS sale_cancel_payment;
+DROP PROCEDURE IF EXISTS sale_get_facture_info;
 
 -- procedure
 
@@ -146,6 +147,8 @@ CREATE PROCEDURE sale_confirm_payment (
 )
 BEGIN
 
+	-- record payment
+
 	UPDATE
 		sales
 	SET
@@ -176,6 +179,53 @@ BEGIN
 		payment_method = NULL
 	WHERE
 		id = ar_id_sale
+	;
+
+END ;
+//
+DELIMITER ;
+
+-- facture
+
+DELIMITER //
+CREATE PROCEDURE sale_get_facture_info (
+	IN ar_id_sale INT
+)
+BEGIN
+
+	SELECT
+		s.id AS `id_sale`,
+		s.responsible, -- "Consecionaria Binaria Co."
+		DATE_FORMAT(s.created, '%Y-%m-%d') AS `created`,
+		DATE_FORMAT(s.payed, '%Y-%m-%d') AS `payed`,
+
+		c.nombres,
+		c.apellidos,
+		c.cedula,
+		c.domicilio,
+		c.telefono,
+
+		v.tipo_vehiculo,
+		v.marca,
+		v.modelo,
+		v.generacion,
+		v.placa,
+		v.condicion,
+
+		s.subtotal,
+		s.discount,
+		s.tax,
+		s.total
+	FROM
+		sales s,
+		clients c,
+		employees e,
+		vehicles v
+	WHERE
+		s.id          = ar_id_sale AND
+		s.id_client   = c.id AND
+		s.id_employee = e.id AND
+		s.id_vehicle  = v.id
 	;
 
 END ;

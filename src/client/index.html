@@ -3,7 +3,11 @@
 <head>
 	<title>Table Demo</title>
 	<link rel="icon" type="image/svg+xml" href="/favicon.svg" sizes="any">
-	<link rel="stylesheet" href="./style.css">
+	<link rel="stylesheet" href="./style.css" type="text/css">
+
+	<!-- Print -->
+	<link rel="stylesheet" href="./print.css" type="text/css" media="print">
+	
 	<script type="module" src="./index.js"></script>
 </head>
 <body>                                              	
@@ -15,7 +19,7 @@
 		<div class="module_selection">
 			<div id="subtitle_sale" class="module_subtitle">Ventas</div>
 			<button id="btn_goto_sale"   class="btn_module">Orden de compra</button>
-			<button id="btn_goto_sale_search" class="btn_module">Ventas</button>
+			<button id="btn_goto_sale_search" class="btn_module">Transacciones</button>
 			<button id="btn_goto_payment" class="btn_module">Pago</button>
 					
 			<div id="subtitle_vehicle" class="module_subtitle">Vehiculos</div>
@@ -79,6 +83,7 @@
 			<div id="module_sale"></div>
 			<div id="module_sale_search"></div>
 			<div id="module_payment"></div>
+			<div id="module_facture_viewer"></div>
 			
 		</div>
 

@@ -25,6 +25,7 @@ class module_search_sale
 		this.tbl_list;
 		this.tbl_resume;
 		this.btn_edit_row;
+		this.btn_see_facture;
 
 		this.tbl_filter;
 		this.input_filter = {};
@@ -35,6 +36,7 @@ class module_search_sale
 		this.mod_edit;
 		this.mod_register;
 		this.mod_payment;
+		this.mod_facture_viewer;
 		this.post_request;
 
 		// request
@@ -78,6 +80,10 @@ class module_search_sale
 
 	set_mod_payment(mod_payment){
 		this.mod_payment = mod_payment;
+	}
+
+	set_mod_facture_viewer(mod_facture_viewer){
+		this.mod_facture_viewer = mod_facture_viewer;
 	}
 
 	set_dom_element (dom_element){
@@ -163,6 +169,28 @@ function create_module_search_sale (post_request)
 	document.getElementById("srh_sale_btn_cancel_payment").addEventListener('click',
 		function(){
 			module_search_sale.cancel_payment (module);
+		}
+	);
+
+	document.getElementById("srh_sale_btn_see_facture").addEventListener('click',
+		function(){
+			// show facture
+
+			var rows = module.get_data_rows();
+            var table_item_id = module.get_selected_row();
+            var item = rows[table_item_id];
+
+			console.log(item.id);
+
+			// goto facture viewer
+			show_module('facture_viewer');
+			module.mod_facture_viewer.setup(item.id,
+				function(){
+					// return to this module
+					console.log("MY CALLBACK");
+					show_module('sale_search');
+				}
+			)
 		}
 	);
 

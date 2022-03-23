@@ -127,8 +127,9 @@ app.post ('/endpoint', function(req, res)
 			sql = 'call client_filter_search( "'
 			+ data['nombres']
 			+ '","' + data['apellidos']
-			+ '","' + data['domicilio']
 			+ '","' + data['cedula']
+			+ '","' + data['domicilio']
+			+ '","' + data['telefono']
 			+ '","' + data['correo']
 			+ '","' + data['fecha_nacimiento_start']
 			+ '","' + data['fecha_nacimiento_end']
@@ -263,6 +264,10 @@ app.post ('/endpoint', function(req, res)
 			sql = sql.slice(0, -1);
 			sql += ");";
 
+			break;
+
+		case macro.SALE_GET_FACTURE_INFO:
+			sql = "CALL sale_get_facture_info("+data.id_sale+")";
 			break;
 
 		default:

@@ -13,8 +13,9 @@ DELIMITER //
 CREATE PROCEDURE client_update_row (
     IN ar_nombres    CHAR(250),
     IN ar_apellidos  CHAR(250),
-    IN ar_domicilio  CHAR(250),
     IN ar_cedula     CHAR(250),
+    IN ar_domicilio  CHAR(250),
+    IN ar_telefono    CHAR(250),
     IN ar_correo     CHAR(250),
     IN ar_nacimiento DATE,
 	IN ar_id         INT
@@ -24,8 +25,9 @@ BEGIN
 	UPDATE clients
 	SET nombres   = ar_nombres,
 		apellidos = ar_apellidos,
-		domicilio = ar_domicilio,
 		cedula    = ar_cedula,
+		domicilio = ar_domicilio,
+		telefono   = ar_telefono,
 		correo    = ar_correo,
 		fecha_nacimiento = ar_nacimiento
 	WHERE id = ar_id;
@@ -40,8 +42,9 @@ DELIMITER //
 CREATE PROCEDURE client_register (
     IN ar_nombres    CHAR(250),
     IN ar_apellidos  CHAR(250),
-    IN ar_domicilio  CHAR(250),
     IN ar_cedula     CHAR(250),
+    IN ar_domicilio  CHAR(250),
+    IN ar_telefono    CHAR(250),
     IN ar_correo     CHAR(250),
     IN ar_nacimiento DATE
 )
@@ -51,8 +54,9 @@ BEGIN
 		(
 		nombres,
 		apellidos ,
-		domicilio ,
 		cedula    ,
+		domicilio ,
+		telefono   ,
 		correo    ,
 		fecha_nacimiento
 		)
@@ -61,8 +65,9 @@ BEGIN
 		(
 		ar_nombres,
 		ar_apellidos ,
-		ar_domicilio ,
 		ar_cedula    ,
+		ar_domicilio ,
+		ar_telefono   ,
 		ar_correo    ,
 		ar_nacimiento
 		);
@@ -77,8 +82,9 @@ DELIMITER //
 CREATE PROCEDURE client_filter_search (
 	IN ar_nombres           CHAR(250),
 	IN ar_apellidos         CHAR(250),
-	IN ar_domicilio         CHAR(250),
 	IN ar_cedula            CHAR(250),
+	IN ar_domicilio         CHAR(250),
+	IN ar_telefono           CHAR(250),
 	IN ar_correo            CHAR(250),
 	IN ar_nacimiento_inicio DATE,
 	IN ar_nacimiento_fin    DATE,
@@ -91,8 +97,9 @@ BEGIN
 		id,
 		nombres,
 		apellidos,
-		domicilio,
 		cedula,
+		domicilio,
+		telefono,
 		correo,
 		DATE_FORMAT(fecha_nacimiento, '%Y-%m-%d') AS `fecha_nacimiento`,
 		DATE_FORMAT(fecha_registro, '%Y-%m-%d') AS `fecha_registro`
@@ -100,8 +107,9 @@ BEGIN
 	WHERE
 	nombres    LIKE CONCAT('%',ar_nombres,'%')   AND
 	apellidos  LIKE CONCAT('%',ar_apellidos,'%') AND
-	domicilio  LIKE CONCAT('%',ar_domicilio,'%') AND
 	cedula     LIKE CONCAT('%',ar_cedula,'%')    AND
+	domicilio  LIKE CONCAT('%',ar_domicilio,'%') AND
+	telefono    LIKE CONCAT('%',ar_telefono,'%')    AND
 	correo     LIKE CONCAT('%',ar_correo,'%')    AND
 	fecha_nacimiento BETWEEN ar_nacimiento_inicio AND ar_nacimiento_fin AND
 	fecha_registro   BETWEEN ar_registro_inicio   AND ar_registro_fin
