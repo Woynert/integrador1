@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="97.163124mm"
+   height="84.81662mm"
+   viewBox="0 0 97.163124 84.81662"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   sodipodi:docname="user.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:snap-bbox="false"
+     inkscape:snap-object-midpoints="true"
+     inkscape:zoom="1.28"
+     inkscape:cx="138.67188"
+     inkscape:cy="190.625"
+     inkscape:window-width="1902"
+     inkscape:window-height="1004"
+     inkscape:window-x="5"
+     inkscape:window-y="5"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs2" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-27.361347,-43.8237)">
+    <circle
+       style="fill:#ffffff;stroke:none;stroke-width:0.264583"
+       id="path846"
+       cx="75.942909"
+       cy="69.480835"
+       r="25.657135" />
+    <path
+       style="fill:#ffffff;stroke:none;stroke-width:0.264583"
+       id="path848"
+       sodipodi:type="arc"
+       sodipodi:cx="-75.942909"
+       sodipodi:cy="-128.64032"
+       sodipodi:rx="48.581562"
+       sodipodi:ry="48.581562"
+       sodipodi:start="0"
+       sodipodi:end="3.1415927"
+       sodipodi:open="true"
+       sodipodi:arc-type="arc"
+       d="m -27.361347,-128.64032 a 48.581562,48.581562 0 0 1 -24.290782,42.072867 48.581562,48.581562 0 0 1 -48.581561,-10e-7 48.581562,48.581562 0 0 1 -24.29078,-42.072866"
+       transform="scale(-1)" />
+  </g>
+</svg>

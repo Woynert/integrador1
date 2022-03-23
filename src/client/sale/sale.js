@@ -1,15 +1,18 @@
 
 import {macro} from '../macro.js';
+import {module_template} from '../module.js';
 import {USER,
-		show_message} from '../index.js';
+		show_message,
+		in_creator} from '../index.js';
 import {driver_module_search} from '../search/driver.js';
 
 export {create_module_sale};
 
-class module_sale
+class module_sale extends module_template
 {
 	constructor()
 	{
+		super();
 
 		// transaccional
 		this.id_selected_vehicle = null;
@@ -69,6 +72,8 @@ class module_sale
 		this.lbl_selected_vehicle.innerHTML = "Ningún vehiculo seleccionado";
 		this.lbl_selected_client.innerHTML = "Ningún cliente seleccionado";
 		this.num_discount.value = '';
+
+		in_creator.create(1, this.num_discount);
     }
 
 	static callback_select_vehicle (module, data)

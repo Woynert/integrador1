@@ -27,18 +27,20 @@ import {create_dialog_picker} from './sale/dialog_picker.js';
 import {create_module_payment} from './sale/payment.js';
 import {create_module_facture_viewer} from './sale/facture.js';
 
+import {input_creator} from './lib/input_creator.js';
 
 export {USER,
 		show_module,
-		show_message};
+		show_message,
+		in_creator};
 
 // modules
 
-//var selected_module = ''; // start on ventas by default
+var previous_module = '';
 var selected_module;
-//var available_modules = [];
 var available_modules = {};
 var module_container;
+const in_creator = new input_creator();
 
 // buttons
 
@@ -141,6 +143,8 @@ elements_by_module.employee_search   = ['btn_goto_employee_search', 'subtitle_em
 elements_by_module.employee_edit     = ['btn_goto_employee_edit'];
 elements_by_module.employee_register = ['btn_goto_employee_register'];
 
+const objects_module = {};
+// declared after loading
 
 var files_to_load = []
 
@@ -414,6 +418,24 @@ function read_file(){
 			//if (facture_viewer){
 			//}
 
+			objects_module.vehicle_search   = vehicle_search;
+			objects_module.vehicle_edit     = vehicle_edit;
+			objects_module.vehicle_register = vehicle_register;
+
+			objects_module.client_search   = client_search;
+			objects_module.client_edit     = client_edit;
+			objects_module.client_register = client_register;
+
+			objects_module.sale           = sale;
+			objects_module.dialog_picker  = dialog_picker;
+			objects_module.sale_search    = sale_search;
+			objects_module.payment        = payment;
+			objects_module.facture_viewer = facture_viewer;
+
+			objects_module.employee_search   = employee_search;
+			objects_module.employee_edit     = employee_edit;
+			objects_module.employee_register = employee_register;
+
 			// show selected
 			show_module (selected_module);
 		}
@@ -421,10 +443,21 @@ function read_file(){
     }
 }
 
-function show_module(module_id)
+function show_module (new_module)
 {
+	if ((new_module == selected_module) &&
+		(previous_module != ''))
+	{
+		console.log("Same module");
+		return;
+	}
 
-	let div_selected_module = available_modules[module_id];
+	objects_module[selected_module].exit();
+	objects_module[new_module].enter();
+
+	// show module
+
+	let div_selected_module = available_modules[new_module];
 	let children = module_container.children;
 
 	for (var i = 0; i < children.length; i++)
@@ -439,6 +472,13 @@ function show_module(module_id)
 		case 1: //edit vehicle module
 	}*/
 
+	// current module
+	// console.log("current module");
+	// console.log(available_modules[module_id]);
+	// console.log(objects_module[module_id]);
+
+	previous_module = selected_module;
+	selected_module = new_module;
 }
 
 function show_message(title, text)
@@ -480,7 +520,6 @@ function set_btn_events()
 		}
 	);
 
-
 	// special events on module change
 	/*if (btns.btn_goto_vehicle_register)
 	btns.btn_goto_vehicle_register.addEventListener('click',
@@ -494,6 +533,7 @@ function set_btn_events()
 	btns.btn_goto_employee_register.addEventListener('click',
 			driver_module_register.press_reg_btn_fetch (employee_register);
 	);*/
+
 }
 
 function init()
@@ -543,8 +583,8 @@ function init()
 					// make event
 				    element.addEventListener('click',
 				        function (){
-				            selected_module = mod;
-				            show_module (selected_module);
+				            //selected_module = mod;
+				            show_module (mod);
 				        }
 				    );
 				}

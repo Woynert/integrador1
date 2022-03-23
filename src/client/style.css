@@ -1,8 +1,12 @@
-body, html, button, input {
+body, html, button, input, select {
     font-family: sans-serif;
     font-size: 1.01em;
 }
 
+b{
+	margin-bottom: 5px;
+	display: block;
+}
 
 body{
     margin: 0 !important;
@@ -56,6 +60,20 @@ button:active{
 	border-color: #1E4B71;
 }
 
+.header_user{
+	display: inline-block;
+	position: fixed;
+	right: 6px;
+	top: 6px;
+	height: inherit;
+}
+
+.header_icon_user{
+	display: inline-block;
+	height: 50%;
+	/*margin-right: 5px;*/
+}
+
 td{
 	padding-top: 2px;
 	padding-bottom: 2px;
@@ -102,9 +120,6 @@ td{
 
 #header_userinfo{
 	display: inline-block;
-	position: fixed;
-	right: 6px;
-	top: 6px;
 }
 
 p{
@@ -135,6 +150,10 @@ p{
 	height: 100%;
 	padding-left: 200px;
 	padding-top: 32px;
+}
+.content_content{
+	max-width: 1000px;
+	margin: auto;
 }
 
 .container_module_selection{
@@ -236,6 +255,12 @@ p{
 	background: brown;
 }
 
+/* payment */
+#payment_details{
+	background: white;
+	padding: 5px;
+}
+
 /* facture_viewer */
 
 #facture_main_viewer{
@@ -264,7 +289,6 @@ p{
 }
 
 .facture_fmt_right{
-	/*display: inline-block;*/
 	float: right;
 }
 
@@ -273,4 +297,26 @@ p{
 	width: 100%;
 	display: block;
 	text-align: center;
+}
+
+.form_section{
+	background: white;
+	padding: 5px;
+}
+
+/* login */
+
+.session_content{
+	width: 400px;
+	
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 50px;
+}
+
+.login_tbx{
+	width: 100%;
+	height: 1.4em;
+	margin-top: 10px;
+	font-size: 1.2em;
 }

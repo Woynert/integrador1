@@ -1,4 +1,5 @@
 import {macro} from '../macro.js';
+import {module_template} from '../module.js';
 import {driver_module_search} from './driver.js';
 import {show_module} from '../index.js';
 import {driver_module_edit} from '../edit/driver.js';
@@ -7,10 +8,11 @@ import {driver_module_edit} from '../edit/driver.js';
 
 export {create_module_search_client};
 
-class module_search_client
+class module_search_client extends module_template
 {
 	constructor()
 	{
+		super();
 		// vars
 
 		this.selected_row = -1;

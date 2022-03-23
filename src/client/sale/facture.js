@@ -1,12 +1,14 @@
 import {macro} from '../macro.js';
+import {module_template} from '../module.js';
 import {show_message} from '../index.js';
 
 export {create_module_facture_viewer};
 
-class module_facture_viewer
+class module_facture_viewer extends module_template
 {
 	constructor()
 	{
+		super();
 		// vars
 
 		var id_sale;
@@ -72,30 +74,6 @@ class module_facture_viewer
 		console.log(module.facture);
 
 		var fct = module.facture;
-		/*var str = "<pre>" +
-		fct.nombres +"\n"+
-		fct.apellidos+"\n"+
-		fct.cedula+"\n"+
-		fct.condicion+"\n"+
-		fct.created+"\n"+
-		fct.discount+"\n"+
-		fct.domicilio+"\n"+
-		fct.generacion+"\n"+
-		fct.id_sale+"\n"+
-		fct.marca+"\n"+
-		fct.modelo+"\n"+
-		fct.nombres+"\n"+
-		fct.payed+"\n"+
-		fct.placa+"\n"+
-		fct.responsible+"\n"+
-		fct.subtotal+"\n"+
-		fct.tax+"\n"+
-		fct.telefono+"\n"+
-		fct.tipo_vehiculo+"\n"+
-		fct.total
-		+ "</pre>"
-		;*/
-
 		var str =
 		module.fmtaddcenter(" ") +
 		module.fmtaddcenter("CONCESIONARIA BIN CO") +

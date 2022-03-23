@@ -1,6 +1,8 @@
 
+
 import {get_siblings} from '../utilities/misc.js';
 
+import {in_creator} from '../index.js';
 
 export {driver_module_search};
 
@@ -19,15 +21,16 @@ class driver_module_search
 			if (module.input_filter[value]["check"].checked)
 			{
 
-				// check date
-				if (module.input_filter[value]["input"][0].type != "date")
+				// is date (metadata)
+				if (!module.input_filter[value]["input"][0].typedate)
 				{
-					value_list[value] = module.input_filter[value]["input"][0].value;
+					value_list[value] = in_creator.get_value(module.input_filter[value]["input"][0]);
 				}
 				else
 				{
 					value_list[value + "_start"] = module.input_filter[value]["input"][0].value;
 					value_list[value + "_end"  ] = module.input_filter[value]["input"][1].value;
+
 				}
 			}
 			else
@@ -309,7 +312,8 @@ class driver_module_search
 				case 0: // string
 
 					input      = document.createElement('input');
-					input.type = "text";
+					//input.type = "text";
+					in_creator.create(0, input);
 
 					module.input_filter[ rows[i]['property'] ]["input"] = [input];
 
@@ -318,7 +322,8 @@ class driver_module_search
 				case 1: // int
 
 					input      = document.createElement('input');
-					input.type = "number";
+					//input.type = "number";
+					in_creator.create(1, input);
 
 					module.input_filter[ rows[i]['property'] ]["input"] = [input];
 
@@ -330,11 +335,18 @@ class driver_module_search
 					var input_date_start = document.createElement('input');
 					var input_date_end   = document.createElement('input');
 
-					input_date_start.type = "date";
-					input_date_end.type   = "date";
+					//input_date_start.type = "date";
+					//input_date_end.type   = "date";
+
+					// meta data date
+					input_date_start.typedate = true;
+					input_date_end.typedate   = true;
+
+					in_creator.create(2, input_date_start);
+					in_creator.create(2, input_date_end);
 
 					input_date_start.value = '1976-01-01';
-					input_date_end.value   = '2030-01-01';
+					input_date_end.value = '2030-01-01';
 
 					input.appendChild(input_date_start);
 					input.appendChild(input_date_end);

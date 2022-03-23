@@ -1,12 +1,14 @@
 
+import {module_template} from '../module.js';
 import {driver_module_search} from '../search/driver.js';
 
 export {create_dialog_picker};
 
-class dialog_picker
+class dialog_picker extends module_template
 {
 	constructor()
 	{
+		super();
 
 		// vars
 		this.module_contained;

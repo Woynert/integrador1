@@ -1,12 +1,15 @@
 import {macro} from '../macro.js';
-import {show_message} from '../index.js';
+import {module_template} from '../module.js';
+import {show_message,
+		in_creator} from '../index.js';
 
 export {create_module_payment};
 
-class module_sale
+class module_payment extends module_template
 {
 	constructor()
 	{
+		super();
 
 		// vars
 		this.curret_item;
@@ -38,6 +41,20 @@ class module_sale
 		this.tbx_cvv           = document.getElementById("payment_tbx_cvv");
 		this.date_expiration   = document.getElementById("payment_date_expiration");
 		this.btn_submit        = document.getElementById("payment_btn_submit");
+
+
+		new Cleave(this.tbx_credit_number, {
+		    creditCard: true
+		});
+
+		new Cleave(this.date_expiration, {
+		    date: true,
+		    datePattern: ['m', 'y']
+		});
+
+
+
+
 	}
 
 	set_post_request (post_request){
@@ -108,7 +125,7 @@ class module_sale
 
 function create_module_payment (post_request)
 {
-	var module = new module_sale();
+	var module = new module_payment();
 	module.set_post_request(post_request);
 
 	module.init();
@@ -116,7 +133,7 @@ function create_module_payment (post_request)
 	// eventos
 	module.btn_submit.addEventListener('click',
         function(){
-        	module_sale.submit_payment(module);
+        	module_payment.submit_payment(module);
         }
     );
 

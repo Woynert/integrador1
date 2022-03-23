@@ -1,5 +1,7 @@
 
-import {show_message} from '../index.js';
+import {show_message,
+		show_module,
+		in_creator} from '../index.js';
 
 export {driver_module_edit}
 
@@ -10,6 +12,7 @@ class driver_module_edit
 		// clear
 
 		module.tbl_properties.innerHTML = "";
+		module.input_elements = {};
 
 		// populate
 
@@ -23,7 +26,7 @@ class driver_module_edit
 
 		tr = document.createElement('tr');
 
-		// label
+		// create disable id field
 
 		td = document.createElement('td');
 		td.innerHTML = "id";
@@ -31,7 +34,9 @@ class driver_module_edit
 
 		td = document.createElement('td');
 		input = document.createElement('input');
-		input.type = 'text';
+		in_creator.create(0, input);
+
+		//input.type = 'text';
 		input.disabled = "disabled";
 		input.value = module.item.id
 
@@ -41,7 +46,7 @@ class driver_module_edit
 		module.tbl_properties.appendChild(tr);
 		module.input_elements['id'] = input;
 
-		// editable values
+		// create editable values
 
 		for (var i = 0; i < rows_type.length; i++ ){
 
@@ -64,22 +69,39 @@ class driver_module_edit
 			input = document.createElement('input');
 
 			// set input type
+
+			in_creator.create(rows_type[i].datatype, input);
+
             switch (rows_type[i].datatype)
             {
                 case 0: // string
-                    input.type = "text";
-                    break;
+                case 1: // int
+                case 2: // date
+                	break;
+
+                case 3: // password
+                	input.type = "password";
+                	break;
+             }
+
+			// fill data
+
+			switch (rows_type[i].datatype)
+            {
+                case 0: // string
+					input.value = module.item[rows_type[i].property];
+                	break;
 
                 case 1: // int
-                    input.type = "number";
-                    break;
-
                 case 2: // date
-                    input.type = "date";
-                    break;
-            }
+					input.cleave.setRawValue( module.item[rows_type[i].property] );
+                	break;
 
-			input.value = module.item[rows_type[i].property];
+                case 3: // password
+                	break;
+             }
+
+
 			td.appendChild(input);
 			tr.appendChild(td);
 
@@ -114,7 +136,8 @@ class driver_module_edit
 
 		// extract values from inputs tags
 		for (var value in module.input_elements){
-			value_list[value] = module.input_elements[value].value;
+			//value_list[value] = module.input_elements[value].value;
+			value_list[value] = in_creator.get_value(module.input_elements[value]);
 		}
 
 		// create object
@@ -132,6 +155,16 @@ class driver_module_edit
 					show_message("Error", "Hubo un error al realizar la operación.");
 			}
 		);
+	}
+
+	static reset(module)
+	{
+
+		// delete elements
+		module.tbl_properties.innerHTML = "";
+
+		// empty list
+		module.input_elements = {};
 	}
 
 }

@@ -1,22 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Table Demo</title>
+	<title>Cons. Bin</title>
+	<meta charset="UTF-8">
 	<link rel="icon" type="image/svg+xml" href="/favicon.svg" sizes="any">
 	<link rel="stylesheet" href="./style.css" type="text/css">
 
 	<!-- Print -->
 	<link rel="stylesheet" href="./print.css" type="text/css" media="print">
 	
+	<script src="./lib/cleave.min.js"></script>
 	<script type="module" src="./index.js"></script>
 </head>
 <body>                                              	
-
+	<!--<script src="//cdn.jsdelivr.net/npm/eruda"></script>
+	<script>eruda.init();</script>
 	<!-- menu -->
 
 	<div class="container_module_selection">
 		<div></div>
 		<div class="module_selection">
+
+			<!-- testing -->
+			
 			<div id="subtitle_sale" class="module_subtitle">Ventas</div>
 			<button id="btn_goto_sale"   class="btn_module">Orden de compra</button>
 			<button id="btn_goto_sale_search" class="btn_module">Transacciones</button>
@@ -46,14 +52,18 @@
 		<p>Sistema de Informacion Concesionaria</p>
 
 		<!-- user info -->
-		
-		<button id="btn_logout">Cerrar Sesión</button>
-		<div id="header_userinfo" ></div>
+
+		<div class="header_user">
+			<img class="header_icon_user" src="./img/user.svg">
+			<div id="header_userinfo" ></div>
+			<button id="btn_logout">Cerrar Sesión</button>
+		</div>
 	</div>
 
 	<!-- content -->
 
 	<div class="content_container">
+	<div class="content_content">
 
 		<div class="floating_message" id="floating_message">
 			<div>
@@ -86,7 +96,7 @@
 			<div id="module_facture_viewer"></div>
 			
 		</div>
-
+	</div>
 	</div>
 	
 </body>

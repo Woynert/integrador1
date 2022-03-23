@@ -5,7 +5,6 @@
 	<h1 class="h1" id="h1">Transacción</h1>
 	
 	<b>Detalles de la transacción</b>
-    <!-- <div id="payment_container"> -->
 	<div id="payment_details">
 		<div id="payment_lbl_client">WHAYNER PORRAS 100716510</div>
 		<div id="payment_lbl_vehicle">TOYOTA SUTIN 2005</div>
@@ -14,40 +13,42 @@
 
 	<br>
 	<br>
-	<br>
 
 	<b>Metodo de pago</b>
-	<br>
-	<br>
-	
-	<select id="payment_cbx_method">
-	    <option value="paypal">PayPal</option>
-	    <option value="visa">Visa</option>
-	    <option value="mastercard">MasterCard</option>
-	</select>
-
-	<br>
-	<br>
-
-	<b></b>
-
 	<div>
-		Numero tarjeta de credito
+		<table>
+			<tr>
+				<td>Metodo de pago</td>
+				<td>
+		<select id="payment_cbx_method">
+		    <option value="paypal">PayPal</option>
+		    <option value="visa">Visa</option>
+		    <option value="mastercard">MasterCard</option>
+		</select>
+				</td>
+			</tr>
+			<tr>
+				<td>Numero Tarjeta</td>
+				<td>
 		<input id="payment_tbx_credit_number" type="text">
-		<br>
-
-		CVV
+				</td>
+			</tr>
+			<tr>
+				<td>CVV</td>
+				<td>
 		<input id="payment_tbx_cvv" type="text">
-		<br>
-	
-		Fecha de expiración
-		<input id="payment_date_expiration" type="date">
-
-		<br>
-		<button id="payment_btn_submit" >Confirmar</button>
-
-		
+				</td>
+			</tr>
+			<tr>
+				<td>Expiración</td>
+				<td>
+		<input id="payment_date_expiration" >
+				</td>
+			</tr>
+		</table>
 	</div>
+	<br>
+	<button id="payment_btn_submit" >Confirmar</button>
 
 </body>
 </Html>

@@ -14,37 +14,35 @@
 
 
 
-	<div class="separator">
 
-		<!-- menu -->
+	<!-- menu -->
 
-		<div id="module_selection" class="separator_child">
+	<div style="display: none;" id="module_selection" class="separator_child">
 
-			<div class="module_subtitle">Login</div>
-			<button id="btn_goto_login" class="btn_module">Login</button>
-			<button id="btn_goto_password_recovery" class="btn_module">Recuperar contraseña</button>
-			
+		<div class="module_subtitle">Login</div>
+		<button id="btn_goto_login" class="btn_module">Login</button>
+		<button id="btn_goto_password_recovery" class="btn_module">Recuperar contraseña</button>
+		
+	</div>
+
+	<!-- content -->
+
+	<div class="session_content">
+
+		<div class="floating_message" id="floating_message">
+			<div>
+				<b></b>
+				<p></p>
+			</div>
 		</div>
 
-		<!-- content -->
-	
-		<div class="separator_child ">
-
-			<div class="floating_message" id="floating_message">
-				<div>
-					<b></b>
-					<p></p>
-				</div>
-			</div>
-
-			<!-- modules -->
-			
-			<div id="module_container" class="module_container" >
-				<div id="module_login"></div>
-				<div id="module_password_recovery"></div>
-			</div>
-
+		<!-- modules -->
+		
+		<div id="module_container" class="module_container" >
+			<div id="module_login"></div>
+			<div id="module_password_recovery"></div>
 		</div>
+
 	</div>
 	
 </body>

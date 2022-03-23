@@ -1,5 +1,6 @@
 
-import {show_message} from '../index.js';
+import {show_message,
+		in_creator} from '../index.js';
 
 export {driver_module_register};
 
@@ -52,27 +53,30 @@ class driver_module_register
 			input = document.createElement('input');
 
 			// set input type
+			in_creator.create(rows_type[i].datatype, input);
+
             switch (rows_type[i].datatype)
             {
                 case 0: // string
-                    input.type = "text";
-                    break;
-
                 case 1: // int
-                    input.type = "number";
-                    break;
-
                 case 2: // date
-                    input.type = "date";
-                    break;
-            }
+                	break;
+
+                case 3: // password
+                	input.type = "password";
+                	break;
+			}
+
+            /*switch (rows_type[i].datatype)
+                case 0: // string
+                case 1: // int
+                case 2: // date*/
 
 			//input.value = module.item[rows_type[i].property];
 			td.appendChild(input);
 			tr.appendChild(td);
 
 			// add to list
-
 			module.input_elements[rows_type[i].property] = input;
 
 			// append to resume table
@@ -110,7 +114,9 @@ class driver_module_register
 		// extract values from inputs tags
 		for (var value in module.input_elements)
 		{
-			value_list[value] = module.input_elements[value].value;
+			//value_list[value] = module.input_elements[value].value;
+			value_list[value] = in_creator.get_value(module.input_elements[value]);
+			console.log(value_list[value]);
 		}
 
 		// create object
