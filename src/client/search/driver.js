@@ -309,6 +309,7 @@ class driver_module_search
 		var tr;
 		var td;
 
+		var checkbox;
 		var input;
 		var check;
 
@@ -329,18 +330,18 @@ class driver_module_search
 
 			// checkbox
 
-			input      = document.createElement('input');
-			input.type = "checkbox";
-			input.classList.add("srh_filter_checkbox");
+			checkbox = document.createElement('input');
+			checkbox.type = "checkbox";
+			checkbox.classList.add("srh_filter_checkbox");
 
 			module.input_filter[ rows[i]['property'] ] =
 			{
-				"check" : input,
+				"check" : checkbox,
 				"input" : null
 			};
 
 			td = document.createElement('td');
-			td.appendChild(input);
+			td.appendChild(checkbox);
 			tr.appendChild(td);
 
 
@@ -353,14 +354,12 @@ class driver_module_search
 
 			// input
 
-			input = null
-
 			switch (rows[i]['datatype'])
 			{
 				case 0: // string
 
 					input      = document.createElement('input');
-					//input.type = "text";
+					input.disabled = true;
 					in_creator.create(0, input);
 
 					module.input_filter[ rows[i]['property'] ]["input"] = [input];
@@ -370,7 +369,7 @@ class driver_module_search
 				case 1: // int
 
 					input      = document.createElement('input');
-					//input.type = "number";
+					input.disabled = true;
 					in_creator.create(1, input);
 
 					module.input_filter[ rows[i]['property'] ]["input"] = [input];
@@ -383,8 +382,8 @@ class driver_module_search
 					var input_date_start = document.createElement('input');
 					var input_date_end   = document.createElement('input');
 
-					//input_date_start.type = "date";
-					//input_date_end.type   = "date";
+					input_date_start.disabled = true;
+					input_date_end.disabled   = true;
 
 					// meta data date
 					input_date_start.typedate = true;
@@ -409,6 +408,20 @@ class driver_module_search
 
 					break;
 			}
+
+			// disable input on check
+
+			let inputarr = module.input_filter[ rows[i]['property'] ]["input"];
+
+			checkbox.addEventListener('change', (event) => {
+
+                var enabled = !event.currentTarget.checked;
+
+                for (var k = 0; k < inputarr.length; k++)
+                {
+                    inputarr[k].disabled = enabled;
+                }
+            });
 
 			if (input)
 			{

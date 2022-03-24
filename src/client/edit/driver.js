@@ -125,6 +125,8 @@ class driver_module_edit
                     break;
             }
 
+			// disable input on check
+
 			let inputarr = module.input_elements[rows_type[i].property];
 
 			checkbox.addEventListener('change', (event) => {
