@@ -105,10 +105,15 @@ DELIMITER ;
 DELIMITER //
 CREATE PROCEDURE sale_filter_search (
 	IN ar_cedula CHAR(250),
+	IN ar_modelo CHAR(250),
+	IN ar_precio_max INT,
+	IN ar_state      CHAR(250),
 	IN ar_fecha_inicio  DATE,
 	IN ar_fecha_fin     DATE
 )
 BEGIN
+
+	SELECT max(precio) INTO @precio_max FROM vehicles;
 
 	SELECT
 		sp.id,
@@ -130,7 +135,10 @@ BEGIN
 	WHERE
 		sp.id_client  = c.id AND
 		sp.id_vehicle = v.id AND
-		c.cedula   LIKE CONCAT('%',ar_cedula,'%') AND
+		c.cedula     LIKE CONCAT('%',ar_cedula,'%') AND
+		v.modelo     LIKE CONCAT('%',ar_modelo,'%') AND
+		sp.state     LIKE CONCAT('%',ar_state,'%') AND
+		v.precio  <= IF ( ar_precio_max = 0 , @precio_max , ar_precio_max ) AND
 		sp.created BETWEEN ar_fecha_inicio AND ar_fecha_fin
 	;
 

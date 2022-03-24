@@ -196,8 +196,18 @@ app.post ('/endpoint', function(req, res)
 			break;
 
 		case macro.SALE_FILTER_SEARCH:
-			//sql = "SELECT * FROM sales_pending;"
-			sql = "call sale_filter_search ('', '1990-02-02', '2030-01-02')";
+
+			console.log(data);
+
+			sql = 'call sale_filter_search( "'
+			+         data['cedula']
+			+ '","' + data['modelo']
+			+ '",' + data['precio']
+			+ ',"' + data['estado']
+			+ '","' + data['created_start']
+			+ '","' + data['created_end']
+			+ '")';
+
 			break;
 
 		case macro.SALE_CONFIRM_PAYMENT:
