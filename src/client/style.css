@@ -3,6 +3,10 @@ body, html, button, input, select {
     font-size: 1.01em;
 }
 
+.hidden{
+	display: none !important;
+}
+
 b{
 	margin-bottom: 5px;
 	display: block;
@@ -18,6 +22,13 @@ body{
 table{
 	width: 100%;
 	border-collapse: collapse;
+
+	border-style: solid;
+	border-top-width: 0;
+	border-bottom-width: 0;
+	border-right-width: 1px;
+	border-left-width: 1px;
+	border-color: lightsteelblue;
 }
 
 
@@ -78,7 +89,11 @@ td{
 	padding-top: 2px;
 	padding-bottom: 2px;
 	border-style: solid;
-	border-width: 1px;
+	/*border-width: 1px;*/
+	border-top-width: 1px;
+	border-bottom-width: 1px;
+	border-left-width: 0px;
+	border-right-width: 0px;
 
 	background: white;
 	border-color: lightsteelblue;
@@ -210,6 +225,19 @@ p{
 	box-sizing: border-box;
 }
 
+.srh_no_result{
+	background: #f0c4e2;
+	padding: 5px;
+	box-sizing: border-box;
+}
+
+.srh_filter_checkbox{
+	margin: 0;
+	padding: 0;
+	height: 20px !important;
+	width: 20px !important;
+}
+
 /* DEBUG BUTTONS */
 
 #reg_btn_fetch, #edit_btn_fetch{
@@ -243,10 +271,13 @@ p{
 }
 
 #dialog_module_container{
-	height: 100%;
+	/*height: 100%;*/
+	max-height: 100%;
 	overflow-y: auto;
 	padding-left: 20px;
 	padding-right: 20px;
+	margin-top: auto;
+	margin-bottom: auto;
 }
 
 #dialog_header, #dialog_footer{

@@ -45,6 +45,19 @@ class module_sale extends module_template
 		this.lbl_selected_vehicle = document.getElementById("sale_lbl_selected_vehicle");
 		this.lbl_selected_client = document.getElementById("sale_lbl_selected_client");
 
+		in_creator.create(1, this.num_discount);
+
+		// clamp to limit values
+		this.num_discount.addEventListener('input',
+			function()
+			{
+				let value = parseInt(this.cleave.getRawValue());
+				let maxvalue = 100;
+
+				if (value > maxvalue)
+					this.cleave.setRawValue(maxvalue);
+			}
+		);
 		this.reset();
 	}
 
@@ -73,7 +86,7 @@ class module_sale extends module_template
 		this.lbl_selected_client.innerHTML = "Ningún cliente seleccionado";
 		this.num_discount.value = '';
 
-		in_creator.create(1, this.num_discount);
+		//in_creator.create(1, this.num_discount);
     }
 
 	static callback_select_vehicle (module, data)

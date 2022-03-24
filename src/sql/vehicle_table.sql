@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS vehicles
 	placa         CHAR(50) NULL DEFAULT NULL,
 	condicion     CHAR(50) NULL DEFAULT 'NUEVO',
 	fecha         DATETIME DEFAULT CURRENT_TIMESTAMP(),
-	precio        INT,
+	precio        BIGINT UNSIGNED,
 	estado        CHAR(50) NULL DEFAULT 'DISPONIBLE'
 );
 

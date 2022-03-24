@@ -6,6 +6,7 @@ USE integrador;
 DROP PROCEDURE IF EXISTS client_update_row;
 DROP PROCEDURE IF EXISTS client_register;
 DROP PROCEDURE IF EXISTS client_filter_search;
+DROP PROCEDURE IF EXISTS mytest;
 
 -- update
 
@@ -15,21 +16,23 @@ CREATE PROCEDURE client_update_row (
     IN ar_apellidos  CHAR(250),
     IN ar_cedula     CHAR(250),
     IN ar_domicilio  CHAR(250),
-    IN ar_telefono    CHAR(250),
+    IN ar_telefono   CHAR(250),
     IN ar_correo     CHAR(250),
     IN ar_nacimiento DATE,
 	IN ar_id         INT
 )
 BEGIN
 
+	-- IF (ISNULL(ar_), , 
+
 	UPDATE clients
-	SET nombres   = ar_nombres,
-		apellidos = ar_apellidos,
-		cedula    = ar_cedula,
-		domicilio = ar_domicilio,
-		telefono   = ar_telefono,
-		correo    = ar_correo,
-		fecha_nacimiento = ar_nacimiento
+	SET nombres   = IF (ISNULL(ar_nombres),nombres , ar_nombres),
+		apellidos = IF (ISNULL(ar_apellidos),apellidos, ar_apellidos),
+		cedula    = IF (ISNULL(ar_cedula),cedula, ar_cedula),
+		domicilio = IF (ISNULL(ar_domicilio),domicilio, ar_domicilio),
+		telefono  = IF (ISNULL(ar_telefono),telefono, ar_telefono),
+		correo    = IF (ISNULL(ar_correo),correo, ar_correo),
+		fecha_nacimiento = IF (ISNULL(ar_nacimiento),fecha_nacimiento, ar_nacimiento)
 	WHERE id = ar_id;
 
 END ;
@@ -129,3 +132,23 @@ DELIMITER ;
 
 
 -- CALL register_vehicle ("Moto", "Mercedes" ,"Prius" ,"2008","ZOK10",'USADO', '2001-11-13', 1501800);
+
+
+
+/*
+DELIMITER //
+CREATE PROCEDURE mytest (
+	IN ar_nombres           CHAR(250),
+	IN ar_apellidos         CHAR(250)
+)
+BEGIN
+
+	SELECT *
+	FROM clients
+	WHERE nombres LIKE ar_nombres
+	;
+
+END ;
+//
+DELIMITER ;
+*/

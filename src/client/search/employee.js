@@ -29,10 +29,11 @@ class module_search_employee extends module_template
 		this.tbl_list;
 		this.tbl_resume;
 		this.btn_edit_row;
+		this.lbl_no_result;
 
 		this.tbl_filter;
 		this.input_filter = {};
-		this.input_filter_checkbox = {};
+
 
 		// shared modules
 
@@ -62,6 +63,7 @@ class module_search_employee extends module_template
 		this.tbl_resume   = document.getElementById ("srh_employee_tbl_resume");
 
 		this.btn_edit_row = document.getElementById ("srh_employee_btn_edit");
+		this.lbl_no_result = document.getElementById ("srh_employee_lbl_no_result");
 
 		//this.tbl_resume.style.display = "none";
 		//this.btn_confirm_selection = document.getElementById ("srh_client_btn_confirm_selection");

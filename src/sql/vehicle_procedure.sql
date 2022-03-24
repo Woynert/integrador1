@@ -17,19 +17,20 @@ CREATE PROCEDURE vehicle_update_row (
 	IN _generacion CHAR(250),
 	IN _placa      CHAR(250),
 	IN _condicion  CHAR(250),
-	IN _precio     INT,
+	IN _precio     BIGINT UNSIGNED,
 	IN _id         INT
 )
 BEGIN
 
 	UPDATE vehicles
-	SET tipo_vehiculo = _tipo_vehiculo,
-		marca      = _marca,
-		modelo     = _modelo,
-		generacion = _generacion,
-		placa      = _placa,
-		condicion  = _condicion,
-		precio     = _precio
+	SET
+		tipo_vehiculo = IF (ISNULL(_tipo_vehiculo), tipo_vehiculo, _tipo_vehiculo),
+		marca      = IF (ISNULL(_marca), marca, _marca),
+		modelo     = IF (ISNULL(_modelo), modelo, _modelo),
+		generacion = IF (ISNULL(_generacion), generacion, _generacion),
+		placa      = IF (ISNULL(_placa), placa, _placa),
+		condicion  = IF (ISNULL(_condicion), condicion, _condicion),
+		precio     = IF (ISNULL(_precio), precio, _precio)
 	WHERE id = _id;
 
 END ;
@@ -46,7 +47,7 @@ CREATE PROCEDURE vehicle_register (
 	IN _generacion CHAR(250),
 	IN _placa  CHAR(250),
 	IN _condicion CHAR(250),
-	IN _precio INT
+	IN _precio BIGINT UNSIGNED
 )
 BEGIN
 
@@ -84,7 +85,7 @@ CREATE PROCEDURE vehicle_filter_search (
 	IN ar_condicion     CHAR(250),
 	IN ar_fecha_inicio  DATE,
 	IN ar_fecha_fin     DATE,
-	IN ar_precio_max    INT UNSIGNED,
+	IN ar_precio_max    BIGINT UNSIGNED,
 	IN ar_estado        CHAR(250)
 )
 BEGIN

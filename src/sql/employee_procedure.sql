@@ -24,14 +24,14 @@ CREATE PROCEDURE employee_update_row (
 BEGIN
 
 	UPDATE employees
-	SET nombres   = ar_nombres,
-		apellidos = ar_apellidos,
-		domicilio = ar_domicilio,
-		cedula    = ar_cedula,
-		correo    = ar_correo,
-		fecha_nacimiento = ar_nacimiento,
-		role      = ar_role,
-		password  = IF(ar_password='',password,ar_password)
+	SET nombres   = IF (ISNULL(ar_nombres), nombres, ar_nombres),
+		apellidos = IF (ISNULL(ar_apellidos), apellidos, ar_apellidos),
+		domicilio = IF (ISNULL(ar_domicilio), domicilio, ar_domicilio),
+		cedula    = IF (ISNULL(ar_cedula), cedula, ar_cedula),
+		correo    = IF (ISNULL(ar_correo), correo, ar_correo),
+		fecha_nacimiento = IF (ISNULL(ar_nacimiento), fecha_nacimiento, ar_nacimiento),
+		role      = IF (ISNULL(ar_role), role, ar_role),
+		password  = IF (ISNULL(ar_password), password, ar_password)
 	WHERE id = ar_id;
 
 END ;

@@ -28,10 +28,10 @@ class module_search_sale extends module_template
 		this.tbl_resume;
 		this.btn_edit_row;
 		this.btn_see_facture;
+		this.lbl_no_result;
 
 		this.tbl_filter;
 		this.input_filter = {};
-		this.input_filter_checkbox = {};
 
 		// shared modules
 
@@ -62,7 +62,12 @@ class module_search_sale extends module_template
 		this.tbl_filter   = document.getElementById ("srh_sale_tbl_filter");
 		this.tbl_resume   = document.getElementById ("srh_sale_tbl_resume");
 
+		this.btn_filter   = document.getElementById ("srh_sale_btn_filter");
 		this.btn_edit_row = document.getElementById ("srh_sale_btn_edit_row");
+		this.btn_make_payment   = document.getElementById ("srh_sale_btn_make_payment");
+		this.btn_cancel_payment = document.getElementById ("srh_sale_btn_cancel_payment");
+		this.btn_see_facture    = document.getElementById ("srh_sale_btn_see_facture");
+		this.lbl_no_result = document.getElementById ("srh_sale_lbl_no_result");
 
 		//this.tbl_resume.style.display = "none";
 		//this.btn_confirm_selection = document.getElementById ("srh_client_btn_confirm_selection");
@@ -106,6 +111,37 @@ class module_search_sale extends module_template
 		return this.selected_row;
 	}
 
+	enter()
+	{
+		driver_module_search.fetch_table_list_with_filter(this);
+	}
+
+	row_click_custom_action()
+	{
+		var item = this.get_data_rows()[this.get_selected_row()];
+		console.log(item.state);
+
+		if (item.state == 'PENDIENTE')
+		{
+			this.btn_cancel_payment.classList.remove('hidden');
+			this.btn_make_payment.classList.remove('hidden');
+		}
+		else{
+			this.btn_cancel_payment.classList.add('hidden');
+			this.btn_make_payment.classList.add('hidden');
+		}
+
+		if (item.state == 'PAGADO')
+		{
+			this.btn_see_facture.classList.remove('hidden');
+		}
+		else
+		{
+			this.btn_see_facture.classList.add('hidden');
+		}
+
+	}
+
 	static cancel_payment (module)
 	{
 
@@ -139,16 +175,17 @@ function create_module_search_sale (post_request)
 
 	var module = new module_search_sale();
 	module.set_post_request (post_request);
+	module.init();
 
 	// set event listeners
 
-	document.getElementById("srh_sale_btn_filter").addEventListener('click',
+	module.btn_filter.addEventListener('click',
 		function(){
 			driver_module_search.fetch_table_list_with_filter(module);
 		}
 	);
 
-	document.getElementById("srh_sale_btn_payment").addEventListener('click',
+	module.btn_make_payment.addEventListener('click',
 		function(){
 			var rows = module.get_data_rows();
 			var table_item_id = module.get_selected_row();
@@ -168,13 +205,13 @@ function create_module_search_sale (post_request)
 	);
 
 
-	document.getElementById("srh_sale_btn_cancel_payment").addEventListener('click',
+	module.btn_cancel_payment.addEventListener('click',
 		function(){
 			module_search_sale.cancel_payment (module);
 		}
 	);
 
-	document.getElementById("srh_sale_btn_see_facture").addEventListener('click',
+	module.btn_see_facture.addEventListener('click',
 		function(){
 			// show facture
 
@@ -195,8 +232,6 @@ function create_module_search_sale (post_request)
 			)
 		}
 	);
-
-	module.init();
 
 	return module;
 }

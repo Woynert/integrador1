@@ -20,6 +20,7 @@ class module_edit_client extends module_template
 
 		this.tbl_properties;
 		this.input_elements = {};
+		this.input_elements_check = {};
 
 		// request
 

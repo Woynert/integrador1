@@ -26,10 +26,10 @@ BEGIN
 
 	-- declare vars
 
-	DECLARE p_subtotal  INT;
-	DECLARE p_total     FLOAT;
-	DECLARE p_discount  FLOAT;
-	DECLARE p_tax       FLOAT;
+	DECLARE p_subtotal  BIGINT UNSIGNED;
+	DECLARE p_total     BIGINT UNSIGNED;
+	DECLARE p_discount  BIGINT UNSIGNED;
+	DECLARE p_tax       BIGINT UNSIGNED;
 
 	DECLARE p_tax_perce INT;
 	SET @p_tax_perce = 3; -- static tax
@@ -106,7 +106,7 @@ DELIMITER //
 CREATE PROCEDURE sale_filter_search (
 	IN ar_cedula CHAR(250),
 	IN ar_modelo CHAR(250),
-	IN ar_precio_max INT,
+	IN ar_precio_max BIGINT UNSIGNED,
 	IN ar_state      CHAR(250),
 	IN ar_fecha_inicio  DATE,
 	IN ar_fecha_fin     DATE
@@ -155,6 +155,18 @@ CREATE PROCEDURE sale_confirm_payment (
 )
 BEGIN
 
+	-- set vehicle to selled
+
+	UPDATE
+		vehicles v,
+		sales s
+	SET
+		v.estado = 'VENDIDO'
+	WHERE
+		s.id = ar_id_sale AND
+		s.id_vehicle = v.id
+	;
+
 	-- record payment
 
 	UPDATE
@@ -178,6 +190,21 @@ CREATE PROCEDURE sale_cancel_payment (
 	IN ar_id_sale INT
 )
 BEGIN
+
+	-- make vehicle available
+
+	UPDATE
+		vehicles v,
+		sales s
+	SET
+		v.estado = 'DISPONIBLE'
+	WHERE
+		s.id = ar_id_sale AND
+		s.id_vehicle = v.id
+	;
+
+
+	-- cancel
 
 	UPDATE
 		sales

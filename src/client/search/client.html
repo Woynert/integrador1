@@ -2,7 +2,7 @@
 <Html>
 <body>
 
-	<h1 class="h1" id="h1">Buscar Cliente</h1>
+	<h1 class="h1" id="srh_client_title">Buscar Cliente</h1>
 
 	<b>Filtros</b>
 
@@ -19,6 +19,10 @@
 	<b>Resultados</b>
 
 	<div>
+		<div id="srh_client_lbl_no_result" class="srh_no_result">
+			No se encontraron resultados.<br>
+			Intenta cambiar los filtros de busqueda.
+		</div>
 		<table id="srh_client_tbl_list" class="header_table">
 		</table>
 	</div>
@@ -27,9 +31,9 @@
 
 	<br>
 
-	<b>Resumen</b>
 
-	<div id="resumen">
+	<div id="srh_client_resume">
+	<b>Resumen</b>
 		<table id="srh_client_tbl_resume" class="side_table">
 		</table>
 	</div>

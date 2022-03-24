@@ -83,15 +83,22 @@ app.post ('/endpoint', function(req, res)
 
 			for (var value in data)
 			{
-				console.log(data[value]);
+				//console.log(data[value]);
+
+				// null check
+				if (data[value] == null)
+				{
+					sql += ' null, ';
+					continue;
+				}
 
 				if (value == "id")
 					row_id = data[value];
 				else
 					if (value == "precio")
-						sql += ' ' + data[value] + ', '
+						sql += ' ' + data[value] + ', ';
 					else
-						sql += ' "' + data[value] + '",'
+						sql += ' "' + data[value] + '",';
 			}
 
 			sql += row_id + ");";
@@ -104,7 +111,7 @@ app.post ('/endpoint', function(req, res)
 
 			for (var value in data)
 			{
-				console.log(data[value]);
+				//console.log(data[value]);
 
 				if (value == "precio")
 					sql += ' ' + data[value] + ','
@@ -146,12 +153,18 @@ app.post ('/endpoint', function(req, res)
 
 			for (var value in data)
 			{
-				console.log(data[value]);
+
+				// null check
+				if (data[value] == null)
+				{
+					sql += ' null, ';
+					continue;
+				}
 
 				if (value == "id")
 					row_id = data[value];
 				else
-					sql += ' "' + data[value] + '",'
+					sql += ' "' + data[value] + '",';
 			}
 
 			sql += row_id + ");";
@@ -197,7 +210,7 @@ app.post ('/endpoint', function(req, res)
 
 		case macro.SALE_FILTER_SEARCH:
 
-			console.log(data);
+			//console.log(data);
 
 			sql = 'call sale_filter_search( "'
 			+         data['cedula']
@@ -249,12 +262,18 @@ app.post ('/endpoint', function(req, res)
 
 			for (var value in data)
 			{
-				console.log(data[value]);
+
+				// null check
+				if (data[value] == null)
+				{
+					sql += ' null, ';
+					continue;
+				}
 
 				if (value == "id")
 					row_id = data[value];
 				else
-					sql += ' "' + data[value] + '",'
+					sql += ' "' + data[value] + '",';
 			}
 
 			sql += row_id + ");";
@@ -281,7 +300,7 @@ app.post ('/endpoint', function(req, res)
 			break;
 
 		default:
-			console.log("WARNING: invalid id");
+			console.log("WARNING: invalid request id");
 			return;
 	}
 
@@ -302,11 +321,11 @@ app.post ('/endpoint', function(req, res)
 function send_query_result (data, res, id)
 {
 
-	console.log("PACKAGE");
+	console.log("COMPLETED");
 
 	var pack = {"id_pkg": id, "data": data};
 
-	console.log(JSON.stringify(pack));
+	//console.log(JSON.stringify(pack));
 
 	res.send(pack);
 	myconn.end_connection();

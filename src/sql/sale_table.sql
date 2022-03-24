@@ -18,10 +18,10 @@ CREATE TABLE IF NOT EXISTS sales
 	state          CHAR(50) NOT NULL DEFAULT 'PENDIENTE',
 	created        DATETIME DEFAULT CURRENT_TIMESTAMP(),
 
-	subtotal       INT   NOT NULL,
+	subtotal       BIGINT UNSIGNED  NOT NULL,
 	discount       INT   NOT NULL, -- perce
 	tax            INT   NOT NULL, -- perce
-	total          FLOAT NOT NULL,
+	total          BIGINT UNSIGNED NOT NULL,
 
 	payed          DATETIME NULL DEFAULT NULL,
 	payment_method CHAR(50) NULL DEFAULT NULL,

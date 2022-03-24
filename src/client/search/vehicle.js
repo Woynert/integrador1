@@ -28,11 +28,12 @@ class module_search_vehicle extends module_template
 		this.tbl_list;
 		this.tbl_resume;
 		this.btn_edit_row;
-		//this.btn_confirm_selection;
+		this.lbl_no_result;
 
 		this.tbl_filter;
 		this.input_filter = {};
-		this.input_filter_checkbox = {};
+
+		this.hide_in_dialog_mode = [];
 
 		// shared modules
 
@@ -61,10 +62,14 @@ class module_search_vehicle extends module_template
 		this.tbl_filter   = document.getElementById ("srh_vehicle_tbl_filter");
 		this.tbl_resume   = document.getElementById ("srh_vehicle_tbl_resume");
 		this.btn_edit_row = document.getElementById ("srh_vehicle_btn_edit_row");
-		//this.btn_confirm_selection = document.getElementById ("srh_vehicle_btn_confirm_selection");
+		this.lbl_no_result = document.getElementById ("srh_vehicle_lbl_no_result");
 
-		// hide
-		//this.btn_confirm_selection.style.display = "none";
+		this.hide_in_dialog_mode = [
+			//this.tbl_resume,
+			this.btn_edit_row,
+			document.getElementById ("srh_vehicle_title"),
+			document.getElementById ("srh_vehicle_resume")
+		]
 	}
 
 	set_post_request (post_request){
@@ -95,6 +100,40 @@ class module_search_vehicle extends module_template
 	get_selected_row()
 	{
 		return this.selected_row;
+	}
+
+	toggle_dialog_custom_actions()
+	{
+		console.log(this.tbl_list)
+
+		// activate
+		if (this.mode_dialog_select)
+		{
+			// hide old unfiltered results
+		    this.tbl_list.style.visibility = "hidden";
+
+			// set state filter to 'DISPONIBLE' and freeze it
+			console.log(this.input_filter.estado.input[0]);
+			console.log(this.input_filter.estado.check);
+
+			this.input_filter.estado.input[0].disabled = true;
+			this.input_filter.estado.check.disabled    = true;
+			this.input_filter.estado.input[0].value = 'DISPONIBLE';
+			this.input_filter.estado.check.checked  = true;
+
+			// deselect
+			this.selected_row = -1;
+
+			// filter
+			driver_module_search.fetch_table_list_with_filter(this);
+		}
+		else
+		{
+			this.input_filter.estado.input[0].disabled = false;
+			this.input_filter.estado.check.disabled    = false;
+			this.input_filter.estado.input[0].value = '';
+			this.input_filter.estado.check.checked = false;
+		}
 	}
 }
 

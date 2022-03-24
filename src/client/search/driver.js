@@ -2,7 +2,8 @@
 
 import {get_siblings} from '../utilities/misc.js';
 
-import {in_creator} from '../index.js';
+import {show_message,
+		in_creator} from '../index.js';
 
 export {driver_module_search};
 
@@ -18,8 +19,34 @@ class driver_module_search
 		// extract values from inputs tags
 		for (var value in module.input_filter)
 		{
+
 			if (module.input_filter[value]["check"].checked)
 			{
+
+				// check its empty
+				let indata;
+				let empty = false;
+
+				//indata = in_creator.get_value(module.input_filter[value]["input"][0]);
+				//empty = (indata == '');
+
+				if (module.input_filter[value]["input"][0].typedate)
+				{
+					/*indata = in_creator.get_value(module.input_filter[value]["input"][1]);
+					empty += (indata == '');*/
+
+					empty =
+					(in_creator.is_empty(module.input_filter[value]["input"][0]) ||
+					in_creator.is_empty(module.input_filter[value]["input"][1]))
+				}
+				else
+					empty = in_creator.is_empty(module.input_filter[value]["input"][0]);
+
+				if (empty){
+					console.log("empty");
+					show_message("Alerta","Asegurese de rellenar los campos habilitados");
+					return;
+				}
 
 				// is date (metadata)
 				if (!module.input_filter[value]["input"][0].typedate)
@@ -82,23 +109,39 @@ class driver_module_search
 			    module.tbl_list.innerHTML = "";
 			    module.tbl_resume.innerHTML = "";
 
-			    // populate
+				if (rows.data[0])
+				    module.data_rows = rows.data[0];
 
-			    module.data_rows = rows.data[0];
-			    driver_module_search.populate_tbl_list_header (module);
-			    var first_tr = driver_module_search.populate_tbl_list_content (module);
 
-				// select the first one
+				// results recieved
 
-			    if (rows.data.length > 0)
+			    if (module.data_rows.length)
 			    {
-			    	module.selected_row = 0;
-			    	driver_module_search.row_click (module, first_tr);
+					module.lbl_no_result.style.display = "none";
 
-			        //press_reg_btn_fetch (module.mod_register);
 
-			    }
+					// populate
 
+				    driver_module_search.populate_tbl_list_header (module);
+				    var first_tr = driver_module_search.populate_tbl_list_content (module);
+
+					// select the first one
+
+				    if (rows.data.length > 0)
+				    {
+				    	module.selected_row = 0;
+				    	driver_module_search.row_click (module, first_tr);
+				    }
+
+				    // show
+				    //module.tbl_list.style.display = "block";
+				    module.tbl_list.style.visibility = "visible";
+				}
+
+				// no results
+				else{
+					module.lbl_no_result.style.display = "block";
+				}
 
 			}
 		);
@@ -114,7 +157,6 @@ class driver_module_search
 		module.post_request.request(postObj,
 		function(rows)
 		{
-
 	        module.data_rows_type = rows.data;
 
 	        // populate just after
@@ -147,6 +189,11 @@ class driver_module_search
 
 		module.selected_row = parseInt(tr.arrayid);
 		driver_module_search.populate_tbl_resume (module, module.data_rows [module.selected_row]);
+
+		// custom action
+		if (typeof module.row_click_custom_action === "function") {
+		    module.row_click_custom_action();
+		}
 	}
 
 
@@ -284,6 +331,7 @@ class driver_module_search
 
 			input      = document.createElement('input');
 			input.type = "checkbox";
+			input.classList.add("srh_filter_checkbox");
 
 			module.input_filter[ rows[i]['property'] ] =
 			{
@@ -395,25 +443,36 @@ class driver_module_search
 		}
 	}*/
 
-	static toggle_dialog_mode (search_module, boolean, new_dom_parent)
+	static toggle_dialog_mode (module, boolean, new_dom_parent)
 	{
 
-		search_module.mode_dialog_select = boolean;
+		module.mode_dialog_select = boolean;
+		module.toggle_dialog_custom_actions();
 
 		// activate
 		if (boolean)
 		{
-			new_dom_parent.appendChild (search_module.dom_element);
-			search_module.dom_element.style.display = "block";
-			//search_module.btn_confirm_selection.style.display = "block";
+			new_dom_parent.appendChild (module.dom_element);
+			module.dom_element.style.display = "block";
+
+			// hide
+			for (var i = 0; i < module.hide_in_dialog_mode.length; i++)
+			{
+				module.hide_in_dialog_mode[i].classList.add("hidden");
+			}
 		}
 
 		// deactivate
 		else
 		{
-			search_module.dom_original_parent.appendChild (search_module.dom_element);
-			search_module.dom_element.style.display = "none";
-			//search_module.btn_confirm_selection.style.display = "none";
+			module.dom_original_parent.appendChild (module.dom_element);
+			module.dom_element.style.display = "none";
+
+			// show
+			for (var i = 0; i < module.hide_in_dialog_mode.length; i++)
+			{
+				module.hide_in_dialog_mode[i].classList.remove("hidden");
+			}
 		}
 	}
 

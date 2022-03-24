@@ -57,6 +57,40 @@ class input_creator
 		else
 			return ele.cleave.getRawValue();
 	}
+
+	is_empty (ele)
+	{
+		let empty;
+		let value = ele.cleave.getRawValue();
+
+		value = value.replace(/ /g, "");
+
+		if (ele.cleave.properties.date)
+		{
+			empty = (value.length < 8)
+		}
+		else
+			empty = (value == '')
+
+		return empty;
+
+	}
+
+	pass_strength_check (password)
+	{
+		var strong_regex =
+		new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
+
+		var pass = strong_regex.test (password);
+
+		if (pass)
+			console.log('pass');
+		else
+			console.log('does not pass');
+
+		return pass;
+
+	}
 }
 
 
