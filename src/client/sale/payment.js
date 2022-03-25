@@ -113,6 +113,7 @@ class module_payment extends module_template
 			function(rows)
 			{
 				if (rows.data){
+					module.reset()
 					show_message("Completado", "Transacción correcta.");
 
 					// show facture
@@ -139,6 +140,18 @@ class module_payment extends module_template
 			}
 		);
 
+	}
+
+	exit()
+	{
+		this.reset();
+	}
+
+	reset()
+	{
+		this.tbx_credit_number.value = '';
+		this.tbx_cvv.value = '';
+		this.date_expiration.value = '';
 	}
 
     /*fetch_info (id_client, id_vehicle)

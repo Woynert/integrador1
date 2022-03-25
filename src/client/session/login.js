@@ -1,5 +1,6 @@
 
 import {macro} from '../macro.js';
+import {show_message} from '../session_manager.js';
 export {create_module_login};
 
 class module_login
@@ -53,7 +54,7 @@ class module_login
 			function(rows)
 			{
 
-				if (rows.data){
+				if (rows.data[0].length){
 					var userid = rows.data[0][0].id;
 					var username = rows.data[0][0].nombres
 					var userlastname = rows.data[0][0].apellidos;
@@ -75,7 +76,7 @@ class module_login
 					}
 				}
 				else{
-                    //show_message("Error", "Hubo un error al realizar la operación.");
+                    show_message("Error", "Usuario y/ó constraseña incorrecto.");
 					console.log("No")
                 }
 			}

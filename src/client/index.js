@@ -44,7 +44,7 @@ const in_creator = new input_creator();
 
 // buttons
 
-//var btn_logout;
+var btn_logout;
 var btns = {};
 
 // vehicle

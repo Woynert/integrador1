@@ -131,6 +131,11 @@ class driver_module_search
 			{
 				// show search result
 
+				if (!rows.data){
+					module.lbl_no_result.style.display = "block";
+					return;
+				}
+
 				// clear
 
 			    module.tbl_list.innerHTML = "";

@@ -238,12 +238,19 @@ p{
 	background: green;
 }
 
-#edit_tbl_vehicle_properties input,
-#reg_tbl_vehicle_properties input,
+#edit_vehicle_tbl_properties input,
+#edit_client_tbl_properties input,
+#edit_employee_tbl_properties input,
+#reg_vehicle_tbl_properties input,
+#reg_client_tbl_properties input,
+#reg_employee_tbl_properties input,
 #srh_vehicle_tbl_filter input,
-#srh_client_tbl_filter input{
+#srh_client_tbl_filter input,
+#srh_sale_tbl_filter input,
+#srh_employee_tbl_filter input{
 	width: 100%;
 	box-sizing: border-box;
+	display: block;
 }
 
 .srh_no_result{
@@ -304,7 +311,15 @@ p{
 #dialog_header, #dialog_footer{
 	width: 100%;
 	height: 100%;
-	background: brown;
+	background: #E127A4;
+}
+
+#dialog_header{
+	color: white;
+	text-align: center;
+	font-size: 1.1em;
+	padding-top: 20px;
+	box-sizing: border-box;
 }
 
 /* payment */
