@@ -107,6 +107,8 @@ BEGIN
 	SET p_range  = 10;
 	SET p_offset = ar_page_count * p_range;
 
+	-- get values
+
 	SELECT
 		id,
 		nombres,
@@ -130,6 +132,23 @@ BEGIN
 		(role = ar_role OR ar_role = 0)
 	)
 	LIMIT p_range OFFSET p_offset
+	;
+
+	-- get count
+
+	SELECT count(*) AS `count`
+	FROM employees
+	WHERE
+	(
+		nombres    LIKE CONCAT('%',ar_nombres,'%')   AND
+		apellidos  LIKE CONCAT('%',ar_apellidos,'%') AND
+		domicilio  LIKE CONCAT('%',ar_domicilio,'%') AND
+		cedula     LIKE CONCAT('%',ar_cedula,'%')    AND
+		correo     LIKE CONCAT('%',ar_correo,'%')    AND
+		fecha_nacimiento BETWEEN ar_nacimiento_inicio AND ar_nacimiento_fin AND
+		fecha_registro   BETWEEN ar_registro_inicio   AND ar_registro_fin AND
+		(role = ar_role OR ar_role = 0)
+	)
 	;
 
 END ;

@@ -1,6 +1,7 @@
 import {macro} from '../macro.js';
 import {module_template} from '../module.js';
 import {show_message,
+		show_module,
 		in_creator} from '../index.js';
 
 export {create_module_payment};
@@ -65,6 +66,10 @@ class module_payment extends module_template
         this.mod_search_sale = mod_search_sale;
     }
 
+    set_mod_facture_viewer(mod_facture_viewer){
+		this.mod_facture_viewer = mod_facture_viewer;
+	}
+
 	// venta item from module_search_venta
     setup (item)
     {
@@ -109,6 +114,24 @@ class module_payment extends module_template
 			{
 				if (rows.data){
 					show_message("Completado", "Transacción correcta.");
+
+					// show facture
+
+					/*var rows = module.get_data_rows();
+			        var table_item_id = module.get_selected_row();
+			        var item = rows[table_item_id];*/
+
+					console.log(module.current_item.id);
+
+					// goto facture viewer
+					show_module('facture_viewer');
+					module.mod_facture_viewer.setup(module.current_item.id,
+						function(){
+							// return to this module
+							console.log("MY CALLBACK");
+							show_module('sale_search');
+						}
+					)
 				}
 				else{
 					show_message("Error", "Hubo un error al realizar la operación.");

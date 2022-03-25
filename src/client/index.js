@@ -224,6 +224,7 @@ function files_to_load_by_role()
 			files_to_load.push('sale')
 			files_to_load.push('dialog_picker')
 			files_to_load.push('sale_search')
+			files_to_load.push('facture_viewer')
 			//files_to_load.push('payment')
 			break;
 
@@ -415,8 +416,9 @@ function read_file(){
 				driver_module_search.fetch_table_list_types (sale_search);
 			}
 
-			//if (facture_viewer){
-			//}
+			if (payment){
+				payment.set_mod_facture_viewer (facture_viewer);
+			}
 
 			objects_module.vehicle_search   = vehicle_search;
 			objects_module.vehicle_edit     = vehicle_edit;

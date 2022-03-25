@@ -122,6 +122,8 @@ BEGIN
 
 	SELECT max(precio) INTO @precio_max FROM vehicles;
 
+	-- get values
+
 	SELECT
 		sp.id,
 		sp.state,
@@ -148,6 +150,23 @@ BEGIN
 		v.precio  <= IF ( ar_precio_max = 0 , @precio_max , ar_precio_max ) AND
 		sp.created BETWEEN ar_fecha_inicio AND ar_fecha_fin
 	LIMIT p_range OFFSET p_offset
+	;
+
+	-- get count
+
+	SELECT count(*) AS `count`
+	FROM
+		sales sp,
+		clients c,
+		vehicles v
+	WHERE
+		sp.id_client  = c.id AND
+		sp.id_vehicle = v.id AND
+		c.cedula     LIKE CONCAT('%',ar_cedula,'%') AND
+		v.modelo     LIKE CONCAT('%',ar_modelo,'%') AND
+		sp.state     LIKE CONCAT('%',ar_state,'%') AND
+		v.precio  <= IF ( ar_precio_max = 0 , @precio_max , ar_precio_max ) AND
+		sp.created BETWEEN ar_fecha_inicio AND ar_fecha_fin
 	;
 
 END ;

@@ -99,6 +99,8 @@ BEGIN
 
 	SELECT max(precio) INTO @precio_max FROM vehicles;
 
+	-- select values
+
 	SELECT
 		id,
 		tipo_vehiculo,
@@ -122,6 +124,22 @@ BEGIN
 	precio <= IF ( ar_precio_max = 0 , @precio_max , ar_precio_max ) AND
 	estado        LIKE CONCAT('%',ar_estado,'%')
 	LIMIT p_range OFFSET p_offset
+	;
+
+	-- get count
+
+	SELECT count(*) AS `count`
+	FROM vehicles
+	WHERE
+	tipo_vehiculo LIKE CONCAT('%',ar_tipo_vehiculo,'%') AND
+	marca         LIKE CONCAT('%',ar_marca,'%') AND
+	modelo        LIKE CONCAT('%',ar_modelo,'%') AND
+	generacion    LIKE CONCAT('%',ar_generacion,'%') AND
+	placa         LIKE CONCAT('%',ar_placa,'%') AND
+	condicion     LIKE CONCAT('%',ar_condicion,'%') AND
+	fecha         BETWEEN ar_fecha_inicio AND ar_fecha_fin AND
+	precio <= IF ( ar_precio_max = 0 , @precio_max , ar_precio_max ) AND
+	estado        LIKE CONCAT('%',ar_estado,'%')
 	;
 
 END ;

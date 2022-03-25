@@ -7,90 +7,110 @@ import {show_message,
 
 export {driver_module_search};
 
+var max_rows = 10;
 
 class driver_module_search
 {
-	static fetch_table_list_with_filter (module)
+	static fetch_table_list_with_filter (module, custom_value_list)
 	{
 
 		//recopilate
 		var value_list = {};
 
-		// extract values from inputs tags
-		for (var value in module.input_filter)
+		if (!custom_value_list)
 		{
-
-			if (module.input_filter[value]["check"].checked)
+			// extract values from inputs tags
+			for (var value in module.input_filter)
 			{
 
-				// check its empty
-				let indata;
-				let empty = false;
-
-				//indata = in_creator.get_value(module.input_filter[value]["input"][0]);
-				//empty = (indata == '');
-
-				if (module.input_filter[value]["input"][0].typedate)
+				if (module.input_filter[value]["check"].checked)
 				{
-					/*indata = in_creator.get_value(module.input_filter[value]["input"][1]);
-					empty += (indata == '');*/
 
-					empty =
-					(in_creator.is_empty(module.input_filter[value]["input"][0]) ||
-					in_creator.is_empty(module.input_filter[value]["input"][1]))
-				}
-				else
-					empty = in_creator.is_empty(module.input_filter[value]["input"][0]);
+					// check its empty
+					let indata;
+					let empty = false;
 
-				if (empty){
-					console.log("empty");
-					show_message("Alerta","Asegurese de rellenar los campos habilitados");
-					return;
-				}
+					//indata = in_creator.get_value(module.input_filter[value]["input"][0]);
+					//empty = (indata == '');
 
-				// is date (metadata)
-				if (!module.input_filter[value]["input"][0].typedate)
-				{
-					value_list[value] = in_creator.get_value(module.input_filter[value]["input"][0]);
-				}
-				else
-				{
-					value_list[value + "_start"] = module.input_filter[value]["input"][0].value;
-					value_list[value + "_end"  ] = module.input_filter[value]["input"][1].value;
-
-				}
-			}
-			else
-			{
-
-				var type;
-				var defvalue;
-				var rows = module.data_rows_type;
-
-				// get default value
-
-				for (var i = 0; i < rows.length; i++)
-				{
-					if (rows[i]["property"] == value)
+					if (module.input_filter[value]["input"][0].typedate)
 					{
-						type     = rows[i]["datatype"];
-						defvalue = rows[i]["defvalue"];
-						break;
+						/*indata = in_creator.get_value(module.input_filter[value]["input"][1]);
+						empty += (indata == '');*/
+
+						empty =
+						(in_creator.is_empty(module.input_filter[value]["input"][0]) ||
+						in_creator.is_empty(module.input_filter[value]["input"][1]))
+					}
+					else
+						empty = in_creator.is_empty(module.input_filter[value]["input"][0]);
+
+					if (empty){
+						console.log("empty");
+						show_message("Alerta","Asegurese de rellenar los campos habilitados");
+						return;
+					}
+
+					// is date (metadata)
+					if (!module.input_filter[value]["input"][0].typedate)
+					{
+						value_list[value] = in_creator.get_value(module.input_filter[value]["input"][0]);
+					}
+					else
+					{
+						value_list[value + "_start"] = module.input_filter[value]["input"][0].value;
+						value_list[value + "_end"  ] = module.input_filter[value]["input"][1].value;
+
 					}
 				}
-
-				// is not a date
-				if (type != 2)
-				{
-					value_list[value] = defvalue;
-				}
 				else
 				{
-					value_list[value + "_start"] = "1900-01-01";
-					value_list[value + "_end"]   = "3000-01-01";
-				}
 
+					var type;
+					var defvalue;
+					var rows = module.data_rows_type;
+
+					// get default value
+
+					for (var i = 0; i < rows.length; i++)
+					{
+						if (rows[i]["property"] == value)
+						{
+							type     = rows[i]["datatype"];
+							defvalue = rows[i]["defvalue"];
+							break;
+						}
+					}
+
+					// is not a date
+					if (type != 2)
+					{
+						value_list[value] = defvalue;
+					}
+					else
+					{
+						value_list[value + "_start"] = "1900-01-01";
+						value_list[value + "_end"]   = "3000-01-01";
+					}
+
+				}
 			}
+
+			// reset page
+			module.page_number = 0;
+			module.lbl_page_count.innerHTML = module.page_number+1;
+
+
+			// make a copy
+			module.filter_backup = {};
+			Object.assign(module.filter_backup, value_list);
+
+		}
+
+		// custom value list provided
+		else
+		{
+			value_list = custom_value_list;
 		}
 
 		// add page count
@@ -119,6 +139,11 @@ class driver_module_search
 				if (rows.data[0])
 				    module.data_rows = rows.data[0];
 
+				if (rows.data[1])
+				{
+					console.log(rows.data[1][0].count);
+				    module.page_max = Math.ceil (rows.data[1][0].count / max_rows) -1;
+				}
 
 				// results recieved
 
@@ -169,7 +194,7 @@ class driver_module_search
 	        // populate just after
 			if (driver_module_search.populate_tbl_filter (module))
 			{
-				driver_module_search.fetch_table_list_with_filter(module);
+				driver_module_search.fetch_table_list_with_filter(module, null);
 			}
 		}
 		);
@@ -500,10 +525,22 @@ class driver_module_search
 
 	static page_back(module)
 	{
+		if (module.page_number > 0)
+		{
+			module.page_number -= 1;
+			driver_module_search.fetch_table_list_with_filter(module, module.filter_backup);
+			module.lbl_page_count.innerHTML = module.page_number+1;
+		}
 	}
 
 	static page_next(module)
 	{
+		if (module.page_number < module.page_max)
+		{
+			module.page_number += 1;
+			driver_module_search.fetch_table_list_with_filter(module, module.filter_backup);
+			module.lbl_page_count.innerHTML = module.page_number+1;
+		}
 	}
 
 }

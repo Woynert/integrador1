@@ -15,7 +15,10 @@ class module_search_client extends module_template
 		super();
 		// vars
 
+		this.page_max;
 		this.page_number = 0;
+		this.filter_backup = {};
+
 		this.selected_row = -1;
 		this.data_rows;
 		this.data_rows_type;
@@ -134,7 +137,7 @@ function create_module_search_client (post_request)
 
 	document.getElementById("srh_client_btn_filter").addEventListener('click',
 		function(){
-			driver_module_search.fetch_table_list_with_filter(module);
+			driver_module_search.fetch_table_list_with_filter(module, null);
 		}
 	);
 

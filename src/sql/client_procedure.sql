@@ -23,8 +23,6 @@ CREATE PROCEDURE client_update_row (
 )
 BEGIN
 
-	-- IF (ISNULL(ar_), , 
-
 	UPDATE clients
 	SET nombres   = IF (ISNULL(ar_nombres),nombres , ar_nombres),
 		apellidos = IF (ISNULL(ar_apellidos),apellidos, ar_apellidos),
@@ -103,7 +101,7 @@ BEGIN
 	SET p_range  = 10;
 	SET p_offset = ar_page_count * p_range;
 
-	-- get number
+	-- select values
 
 	SELECT
 		id,
@@ -126,6 +124,21 @@ BEGIN
 	fecha_nacimiento BETWEEN ar_nacimiento_inicio AND ar_nacimiento_fin AND
 	fecha_registro   BETWEEN ar_registro_inicio   AND ar_registro_fin
 	LIMIT p_range OFFSET p_offset
+	;
+
+	-- get count
+
+	SELECT count(*) AS `count`
+	FROM clients
+	WHERE
+	nombres    LIKE CONCAT('%',ar_nombres,'%')   AND
+	apellidos  LIKE CONCAT('%',ar_apellidos,'%') AND
+	cedula     LIKE CONCAT('%',ar_cedula,'%')    AND
+	domicilio  LIKE CONCAT('%',ar_domicilio,'%') AND
+	telefono   LIKE CONCAT('%',ar_telefono,'%')  AND
+	correo     LIKE CONCAT('%',ar_correo,'%')    AND
+	fecha_nacimiento BETWEEN ar_nacimiento_inicio AND ar_nacimiento_fin AND
+	fecha_registro   BETWEEN ar_registro_inicio   AND ar_registro_fin
 	;
 
 END ;
