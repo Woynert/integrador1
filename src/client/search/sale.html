@@ -2,7 +2,7 @@
 <Html>
 <body>
 
-	<h1 class="h1" id="h1">Buscar Transacciones</h1>
+	<h1 class="h1" id="h1">Buscar Transacción</h1>
 
 	<b>Filtros</b>
 
@@ -27,16 +27,27 @@
 		</table>
 	</div>
 
+	<div class="button_container_width">
+		<div class="page_control_container">
+			<button class="btn_page_arrow" id="srh_sale_btn_back" ><</button>
+			<div class="lbl_page" id="srh_sale_lbl_page_count">1</div>
+			<button class="btn_page_arrow" id="srh_sale_btn_next" >></button>
+			<div style="display: inline-block; float: right;">
 
-	<button id="srh_sale_btn_make_payment" >Realizar transacción</button>
-	<button id="srh_sale_btn_cancel_payment" >Cancelar transacción</button>
-	<button id="srh_sale_btn_see_facture" >Ver factura</button>
+			<div class="button_container_margin">
+				<button id="srh_sale_btn_make_payment" >Realizar transacción</button>
+				<button id="srh_sale_btn_cancel_payment" >Cancelar transacción</button>
+				<button id="srh_sale_btn_see_facture" >Ver factura</button>
+			</div>
+			</div>
+		</div>
+	</div>
 
 	<br>
 	<br>
 
 
-	<b>Resumen</b>
+	<b>Detalles</b>
 
 	<div id="resumen">
 		<table id="srh_sale_tbl_resume" class="side_table">

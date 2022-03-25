@@ -92,9 +92,18 @@ CREATE PROCEDURE client_filter_search (
 	IN ar_nacimiento_inicio DATE,
 	IN ar_nacimiento_fin    DATE,
 	IN ar_registro_inicio   DATE,
-	IN ar_registro_fin      DATE
+	IN ar_registro_fin      DATE,
+	IN ar_page_count        INT
 )
 BEGIN
+
+	DECLARE p_range  INT;
+	DECLARE p_offset INT;
+
+	SET p_range  = 10;
+	SET p_offset = ar_page_count * p_range;
+
+	-- get number
 
 	SELECT
 		id,
@@ -112,16 +121,32 @@ BEGIN
 	apellidos  LIKE CONCAT('%',ar_apellidos,'%') AND
 	cedula     LIKE CONCAT('%',ar_cedula,'%')    AND
 	domicilio  LIKE CONCAT('%',ar_domicilio,'%') AND
-	telefono    LIKE CONCAT('%',ar_telefono,'%')    AND
+	telefono   LIKE CONCAT('%',ar_telefono,'%')  AND
 	correo     LIKE CONCAT('%',ar_correo,'%')    AND
 	fecha_nacimiento BETWEEN ar_nacimiento_inicio AND ar_nacimiento_fin AND
 	fecha_registro   BETWEEN ar_registro_inicio   AND ar_registro_fin
+	LIMIT p_range OFFSET p_offset
 	;
 
 END ;
 //
 DELIMITER ;
 
+/*DELIMITER //
+CREATE PROCEDURE mytest (
+	IN ar_nombres           CHAR(250),
+	IN ar_apellidos         CHAR(250)
+)
+BEGIN
+
+	SELECT *
+	FROM clients
+	WHERE nombres LIKE ar_nombres
+	;
+
+END ;
+//
+DELIMITER ;*/
 
 -- test
 

@@ -89,7 +89,7 @@ class module_payment extends module_template
 			(module.tbx_cvv.value == '') ||
 			(module.date_expiration.value == ''))
 		{
-			console.log ("Campos vacios");
+			show_message("Aleta", "Por favor rellena todos los campos.");
 			return;
 		}
 

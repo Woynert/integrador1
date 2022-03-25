@@ -2,7 +2,7 @@
 <Html>
 <body>
 
-	<h1 class="h1" id="h1">Buscar Empleados</h1>
+	<h1 class="h1" id="h1">Buscar Empleado</h1>
 
 	<b>Filtros</b>
 
@@ -11,7 +11,9 @@
 		</table>
 	</div>
 
+	<div class="button_container_width"><div class="button_container_margin">
 	<button id="srh_employee_btn_filter" >Buscar</button>
+	</div></div>
 
 	<br>
 	<br>
@@ -27,16 +29,27 @@
 		</table>
 	</div>
 
+	<div class="button_container_width">
+		<div class="page_control_container">
+			<button class="btn_page_arrow" id="srh_employee_btn_back" ><</button>
+			<div class="lbl_page" id="srh_employee_lbl_page_count">1</div>
+			<button class="btn_page_arrow" id="srh_employee_btn_next" >></button>
+			<div style="display: inline-block; float: right;">
+			<div class="button_container_margin">
+				<button id="srh_employee_btn_edit" >Editar registro</button>
+			</div>
+			</div>
+		</div>
+	</div>
+
 	<br>
 
-	<b>Resumen</b>
+	<b>Detalles</b>
 
 	<div id="resumen">
 		<table id="srh_employee_tbl_resume" class="side_table">
 		</table>
 	</div>
-
-	<button id="srh_employee_btn_edit" >Editar</button>
 
 </body>
 </Html>

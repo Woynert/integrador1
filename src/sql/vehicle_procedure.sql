@@ -86,9 +86,16 @@ CREATE PROCEDURE vehicle_filter_search (
 	IN ar_fecha_inicio  DATE,
 	IN ar_fecha_fin     DATE,
 	IN ar_precio_max    BIGINT UNSIGNED,
-	IN ar_estado        CHAR(250)
+	IN ar_estado        CHAR(250),
+	IN ar_page_count    INT
 )
 BEGIN
+
+	DECLARE p_range  INT;
+	DECLARE p_offset INT;
+
+	SET p_range  = 10;
+	SET p_offset = ar_page_count * p_range;
 
 	SELECT max(precio) INTO @precio_max FROM vehicles;
 
@@ -114,6 +121,7 @@ BEGIN
 	fecha         BETWEEN ar_fecha_inicio AND ar_fecha_fin AND
 	precio <= IF ( ar_precio_max = 0 , @precio_max , ar_precio_max ) AND
 	estado        LIKE CONCAT('%',ar_estado,'%')
+	LIMIT p_range OFFSET p_offset
 	;
 
 END ;

@@ -20,7 +20,7 @@ BEGIN
 		employees
 	WHERE
 		correo   = ar_user AND
-		password = ar_password
+		password = SHA2(ar_password,0)
 	;
 
 END ;

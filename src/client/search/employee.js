@@ -15,6 +15,7 @@ class module_search_employee extends module_template
 		super();
 		// vars
 
+		this.page_number = 0;
 		this.selected_row = -1;
 		this.data_rows;
 		this.data_rows_type;
@@ -30,6 +31,10 @@ class module_search_employee extends module_template
 		this.tbl_resume;
 		this.btn_edit_row;
 		this.lbl_no_result;
+
+		this.btn_back;
+		this.btn_next;
+		this.lbl_page_count;
 
 		this.tbl_filter;
 		this.input_filter = {};
@@ -65,8 +70,9 @@ class module_search_employee extends module_template
 		this.btn_edit_row = document.getElementById ("srh_employee_btn_edit");
 		this.lbl_no_result = document.getElementById ("srh_employee_lbl_no_result");
 
-		//this.tbl_resume.style.display = "none";
-		//this.btn_confirm_selection = document.getElementById ("srh_client_btn_confirm_selection");
+		this.btn_back = document.getElementById ("srh_employee_btn_back");
+		this.btn_next = document.getElementById ("srh_employee_btn_next");
+		this.lbl_page_count = document.getElementById ("srh_employee_lbl_page_count");
 	}
 
 	set_post_request (post_request){
@@ -109,6 +115,7 @@ function create_module_search_employee (post_request)
 
 	var module = new module_search_employee();
 	module.set_post_request (post_request);
+	module.init();
 
 	// set event listeners
 
@@ -127,7 +134,17 @@ function create_module_search_employee (post_request)
 		}
 	);
 
-	module.init();
+	module.btn_back.addEventListener('click',
+		function(){
+			driver_module_search.page_back(module);
+		}
+	);
+
+	module.btn_next.addEventListener('click',
+		function(){
+			driver_module_search.page_next(module);
+		}
+	);
 
 	return module;
 }

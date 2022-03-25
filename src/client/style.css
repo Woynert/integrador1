@@ -48,11 +48,26 @@ button:active{
 	background: #8EA5B8;
 }
 
-.module_container button{
-	float: right;
+.module_container button, .dialog_btn{
+	/*float: right;*/
 	min-width: 150px;
 	min-height: 30px;
-	margin: 10px 0 10px 0;
+	margin: 10px 5px 10px 5px;
+}
+
+.button_container_width{
+	width: 100%;
+	display: block;
+}
+
+.button_container_margin{
+	display: block;
+	margin-left: auto;
+	width: max-content;
+}
+
+.button_inline{
+	display: inline-block;
 }
 
 /* main table */
@@ -203,6 +218,12 @@ p{
 	margin-bottom: 5px;
 }
 
+.btn_module_selected
+{
+	background: #658eb0;
+}
+
+
 .floating_message{
 	display: none;
 	width: 100%;
@@ -351,3 +372,18 @@ p{
 	margin-top: 10px;
 	font-size: 1.2em;
 }
+
+/* page */
+
+.btn_page_arrow{
+	display: inline-block;
+	width: 30px !important;
+	min-width: 30px !important;
+}
+
+.lbl_page{
+	display: inline-block;
+	min-height: 30px;
+}
+
+

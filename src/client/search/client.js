@@ -15,6 +15,7 @@ class module_search_client extends module_template
 		super();
 		// vars
 
+		this.page_number = 0;
 		this.selected_row = -1;
 		this.data_rows;
 		this.data_rows_type;
@@ -30,6 +31,10 @@ class module_search_client extends module_template
 		this.tbl_resume;
 		this.btn_edit_row;
 		this.lbl_no_result;
+
+		this.btn_back;
+		this.btn_next;
+		this.lbl_page_count;
 
 		this.tbl_filter;
 		this.input_filter = {};
@@ -64,7 +69,11 @@ class module_search_client extends module_template
 		this.tbl_resume   = document.getElementById ("srh_client_tbl_resume");
 		this.btn_edit_row = document.getElementById ("srh_client_btn_edit_row");
 		this.lbl_no_result = document.getElementById ("srh_client_lbl_no_result");
-		//this.lbl_no_result.style.display = "none";
+
+		this.btn_back = document.getElementById ("srh_client_btn_back");
+		this.btn_next = document.getElementById ("srh_client_btn_next");
+		this.lbl_page_count = document.getElementById ("srh_client_lbl_page_count");
+
 
 		this.hide_in_dialog_mode = [
 			//this.tbl_resume,
@@ -119,6 +128,7 @@ function create_module_search_client (post_request)
 
 	var module = new module_search_client();
 	module.set_post_request (post_request);
+	module.init();
 
 	// set event listeners
 
@@ -140,7 +150,17 @@ function create_module_search_client (post_request)
 		}
 	);
 
-	module.init();
+	module.btn_back.addEventListener('click',
+		function(){
+			driver_module_search.page_back(module);
+		}
+	);
+
+	module.btn_next.addEventListener('click',
+		function(){
+			driver_module_search.page_next(module);
+		}
+	);
 
 	return module;
 }

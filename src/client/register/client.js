@@ -58,11 +58,11 @@ function create_module_register_client (post_request)
 	module.set_post_request (post_request);
 
 	// buttons
-	document.getElementById("reg_client_btn_fetch").addEventListener('click',
+	/*document.getElementById("reg_client_btn_fetch").addEventListener('click',
 		function(){
 			driver_module_register.press_reg_btn_fetch(module);
 		}
-	);
+	);*/
 
 	document.getElementById("reg_client_btn_register").addEventListener('click',
 		function(){

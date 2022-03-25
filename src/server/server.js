@@ -72,7 +72,8 @@ app.post ('/endpoint', function(req, res)
 			+ '","' + data['fecha_end']
 			+ '","' + data['precio']
 			+ '","' + data['estado']
-			+ '")';
+			+ '",' + data['page_number']
+			+ ')';
 
 			break;
 
@@ -142,7 +143,8 @@ app.post ('/endpoint', function(req, res)
 			+ '","' + data['fecha_nacimiento_end']
 			+ '","' + data['fecha_registro_start']
 			+ '","' + data['fecha_registro_end']
-			+ '")';
+			+ '",' + data['page_number']
+			+ ')';
 
 			break;
 
@@ -215,11 +217,12 @@ app.post ('/endpoint', function(req, res)
 			sql = 'call sale_filter_search( "'
 			+         data['cedula']
 			+ '","' + data['modelo']
-			+ '",' + data['precio']
-			+ ',"' + data['estado']
+			+ '",'  + data['precio']
+			+ ',"'  + data['estado']
 			+ '","' + data['created_start']
 			+ '","' + data['created_end']
-			+ '")';
+			+ '",' + data['page_number']
+			+ ')';
 
 			break;
 
@@ -250,7 +253,8 @@ app.post ('/endpoint', function(req, res)
 			+ '","' + data['fecha_nacimiento_end']
 			+ '","' + data['fecha_registro_start']
 			+ '","' + data['fecha_registro_end']
-			+ '", ' + data['role']
+			+ '","' + data['role']
+			+ '", ' + data['page_number']
 			+ ')';
 
 			break;

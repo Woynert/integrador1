@@ -31,7 +31,7 @@ BEGIN
 		correo    = IF (ISNULL(ar_correo), correo, ar_correo),
 		fecha_nacimiento = IF (ISNULL(ar_nacimiento), fecha_nacimiento, ar_nacimiento),
 		role      = IF (ISNULL(ar_role), role, ar_role),
-		password  = IF (ISNULL(ar_password), password, ar_password)
+		password  = IF (ISNULL(ar_password), password, SHA2(ar_password,0))
 	WHERE id = ar_id;
 
 END ;
@@ -76,7 +76,7 @@ BEGIN
 		ar_nacimiento,
 		CURRENT_TIMESTAMP,
 		ar_role,
-		ar_password
+		SHA2(ar_password,0)
 		);
 
 END ;
@@ -96,9 +96,16 @@ CREATE PROCEDURE employee_filter_search (
 	IN ar_nacimiento_fin    DATE,
 	IN ar_registro_inicio   DATE,
 	IN ar_registro_fin      DATE,
-	IN ar_role              INT
+	IN ar_role              INT,
+	IN ar_page_count        INT
 )
 BEGIN
+
+	DECLARE p_range  INT;
+	DECLARE p_offset INT;
+
+	SET p_range  = 10;
+	SET p_offset = ar_page_count * p_range;
 
 	SELECT
 		id,
@@ -112,14 +119,17 @@ BEGIN
 		role
 	FROM employees
 	WHERE
-	nombres    LIKE CONCAT('%',ar_nombres,'%')   AND
-	apellidos  LIKE CONCAT('%',ar_apellidos,'%') AND
-	domicilio  LIKE CONCAT('%',ar_domicilio,'%') AND
-	cedula     LIKE CONCAT('%',ar_cedula,'%')    AND
-	correo     LIKE CONCAT('%',ar_correo,'%')    AND
-	fecha_nacimiento BETWEEN ar_nacimiento_inicio AND ar_nacimiento_fin AND
-	fecha_registro   BETWEEN ar_registro_inicio   AND ar_registro_fin AND
-	(role = ar_role OR ar_role = 0)
+	(
+		nombres    LIKE CONCAT('%',ar_nombres,'%')   AND
+		apellidos  LIKE CONCAT('%',ar_apellidos,'%') AND
+		domicilio  LIKE CONCAT('%',ar_domicilio,'%') AND
+		cedula     LIKE CONCAT('%',ar_cedula,'%')    AND
+		correo     LIKE CONCAT('%',ar_correo,'%')    AND
+		fecha_nacimiento BETWEEN ar_nacimiento_inicio AND ar_nacimiento_fin AND
+		fecha_registro   BETWEEN ar_registro_inicio   AND ar_registro_fin AND
+		(role = ar_role OR ar_role = 0)
+	)
+	LIMIT p_range OFFSET p_offset
 	;
 
 END ;

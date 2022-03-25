@@ -93,11 +93,18 @@ class driver_module_search
 			}
 		}
 
+		// add page count
+		value_list.page_number = module.page_number;
+		console.log('module.page_number');
+		console.log(module.page_number);
+
 		// create object
 		var postObj = {
 			id: module.request.filter_search,
 			data: value_list
 		};
+
+		console.log(postObj);
 
 		module.post_request.request(postObj,
 			function(rows)
@@ -487,6 +494,16 @@ class driver_module_search
 				module.hide_in_dialog_mode[i].classList.remove("hidden");
 			}
 		}
+	}
+
+	// Page
+
+	static page_back(module)
+	{
+	}
+
+	static page_next(module)
+	{
 	}
 
 }

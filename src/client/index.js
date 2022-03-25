@@ -126,21 +126,21 @@ const files =
 const elements_by_module = {};
 
 elements_by_module.vehicle_search   = ['btn_goto_vehicle_search', 'subtitle_vehicle'];
-elements_by_module.vehicle_edit     = ['btn_goto_vehicle_edit'];
+elements_by_module.vehicle_edit     = []; //['btn_goto_vehicle_edit'];
 elements_by_module.vehicle_register = ['btn_goto_vehicle_register'];
 
 elements_by_module.client_search   = ['btn_goto_client_search', 'subtitle_client'];
-elements_by_module.client_edit     = ['btn_goto_client_edit'];
+elements_by_module.client_edit     = []; //['btn_goto_client_edit'];
 elements_by_module.client_register = ['btn_goto_client_register'];
 
 elements_by_module.sale           = ['btn_goto_sale'];
-elements_by_module.dialog_picker  = [''];
+elements_by_module.dialog_picker  = [];
 elements_by_module.sale_search    = ['btn_goto_sale_search', 'subtitle_sale'];
-elements_by_module.payment        = ['btn_goto_payment'];
-elements_by_module.facture_viewer = [''];
+elements_by_module.payment        = []; //['btn_goto_payment'];
+elements_by_module.facture_viewer = [];
 
 elements_by_module.employee_search   = ['btn_goto_employee_search', 'subtitle_employee'];
-elements_by_module.employee_edit     = ['btn_goto_employee_edit'];
+elements_by_module.employee_edit     = []; //['btn_goto_employee_edit'];
 elements_by_module.employee_register = ['btn_goto_employee_register'];
 
 const objects_module = {};
@@ -452,6 +452,18 @@ function show_module (new_module)
 		return;
 	}
 
+	let btn = get_module_button(new_module);
+
+	if (btn)
+		btn.classList.add("btn_module_selected");
+
+	if (selected_module != '')
+	{
+		btn = get_module_button(selected_module);
+		if (btn)
+			btn.classList.remove('btn_module_selected');
+	}
+
 	objects_module[selected_module].exit();
 	objects_module[new_module].enter();
 
@@ -472,13 +484,49 @@ function show_module (new_module)
 		case 1: //edit vehicle module
 	}*/
 
-	// current module
-	// console.log("current module");
-	// console.log(available_modules[module_id]);
-	// console.log(objects_module[module_id]);
-
 	previous_module = selected_module;
 	selected_module = new_module;
+
+}
+
+function get_module_button (value_module)
+{
+	for (var value in elements_by_module)
+	{
+		for (var i = 0; i < elements_by_module[value].length; i++)
+		{
+			let selector = elements_by_module[value][i];
+			//btns[selector] = document.getElementById(selector);
+
+			// exists
+			if (btns[selector])
+			{
+				if ((btns[selector].tagName == 'BUTTON' ) && (value == value_module))
+				{
+					return (btns[selector]);
+				}
+			}
+		}
+	}
+
+	/*for (var i = 0; i < files_to_load.length; i++)
+	{
+		var eles = elements_by_module[files_to_load[i]];
+
+		for (var j = 0; j < eles.length; j++)
+		{
+			let element = btns[eles[j]];
+
+			// element exists
+			if (element)
+			{
+				// if it's a button
+				if (element.id.includes("btn_goto_"))
+				{
+				}
+			}
+		}
+	}*/
 }
 
 function show_message(title, text)

@@ -69,11 +69,11 @@ function create_module_edit_employee (post_request)
 	module.set_post_request(post_request);
 
 	// buttons
-	document.getElementById("edit_employee_btn_fetch").addEventListener('click',
+	/*document.getElementById("edit_employee_btn_fetch").addEventListener('click',
 		function(){
 			driver_module_edit.press_edit_btn_fetch(module);
 		}
-	);
+	);*/
 
 	document.getElementById("edit_employee_btn_send_changes").addEventListener('click',
 		function(){
