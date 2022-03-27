@@ -342,6 +342,9 @@ class driver_module_search
 
 	static populate_tbl_filter (module)
 	{
+		// reset
+		module.tbl_filter.innerHTML = "";
+
 		let rows = module.data_rows_type;
 		var tr;
 		var td;

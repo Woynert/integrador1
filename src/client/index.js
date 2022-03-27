@@ -383,6 +383,7 @@ function read_file(){
 				client_search.set_dom_element (client_search_div);
 				client_search.set_dom_original_parent (client_search_div.parentElement);
 				driver_module_search.fetch_table_list_types (client_search);
+				client_search.set_mod_search_sale (sale_search);
 			}
 
 			if (client_edit){

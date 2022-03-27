@@ -1,7 +1,8 @@
 import {macro} from '../macro.js';
 import {module_template} from '../module.js';
 import {driver_module_search} from './driver.js';
-import {show_module} from '../index.js';
+import {show_module,
+		show_message} from '../index.js';
 import {driver_module_edit} from '../edit/driver.js';
 
 //import {press_edit_btn_fetch} from '../edit_vehicle/edit.js';
@@ -33,6 +34,7 @@ class module_search_client extends module_template
 		this.tbl_list;
 		this.tbl_resume;
 		this.btn_edit_row;
+		this.btn_see_sales;
 		this.lbl_no_result;
 
 		this.btn_back;
@@ -48,6 +50,7 @@ class module_search_client extends module_template
 
 		this.mod_edit;
 		this.mod_register;
+		this.mod_sale_search;
 		this.post_request;
 
 		// request
@@ -71,6 +74,7 @@ class module_search_client extends module_template
 		this.tbl_filter   = document.getElementById ("srh_client_tbl_filter");
 		this.tbl_resume   = document.getElementById ("srh_client_tbl_resume");
 		this.btn_edit_row = document.getElementById ("srh_client_btn_edit_row");
+		this.btn_see_sales = document.getElementById ("srh_client_btn_see_sales");
 		this.lbl_no_result = document.getElementById ("srh_client_lbl_no_result");
 
 		this.btn_back = document.getElementById ("srh_client_btn_back");
@@ -98,6 +102,10 @@ class module_search_client extends module_template
 
 	set_mod_register(mod_register){
 		this.mod_register = mod_register;
+	}
+
+	set_mod_search_sale(mod_search_sale){
+		this.mod_search_sale = mod_search_sale;
 	}
 
 	set_dom_element (dom_element){
@@ -162,6 +170,28 @@ function create_module_search_client (post_request)
 	module.btn_next.addEventListener('click',
 		function(){
 			driver_module_search.page_next(module);
+		}
+	);
+
+	module.btn_see_sales.addEventListener('click',
+		function(){
+
+			var item = module.get_data_rows()[module.get_selected_row()];
+
+			console.log(module.mod_search_sale);
+
+			// reset filters and set cedula filter on
+			driver_module_search.populate_tbl_filter(module.mod_search_sale);
+
+			module.mod_search_sale.input_filter.cedula.check.checked = true;
+			module.mod_search_sale.input_filter.cedula.input[0].value = item.cedula;
+			module.mod_search_sale.input_filter.cedula.input[0].disabled = false;
+
+			// switch module
+			show_module  ("sale_search");
+			show_message ("Resultados",
+						"Mostrando resultados de cliente con cedula: " + item.cedula);
+
 		}
 	);
 
