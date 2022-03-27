@@ -125,6 +125,10 @@ app.post ('/endpoint', function(req, res)
 
 			break;
 
+		case macro.VEHICLE_PRICE_SEARCH:
+			sql = "CALL vehicle_price_search (" + data.id_vehicle + ");";
+			break;
+
 		case macro.CLIENT_GET_COLUMN_DATA:
 
 			sql = "SELECT * FROM client_column_data";

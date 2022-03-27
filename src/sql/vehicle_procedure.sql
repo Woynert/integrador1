@@ -6,32 +6,55 @@ USE integrador;
 DROP PROCEDURE IF EXISTS vehicle_update_row;
 DROP PROCEDURE IF EXISTS vehicle_register;
 DROP PROCEDURE IF EXISTS vehicle_filter_search;
+DROP PROCEDURE IF EXISTS vehicle_price_search;
 
 -- update
 
 DELIMITER //
 CREATE PROCEDURE vehicle_update_row (
-	IN _tipo_vehiculo CHAR(250),
-	IN _marca      CHAR(250),
-	IN _modelo     CHAR(250),
-	IN _generacion CHAR(250),
-	IN _placa      CHAR(250),
-	IN _condicion  CHAR(250),
-	IN _precio     BIGINT UNSIGNED,
-	IN _id         INT
+	IN ar_tipo_vehiculo CHAR(250),
+	IN ar_marca      CHAR(250),
+	IN ar_modelo     CHAR(250),
+	IN ar_generacion CHAR(250),
+	IN ar_placa      CHAR(250),
+	IN ar_condicion  CHAR(250),
+	IN ar_precio     BIGINT UNSIGNED,
+	IN ar_id         INT
 )
 BEGIN
 
+	-- get current price
+
+	DECLARE p_cur_precio BIGINT UNSIGNED;
+	SELECT precio INTO @p_cur_precio FROM vehicles WHERE id = ar_id;
+
+	-- update
+
 	UPDATE vehicles
 	SET
-		tipo_vehiculo = IF (ISNULL(_tipo_vehiculo), tipo_vehiculo, _tipo_vehiculo),
-		marca      = IF (ISNULL(_marca), marca, _marca),
-		modelo     = IF (ISNULL(_modelo), modelo, _modelo),
-		generacion = IF (ISNULL(_generacion), generacion, _generacion),
-		placa      = IF (ISNULL(_placa), placa, _placa),
-		condicion  = IF (ISNULL(_condicion), condicion, _condicion),
-		precio     = IF (ISNULL(_precio), precio, _precio)
-	WHERE id = _id;
+		tipo_vehiculo = IF (ISNULL(ar_tipo_vehiculo), tipo_vehiculo, ar_tipo_vehiculo),
+		marca      = IF (ISNULL(ar_marca), marca, ar_marca),
+		modelo     = IF (ISNULL(ar_modelo), modelo, ar_modelo),
+		generacion = IF (ISNULL(ar_generacion), generacion, ar_generacion),
+		placa      = IF (ISNULL(ar_placa), placa, ar_placa),
+		condicion  = IF (ISNULL(ar_condicion), condicion, ar_condicion),
+		precio     = IF (ISNULL(ar_precio), precio, ar_precio)
+	WHERE id = ar_id;
+
+	-- record price update
+
+	IF ar_precio != @p_cur_precio THEN
+
+		INSERT INTO vehicle_price (
+			id_vehicle,
+			precio
+			)
+		VALUES(
+			ar_id,
+			ar_precio
+			);
+
+	END IF;
 
 END ;
 //
@@ -41,15 +64,17 @@ DELIMITER ;
 
 DELIMITER //
 CREATE PROCEDURE vehicle_register (
-	IN _tipo_vehiculo CHAR(250),
-	IN _marca  CHAR(250),
-	IN _modelo CHAR(250),
-	IN _generacion CHAR(250),
-	IN _placa  CHAR(250),
-	IN _condicion CHAR(250),
-	IN _precio BIGINT UNSIGNED
+	IN ar_tipo_vehiculo CHAR(250),
+	IN ar_marca  CHAR(250),
+	IN ar_modelo CHAR(250),
+	IN ar_generacion CHAR(250),
+	IN ar_placa  CHAR(250),
+	IN ar_condicion CHAR(250),
+	IN ar_precio BIGINT UNSIGNED
 )
 BEGIN
+
+	-- insert vehicle
 
 	INSERT INTO vehicles
 	(tipo_vehiculo,
@@ -60,13 +85,27 @@ BEGIN
 		condicion ,
 		precio    )
 
-	VALUES (_tipo_vehiculo,
-		_marca,
-		_modelo,
-		_generacion,
-		_placa,
-		_condicion,
-		_precio);
+	VALUES (
+		ar_tipo_vehiculo,
+		ar_marca,
+		ar_modelo,
+		ar_generacion,
+		ar_placa,
+		ar_condicion,
+		ar_precio);
+
+	-- SELECT LAST_INSERT_ID();
+
+	-- record price
+
+	INSERT INTO vehicle_price(
+		id_vehicle,
+		precio)
+
+	VALUES(
+		(SELECT LAST_INSERT_ID()),
+		ar_precio
+	);
 
 END ;
 //
@@ -146,6 +185,27 @@ END ;
 //
 DELIMITER ;
 
+
+-- get price history
+
+DELIMITER //
+CREATE PROCEDURE vehicle_price_search (
+	IN ar_id_vehicle INT
+)
+BEGIN
+
+	SELECT
+		DATE_FORMAT(fecha, '%Y-%m-%d %H:%i') AS `fecha`,
+		precio
+	FROM
+		vehicle_price
+	WHERE
+		id_vehicle = ar_id_vehicle
+	;
+
+END ;
+//
+DELIMITER ;
 
 -- test
 

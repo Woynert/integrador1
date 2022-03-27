@@ -11,6 +11,7 @@ SOURCE ./vehicle_table.sql;
 SOURCE ./client_table.sql;
 SOURCE ./employee_table.sql;
 SOURCE ./sale_table.sql;
+SOURCE ./vehicle_price_table.sql;
 
 SOURCE ./views.sql;
 

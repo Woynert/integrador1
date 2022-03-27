@@ -37,6 +37,9 @@ class module_search_vehicle extends module_template
 		this.btn_next;
 		this.lbl_page_count;
 
+		this.btn_see_price_history;
+		this.tbl_price_history;
+
 		this.tbl_filter;
 		this.input_filter = {};
 
@@ -69,6 +72,8 @@ class module_search_vehicle extends module_template
 		this.tbl_filter   = document.getElementById ("srh_vehicle_tbl_filter");
 		this.tbl_resume   = document.getElementById ("srh_vehicle_tbl_resume");
 		this.btn_edit_row = document.getElementById ("srh_vehicle_btn_edit_row");
+		this.btn_see_price_history = document.getElementById ("srh_vehicle_btn_see_price_history");
+		this.tbl_price_history = document.getElementById("srh_vehicle_tbl_price_history");
 		this.lbl_no_result = document.getElementById ("srh_vehicle_lbl_no_result");
 
 		this.btn_back = document.getElementById ("srh_vehicle_btn_back");
@@ -115,8 +120,6 @@ class module_search_vehicle extends module_template
 
 	toggle_dialog_custom_actions()
 	{
-		console.log(this.tbl_list)
-
 		// activate
 		if (this.mode_dialog_select)
 		{
@@ -124,8 +127,6 @@ class module_search_vehicle extends module_template
 		    this.tbl_list.style.visibility = "hidden";
 
 			// set state filter to 'DISPONIBLE' and freeze it
-			console.log(this.input_filter.estado.input[0]);
-			console.log(this.input_filter.estado.check);
 
 			this.input_filter.estado.input[0].disabled = true;
 			this.input_filter.estado.check.disabled    = true;
@@ -145,6 +146,70 @@ class module_search_vehicle extends module_template
 			this.input_filter.estado.input[0].value = '';
 			this.input_filter.estado.check.checked = false;
 		}
+	}
+
+	click_row_custom_actions()
+	{}
+
+	static fetch_table_prices(module)
+	{
+
+		var item;
+		var value_list = {};
+
+		item = module.get_data_rows()[module.get_selected_row()];
+		value_list.id_vehicle = item.id;
+
+		let postObj = {
+		    id: macro.VEHICLE_PRICE_SEARCH,
+			data: value_list
+		}
+
+		// call fetch object
+		module.post_request.request(postObj,
+		function(rows)
+		{
+
+			var td;
+			var tr;
+			var arrprices = rows.data[0];
+
+
+			// populate
+
+			module.tbl_price_history.innerHTML = '';
+
+			// header
+			tr = document.createElement('tr');
+
+			td = document.createElement('td');
+			td.innerHTML = "Fecha";
+			tr.appendChild(td);
+
+			td = document.createElement('td');
+			td.innerHTML = "Precio";
+			tr.appendChild(td);
+
+			module.tbl_price_history.appendChild(tr);
+
+			// content
+
+			for (var i = 0; i < arrprices.length; i++)
+			{
+				tr = document.createElement('tr');
+
+				td = document.createElement('td');
+				td.innerHTML = arrprices[i].fecha;
+				tr.appendChild(td);
+
+				td = document.createElement('td');
+				td.innerHTML = arrprices[i].precio;
+				tr.appendChild(td);
+
+				module.tbl_price_history.appendChild(tr);
+			}
+		}
+		);
 	}
 }
 
@@ -187,6 +252,12 @@ function create_module_search_vehicle (post_request)
 	module.btn_next.addEventListener('click',
 		function(){
 			driver_module_search.page_next(module);
+		}
+	);
+
+	module.btn_see_price_history.addEventListener('click',
+		function(){
+			module_search_vehicle.fetch_table_prices(module);
 		}
 	);
 
