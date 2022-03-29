@@ -447,6 +447,26 @@ class driver_module_search
 					];
 
 					break;
+
+				// selection string / selection string -> int
+				case 4:
+				case 5:
+					input = document.createElement('select');
+					input.disabled = true;
+					input.id_input = rows[i]['datatype'];
+
+					var options = JSON.parse(rows[i]['options']);
+
+					for (var opval in options)
+					{
+						var inputoption = document.createElement('option');
+						inputoption.innerHTML = opval;
+						inputoption.id_item = options[opval];
+						input.appendChild (inputoption);
+					}
+
+					module.input_filter[ rows[i]['property'] ]["input"] = [input];
+					break;
 			}
 
 			// disable input on check

@@ -53,25 +53,54 @@ class input_creator
 	{
 		// date
 		if (ele.id_input == 2)
+		{
 			return ele.cleave.getFormattedValue();
+		}
+
+		// select
+		else if (ele.id_input == 4)
+		{
+			return ele.value;
+		}
+		else if (ele.id_input == 5)
+		{
+			let value = ele[ele.selectedIndex].id_item;
+			console.log ( "CHECK THIS OUT " + value );
+			return value;
+		}
 		else
 			return ele.cleave.getRawValue();
 	}
 
 	is_empty (ele)
 	{
-		let empty;
-		let value = ele.cleave.getRawValue();
 
-		value = value.replace(/ /g, "");
+		var empty;
+		var value;
 
-		if (ele.cleave.properties.date)
+		console.log(ele.id_input);
+
+		// select
+		if ((ele.id_input == 4) || (ele.id_input == 5))
 		{
-			empty = (value.length < 8)
+			value = ele.value;
+			empty = (value == '');
 		}
-		else
-			empty = (value == '')
 
+		else
+		{
+			value = ele.cleave.getRawValue();
+			value = value.replace(/ /g, "");
+
+			if (ele.cleave.properties.date)
+			{
+				empty = (value.length < 8)
+			}
+			else
+			{
+				empty = (value == '')
+			}
+		}
 		return empty;
 
 	}

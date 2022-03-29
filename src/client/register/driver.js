@@ -81,6 +81,26 @@ class driver_module_register
 					td.appendChild(input2);
 
                 	break;
+
+                // selection string / selection string -> int
+                case 4:
+                case 5:
+                    input = document.createElement('select');
+                    input.id_input = rows_type[i]['datatype'];
+
+                    var options = JSON.parse(rows_type[i]['options']);
+
+                    for (var opval in options)
+                    {
+                        var inputoption = document.createElement('option');
+                        inputoption.innerHTML = opval;
+                        inputoption.id_item = options[opval];
+                        input.appendChild (inputoption);
+                    }
+
+					module.input_elements[rows_type[i].property] = [input];
+					td.appendChild(input);
+                    break;
 			}
 
 			tr.appendChild(td);

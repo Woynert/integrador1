@@ -190,7 +190,7 @@ function files_to_load_by_role()
 	switch (USER.role)
 	{
 		// ADMIN
-		case '0':
+		case '1':
 			selected_module = 'vehicle_search';
 			files_to_load.push('vehicle_search')
 			files_to_load.push('vehicle_edit')
@@ -212,7 +212,7 @@ function files_to_load_by_role()
 			break;
 
 		// asesor comercial
-		case '1':
+		case '2':
 			selected_module = 'vehicle_search';
 			files_to_load.push('vehicle_search')
 			files_to_load.push('vehicle_register')
@@ -229,7 +229,7 @@ function files_to_load_by_role()
 			break;
 
 		// cajero
-		case '2':
+		case '3':
 			selected_module = 'sale_search';
 			//files_to_load.push('sale')
 			//files_to_load.push('dialog_picker')

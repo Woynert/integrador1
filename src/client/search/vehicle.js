@@ -40,6 +40,8 @@ class module_search_vehicle extends module_template
 		this.btn_see_price_history;
 		this.tbl_price_history;
 
+		this.btn_export_inventory;
+
 		this.tbl_filter;
 		this.input_filter = {};
 
@@ -74,6 +76,7 @@ class module_search_vehicle extends module_template
 		this.btn_edit_row = document.getElementById ("srh_vehicle_btn_edit_row");
 		this.btn_see_price_history = document.getElementById ("srh_vehicle_btn_see_price_history");
 		this.tbl_price_history = document.getElementById("srh_vehicle_tbl_price_history");
+		this.btn_export_inventory = document.getElementById ("srh_vehicle_btn_export_inventory");
 		this.lbl_no_result = document.getElementById ("srh_vehicle_lbl_no_result");
 
 		this.btn_back = document.getElementById ("srh_vehicle_btn_back");
@@ -258,6 +261,12 @@ function create_module_search_vehicle (post_request)
 	module.btn_see_price_history.addEventListener('click',
 		function(){
 			module_search_vehicle.fetch_table_prices(module);
+		}
+	);
+
+	module.btn_export_inventory.addEventListener('click',
+		function(){
+			console.log("Mega");
 		}
 	);
 

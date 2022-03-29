@@ -123,6 +123,28 @@ class driver_module_edit
                     td.appendChild(input2);
 
                     break;
+
+				// selection string / selection string -> int
+                case 4:
+                case 5:
+                    input = document.createElement('select');
+                    input.disabled = true;
+                    input.id_input = rows_type[i]['datatype'];
+
+                    var options = JSON.parse(rows_type[i]['options']);
+
+                    for (var opval in options)
+                    {
+                        var inputoption = document.createElement('option');
+                        inputoption.innerHTML = opval;
+                        inputoption.id_item = options[opval];
+                        input.appendChild (inputoption);
+                    }
+
+                    module.input_elements[rows_type[i].property] = [input];
+                    td.appendChild(input);
+
+                    break;
             }
 
 			// disable input on check
@@ -154,6 +176,22 @@ class driver_module_edit
                 	break;
 
                 case 3: // password
+                	break;
+
+                case 4: // selection string
+                	for (var k = 0; k < input.options.length; k++)
+                	{
+                		if (input[k].value == module.item[rows_type[i].property])
+                			input.selectedIndex = k;
+                	}
+                	break;
+
+                case 5: // selection string -> int
+                	for (var k = 0; k < input.options.length; k++)
+                	{
+                		if (input[k].id_item == module.item[rows_type[i].property])
+                			input.selectedIndex = k;
+                	}
                 	break;
              }
 

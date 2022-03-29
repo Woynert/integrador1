@@ -35,6 +35,9 @@ CREATE TABLE IF NOT EXISTS sales
 -- 0 string
 -- 1 int
 -- 2 date
+-- 3 password
+-- 4 selection string
+-- 5 selection string -> number
 
 -- sale filter search column data
 
@@ -44,15 +47,16 @@ CREATE TABLE IF NOT EXISTS sale_filter_search_column_data
 	event     CHAR(40) NULL DEFAULT NULL,
 	property  CHAR(50) NULL DEFAULT NULL,
 	datatype  INT      NULL DEFAULT NULL,
-	defvalue  CHAR(50) NULL DEFAULT NULL
+	defvalue  CHAR(50) NULL DEFAULT NULL,
+	options   CHAR(250) NULL DEFAULT NULL
 	-- printname CHAR(50) NULL DEFAULT NULL
 );
 
-INSERT INTO sale_filter_search_column_data (event, property, datatype, defvalue)
+INSERT INTO sale_filter_search_column_data (event, property, datatype, defvalue, options)
 VALUES
-("FILTER","cedula" , 0, ''),
-("FILTER","modelo" , 0, ''),
-("FILTER","precio" , 1, '0'),
-("FILTER","estado" , 0, ''),
-("FILTER","created", 2, '')
+("FILTER","cedula" , 0, '', '{}'),
+("FILTER","modelo" , 0, '', '{}'),
+("FILTER","precio" , 1, '0', '{}'),
+("FILTER","estado" , 4, '', '{"PENDIENTE":0,"PAGADO":1,"CANCELADO":2}'),
+("FILTER","created", 2, '', '{}')
 ;
