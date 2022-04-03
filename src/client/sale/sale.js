@@ -15,8 +15,10 @@ class module_sale extends module_template
 		super();
 
 		// transaccional
-		this.id_selected_vehicle = null;
-		this.id_selected_client = null;
+		this.id_selected_vehicle   = null;
+		this.vehicle_marca         = null;
+		this.vehicle_id_from_marca = null;
+		this.id_selected_client    = null;
 
 		// elements
 		this.btn_invoke_client;
@@ -79,8 +81,10 @@ class module_sale extends module_template
 
     reset ()
     {
-    	this.id_selected_vehicle = null;
-		this.id_selected_client = null;
+		this.id_selected_vehicle   = null;
+		this.vehicle_marca         = null;
+		this.vehicle_id_from_marca = null;
+		this.id_selected_client    = null;
 
 		this.lbl_selected_vehicle.innerHTML = "Ningún vehiculo seleccionado";
 		this.lbl_selected_client.innerHTML = "Ningún cliente seleccionado";
@@ -97,6 +101,8 @@ class module_sale extends module_template
 
 			console.log("Selected vehicle id: " + rows[data].id);
 			module.id_selected_vehicle = rows[data].id;
+			module.vehicle_marca         = rows[data].marca;
+			module.vehicle_id_from_marca = rows[data].id_from_marca;
 
 			// set label
 			var format = rows[data].tipo_vehiculo +" "+
@@ -172,6 +178,8 @@ function create_module_sale(post_request)
 			value_list["id_client"]   = module.id_selected_client;
 			value_list["id_employee"] = USER.id;
 			value_list["id_vehicle"]  = module.id_selected_vehicle;
+			value_list["marca"]         = module.vehicle_marca;
+			value_list["id_from_marca"] = module.vehicle_id_from_marca;
 			value_list["discount"]    = module.num_discount.value;
 			value_list["responsible"] = ''; // depends on matriz
 

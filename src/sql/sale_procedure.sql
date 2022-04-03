@@ -18,8 +18,9 @@ DELIMITER //
 CREATE PROCEDURE sales_pending_new (
     IN ar_id_client   INT,
     IN ar_id_employee INT,
-    IN ar_id_vehicle  INT,
-    IN ar_responsible CHAR(50),
+    IN ar_marca         CHAR(250),
+    IN ar_id_from_marca INT,
+    IN ar_responsible    CHAR(50),
     IN ar_discount_perce INT
 )
 BEGIN
@@ -34,19 +35,46 @@ BEGIN
 	DECLARE p_tax_perce INT;
 	SET @p_tax_perce = 3; -- static tax
 
-	-- TODO: check is available 'DISPONIBLE'
-	-- set is no longer available 'EN TRAMITE'
+	-- check stock
 
-	UPDATE vehicles
-	SET    estado = 'EN TRAMITE'
-	WHERE  id = ar_id_vehicle;
+	SET @p_stock = (
+		SELECT (cantidad > 0)
+		FROM   vehicles
+		WHERE
+		marca = ar_marca AND
+		id_from_marca = ar_id_from_marca
+		LIMIT 1);
 
-	-- set vars
+
+	-- interrupt
+
+	IF NOT @p_stock THEN
+
+		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Not stock available!';
+
+	END IF;
+
+	-- reduce available units
+
+	UPDATE vehicles v
+	SET v.cantidad = v.cantidad -1
+	WHERE
+		v.marca = ar_marca AND
+		v.id_from_marca = ar_id_from_marca;
+
+	-- update status
+
+	CALL vehicle_update_stock_status (ar_marca, ar_id_from_marca);
+
+	-- get base price
 
 	SET @p_subtotal = (
 		SELECT precio
 		FROM   vehicles
-		WHERE  id = ar_id_vehicle);
+		WHERE
+			marca = ar_marca AND
+			id_from_marca = ar_id_from_marca
+		LIMIT 1);
 
 	-- apply discount & taxes
 
@@ -61,7 +89,8 @@ BEGIN
 	INSERT INTO sales (
 		id_client,
 		id_employee,
-		id_vehicle,
+		marca,
+		id_from_marca,
 		responsible,
 		subtotal,
 		discount,
@@ -71,7 +100,8 @@ BEGIN
 	VALUES (
 		ar_id_client,
 		ar_id_employee,
-		ar_id_vehicle,
+		ar_marca,
+		ar_id_from_marca,
 		IF (ar_responsible = '', "concesionaria", ar_responsible),
 		@p_subtotal,
 		ar_discount_perce,
@@ -142,8 +172,9 @@ BEGIN
 		clients c,
 		vehicles v
 	WHERE
-		sp.id_client  = c.id AND
-		sp.id_vehicle = v.id AND
+		sp.id_client = c.id AND
+		sp.marca         = v.marca AND
+		sp.id_from_marca = v.id_from_marca AND
 		c.cedula     LIKE CONCAT('%',ar_cedula,'%') AND
 		v.modelo     LIKE CONCAT('%',ar_modelo,'%') AND
 		sp.state     LIKE CONCAT('%',ar_state,'%') AND
@@ -160,8 +191,9 @@ BEGIN
 		clients c,
 		vehicles v
 	WHERE
-		sp.id_client  = c.id AND
-		sp.id_vehicle = v.id AND
+		sp.id_client = c.id AND
+		sp.marca         = v.marca AND
+		sp.id_from_marca = v.id_from_marca AND
 		c.cedula     LIKE CONCAT('%',ar_cedula,'%') AND
 		v.modelo     LIKE CONCAT('%',ar_modelo,'%') AND
 		sp.state     LIKE CONCAT('%',ar_state,'%') AND
@@ -181,18 +213,6 @@ CREATE PROCEDURE sale_confirm_payment (
 	IN ar_method CHAR(50)
 )
 BEGIN
-
-	-- set vehicle to selled
-
-	UPDATE
-		vehicles v,
-		sales s
-	SET
-		v.estado = 'VENDIDO'
-	WHERE
-		s.id = ar_id_sale AND
-		s.id_vehicle = v.id
-	;
 
 	-- record payment
 
@@ -218,18 +238,48 @@ CREATE PROCEDURE sale_cancel_payment (
 )
 BEGIN
 
-	-- make vehicle available
+	-- cannot cancel an already canceled payment
+
+	SET @p_already_canceled = (
+		SELECT (s.state = "CANCELADO")
+		FROM   sales s
+		WHERE  s.id = ar_id_sale
+		);
+
+	-- interrupt
+
+	IF @p_already_canceled THEN
+
+		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Sale already canceled';
+
+	END IF;
+
+	-- increase available units
 
 	UPDATE
 		vehicles v,
 		sales s
 	SET
-		v.estado = 'DISPONIBLE'
+		v.cantidad = v.cantidad +1
 	WHERE
 		s.id = ar_id_sale AND
-		s.id_vehicle = v.id
+		s.marca = v.marca AND
+		s.id_from_marca = v.id_from_marca
+		;
+
+	-- get vehicle identity
+
+	SELECT s.marca, s.id_from_marca
+	INTO @p_marca, @p_id_from_marca
+	FROM
+		sales s
+	WHERE
+		s.id = ar_id_sale
 	;
 
+	-- update status
+
+	CALL vehicle_update_stock_status (@p_marca, @p_id_from_marca);
 
 	-- cancel
 
@@ -271,7 +321,6 @@ BEGIN
 		v.marca,
 		v.modelo,
 		v.generacion,
-		v.placa,
 		v.condicion,
 
 		s.subtotal,
@@ -284,10 +333,11 @@ BEGIN
 		employees e,
 		vehicles v
 	WHERE
-		s.id          = ar_id_sale AND
-		s.id_client   = c.id AND
-		s.id_employee = e.id AND
-		s.id_vehicle  = v.id
+		s.id            = ar_id_sale AND
+		s.id_client     = c.id AND
+		s.id_employee   = e.id AND
+		s.marca         = v.marca AND
+		s.id_from_marca = v.id_from_marca
 	;
 
 END ;

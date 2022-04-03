@@ -1,4 +1,5 @@
 
+import axios      from 'axios';
 import express    from 'express';
 import path       from 'path';
 import bodyParser from 'body-parser';
@@ -12,7 +13,8 @@ const __dirname = path.dirname(__filename);
 
 // MARIADB CONNECTION
 
-const myconn = new dbconn();
+const intern_conn = new dbconn();
+const myconn      = new dbconn();
 
 // SERVER SETUP
 
@@ -36,11 +38,107 @@ app.listen(port, () => {
 BigInt.prototype.toJSON = function() { return this.toString() };
 
 
+// MATRIZ SYNCRONIZATION
+
+var matriz_data = [];
+
+function matriz_get_inventory(index)
+{
+	axios
+	  .get('http://127.0.0.1:3001/product/'+index)
+	  .then(res =>
+	  {
+
+		    console.log(`statusCode: ${res.status}`);
+		    console.log(res.data.body.length);
+
+			// continue
+		    if (res.data.body.length){
+
+				let data = res.data.body;
+
+		    	for (var i = 0; i < data.length; i++)
+		    	{
+		    		//console.log(data[i]);
+		    		matriz_data.push(data[i]);
+		    	}
+
+			    matriz_get_inventory(index+1);
+			}
+
+			// finished
+			else{
+				matriz_sync();
+			}
+
+	  })
+	  .catch(error => {
+	    //console.error(error);
+	    console.log("Error matriz_get_inventory");
+	    console.log(error.code);
+	  })
+	;
+}
+
+function matriz_sync()
+{
+
+	//var sql = "";
+	var item;
+
+	intern_conn.start_connection();
+
+	for (var i = 0; i < matriz_data.length; i++){
+
+
+		item = matriz_data[i];
+		//console.log(matriz_data[i]);
+
+		let
+		sql = 'CALL vehicle_update_or_register( "'
+			+         "upbmotors"
+			+ '", ' + item.id
+			+ ' ,"' + "carro"
+			+ '","' + item.nombre
+			+ '","' + "2022"
+			+ '","' + "NUEVO"
+			+ '", ' + item.precio
+			+ ' , ' + item.cantidad
+			+ ')';
+
+		let lastone = (i == matriz_data.length-1);
+
+		console.log(sql);
+
+		intern_conn.print_query(sql,
+		function (data, res, id)
+		{
+			console.log("COMPLETED");
+
+			var pack = {"id_pkg": id, "data": data};
+
+			console.log(JSON.stringify(pack));
+
+			if (lastone)
+				intern_conn.end_connection();
+		}
+		, 0, 0);
+
+	}
+
+	//intern_conn.end_connection();
+
+}
+
+setTimeout(function(){
+matriz_get_inventory(1);
+}, 1000);
+//matriz_get_inventory(1);
+
 // HANDLE REQUEST
 
 app.post ('/endpoint', function(req, res)
 {
-
 
 	var body = JSON.stringify(req.body);
 	var id   = req.body.id;
@@ -62,11 +160,11 @@ app.post ('/endpoint', function(req, res)
 		case macro.VEHICLE_FILTER_SEARCH:
 
 			sql = 'call vehicle_filter_search( "'
-			+ data['tipo_vehiculo']
-			+ '","' + data['marca']
+			+         data['marca']
+			+ '","' + data['tipo_vehiculo']
 			+ '","' + data['modelo']
 			+ '","' + data['generacion']
-			+ '","' + data['placa']
+			// + '","' + data['placa']
 			+ '","' + data['condicion']
 			+ '","' + data['fecha_start']
 			+ '","' + data['fecha_end']
@@ -126,7 +224,10 @@ app.post ('/endpoint', function(req, res)
 			break;
 
 		case macro.VEHICLE_PRICE_SEARCH:
-			sql = "CALL vehicle_price_search (" + data.id_vehicle + ");";
+			sql = "CALL vehicle_price_search ('"
+			+         data.marca
+			+ "'," + data.id_from_marca
+			+ ");";
 			break;
 
 		case macro.CLIENT_GET_COLUMN_DATA:
@@ -195,11 +296,12 @@ app.post ('/endpoint', function(req, res)
 		case macro.SALES_PENDING_NEW:
 
 			sql = "CALL sales_pending_new ( " +
-				data.id_client   + ", "+
-				data.id_employee + ", "+
-				data.id_vehicle  + ", '"+
-				data.responsible + "', "+
-				data.discount    + ");";
+				data.id_client     + ", "+
+				data.id_employee   + ", '"+
+				data.marca         + "', "+
+				data.id_from_marca + ", '"+
+				data.responsible   + "', "+
+				data.discount      + ");";
 
 			break;
 

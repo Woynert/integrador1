@@ -87,7 +87,10 @@ class module_search_vehicle extends module_template
 			//this.tbl_resume,
 			this.btn_edit_row,
 			document.getElementById ("srh_vehicle_title"),
-			document.getElementById ("srh_vehicle_resume")
+			document.getElementById ("srh_vehicle_resume"),
+			document.getElementById ("srh_vehicle_btn_see_price_history"),
+			document.getElementById ("srh_vehicle_price"),
+			document.getElementById ("srh_vehicle_btn_export_inventory")
 		]
 	}
 
@@ -161,7 +164,8 @@ class module_search_vehicle extends module_template
 		var value_list = {};
 
 		item = module.get_data_rows()[module.get_selected_row()];
-		value_list.id_vehicle = item.id;
+		value_list.marca = item.marca;
+		value_list.id_from_marca = item.id_from_marca;
 
 		let postObj = {
 		    id: macro.VEHICLE_PRICE_SEARCH,

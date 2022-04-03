@@ -86,7 +86,8 @@ class module_search_client extends module_template
 			//this.tbl_resume,
 			this.btn_edit_row,
 			document.getElementById ("srh_client_title"),
-			document.getElementById ("srh_client_resume")
+			document.getElementById ("srh_client_resume"),
+			document.getElementById ("srh_client_btn_see_sales")
 		]
 
 		//this.btn_confirm_selection = document.getElementById ("srh_client_btn_confirm_selection");

@@ -38,7 +38,10 @@ class dbconn
 				console.log(err);
 				//throw err;
 
-			callback(rows, res, id); // call function
+			if (callback){
+				console.log("help");
+				callback(rows, res, id); // call function
+			}
 		});
 	}
 

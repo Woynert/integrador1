@@ -13,7 +13,8 @@ CREATE TABLE IF NOT EXISTS sales
 	id             INT AUTO_INCREMENT PRIMARY KEY,
 	id_client      INT NOT NULL,
 	id_employee    INT NOT NULL,
-	id_vehicle     INT NOT NULL,
+	marca          CHAR(250) NOT NULL,
+	id_from_marca  INT NOT NULL,
 	responsible    CHAR(50) NOT NULL DEFAULT 'Consecionaria',
 	state          CHAR(50) NOT NULL DEFAULT 'PENDIENTE',
 	created        DATETIME DEFAULT CURRENT_TIMESTAMP(),
@@ -27,8 +28,10 @@ CREATE TABLE IF NOT EXISTS sales
 	payment_method CHAR(50) NULL DEFAULT NULL,
 
 	FOREIGN KEY (id_client)   REFERENCES clients(id),
-	FOREIGN KEY (id_employee) REFERENCES employees(id),
-    FOREIGN KEY (id_vehicle)  REFERENCES vehicles(id)
+	FOREIGN KEY (id_employee) REFERENCES employees(id)
+
+	-- FOREIGN KEY ( marca, id_from_marca )
+	-- REFERENCES vehicles ( marca, id_from_marca )
 );
 
 -- Data type

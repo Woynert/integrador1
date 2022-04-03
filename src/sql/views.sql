@@ -7,14 +7,15 @@ DROP VIEW IF EXISTS view_clients;
 
 CREATE VIEW view_vehicles AS
 SELECT id AS `ID`,
-        tipo_vehiculo,
         marca,
+        id_from_marca,
+        tipo_vehiculo,
         modelo,
         generacion,
-        placa,
         condicion,
         DATE_FORMAT(fecha, '%Y-%m-%d') AS `fecha`,
         precio,
+        cantidad,
         estado
 FROM vehicles
 ;
