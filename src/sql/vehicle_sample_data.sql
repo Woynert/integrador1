@@ -28,9 +28,9 @@ CALL vehicle_register("consbin", 0, "Carro" ,"Avalon","2014", 'USADO', 13300900,
 
 -- update prices
 
-CALL vehicle_update_row("consbin", 1, NULL, NULL, NULL, NULL, 1600900);
-CALL vehicle_update_row("consbin", 1, NULL, NULL, NULL, NULL, 1700900);
-CALL vehicle_update_row("consbin", 2, NULL, NULL, NULL, NULL, 21300900);
-CALL vehicle_update_row("consbin", 2, NULL, NULL, NULL, NULL, 20500000);
-CALL vehicle_update_row("consbin", 3, NULL, NULL, NULL, NULL, 11000000);
+CALL vehicle_update_row("consbin", 1, NULL, NULL, NULL, NULL, 1600900, NULL);
+CALL vehicle_update_row("consbin", 1, NULL, NULL, NULL, NULL, 1700900, NULL);
+CALL vehicle_update_row("consbin", 2, NULL, NULL, NULL, NULL, 21300900, NULL);
+CALL vehicle_update_row("consbin", 2, NULL, NULL, NULL, NULL, 20500000, NULL);
+CALL vehicle_update_row("consbin", 3, NULL, NULL, NULL, NULL, 11000000, NULL);
 

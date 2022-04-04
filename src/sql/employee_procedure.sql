@@ -47,7 +47,7 @@ CREATE PROCEDURE employee_register (
     IN ar_domicilio  CHAR(250),
     IN ar_cedula     CHAR(250),
     IN ar_correo     CHAR(250),
-    IN ar_nacimiento DATE, -- IN ar_registro   DATE,
+    IN ar_nacimiento DATE,
     IN ar_role       INT,
     IN ar_password   CHAR(250)
 )
@@ -155,7 +155,3 @@ END ;
 //
 DELIMITER ;
 
--- test
--- call employee_register ("Reider", "Chaner", "cll 15-50", "100158190", "chareider@woy.net", '1980-10-05', 1, '123456');
-
--- CALL employee_filter_search ("e", "", "", "", ".net", "1900-01-01", "2000-01-01", "1900-01-01", "3000-01-01", 0);

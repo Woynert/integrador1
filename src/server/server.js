@@ -178,7 +178,6 @@ app.post ('/endpoint', function(req, res)
 		case macro.VEHICLE_UPDATE_ROW:
 
 			sql = "CALL vehicle_update_row ( ";
-			var row_id;
 
 			for (var value in data)
 			{
@@ -187,26 +186,25 @@ app.post ('/endpoint', function(req, res)
 				// null check
 				if (data[value] == null)
 				{
-					sql += ' null, ';
+					sql += ' null,';
 					continue;
 				}
 
-				if (value == "id")
-					row_id = data[value];
+				if ((value == "precio") || (value == "id_from_marca"))
+					sql += ' ' + data[value] + ',';
 				else
-					if (value == "precio")
-						sql += ' ' + data[value] + ', ';
-					else
-						sql += ' "' + data[value] + '",';
+					sql += ' "' + data[value] + '",';
 			}
 
-			sql += row_id + ");";
+			sql = sql.slice(0, -1);
+			sql += ");";
 
 			break;
 
 		case macro.VEHICLE_INSERT_ROW:
 
 			sql = "CALL vehicle_register ( ";
+			sql += "'consbin', 0,";
 
 			for (var value in data)
 			{

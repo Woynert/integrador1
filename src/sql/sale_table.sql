@@ -51,15 +51,15 @@ CREATE TABLE IF NOT EXISTS sale_filter_search_column_data
 	property  CHAR(50) NULL DEFAULT NULL,
 	datatype  INT      NULL DEFAULT NULL,
 	defvalue  CHAR(50) NULL DEFAULT NULL,
-	options   CHAR(250) NULL DEFAULT NULL
-	-- printname CHAR(50) NULL DEFAULT NULL
+	options   CHAR(250) NULL DEFAULT NULL,
+	editable  BOOLEAN   DEFAULT FALSE
 );
 
-INSERT INTO sale_filter_search_column_data (event, property, datatype, defvalue, options)
+INSERT INTO sale_filter_search_column_data (event, property, datatype, defvalue, options, editable)
 VALUES
-("FILTER","cedula" , 0, '', '{}'),
-("FILTER","modelo" , 0, '', '{}'),
-("FILTER","precio" , 1, '0', '{}'),
-("FILTER","estado" , 4, '', '{"PENDIENTE":0,"PAGADO":1,"CANCELADO":2}'),
-("FILTER","created", 2, '', '{}')
+("FILTER","cedula" , 0, '', '{}', TRUE),
+("FILTER","modelo" , 0, '', '{}', TRUE),
+("FILTER","precio" , 1, '0', '{}', TRUE),
+("FILTER","estado" , 4, '', '{"PENDIENTE":0,"PAGADO":1,"CANCELADO":2}', TRUE),
+("FILTER","created", 2, '', '{}', TRUE)
 ;

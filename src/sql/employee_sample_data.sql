@@ -3,7 +3,6 @@ USE integrador;
 
 -- sample data
 
-
 CALL employee_register("Luigi", "Bros", "cll 17-25", "1004525354","luigi@conbin.autoupb.com", '1978-11-13', 1, "luigi");
 
 CALL employee_register("Bowser", "Firehell", "cll 50-15", "1006525354","bowser@conbin.autoupb.com", '1962-11-13', 2, "bowser");

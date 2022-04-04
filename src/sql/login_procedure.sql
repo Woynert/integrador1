@@ -26,24 +26,3 @@ BEGIN
 END ;
 //
 DELIMITER ;
-
--- logout
-/*
-DELIMITER //
-CREATE PROCEDURE logout (
-    IN ar_user     CHAR(250)
-)
-BEGIN
-
-	UPDATE
-		employees
-	SET
-		state = 'offline'
-	WHERE
-		correo   = ar_user
-	;
-
-END ;
-//
-DELIMITER ;
-*/

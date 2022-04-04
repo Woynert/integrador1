@@ -3,7 +3,7 @@ USE integrador;
 
 -- drop
 
--- DROP TABLE IF EXISTS vehicles;
+DROP TABLE IF EXISTS vehicles;
 DROP TABLE IF EXISTS vehicle_column_data;
 
 -- vehicles
@@ -25,8 +25,6 @@ CREATE TABLE IF NOT EXISTS vehicles
 	UNIQUE INDEX (marca, id_from_marca)
 );
 
--- FOREIGN KEY (id_client)   REFERENCES clients(id),
-
 -- Data type
 -- 0 string
 -- 1 int
@@ -42,25 +40,36 @@ CREATE TABLE IF NOT EXISTS vehicle_column_data
 	property  CHAR(50) NULL DEFAULT NULL,
 	datatype  INT      NULL DEFAULT NULL,
 	defvalue  CHAR(50) NULL DEFAULT NULL,
-	options   CHAR(250) NULL DEFAULT NULL
+	options   CHAR(250) NULL DEFAULT NULL,
+	editable  BOOLEAN   DEFAULT FALSE
 );
 
-INSERT INTO vehicle_column_data (event, property, datatype, defvalue, options)
+INSERT INTO vehicle_column_data (event, property, datatype, defvalue, options, editable)
 VALUES
-("FILTER", "marca"        , 0, '', '{}'),
-("FILTER", "tipo_vehiculo", 0, '', '{}'),
-("FILTER", "modelo"       , 0, '', '{}'),
-("FILTER", "generacion"   , 1, '', '{}'),
-("FILTER", "condicion"    , 4, '', '{"NUEVO":0,"USADO":1}'),
-("FILTER", "fecha"        , 2, '', '{}'),
-("FILTER", "precio"       , 1, '0', '{}'),
-("FILTER", "estado"       , 4, '', '{"DISPONIBLE":0,"EN TRAMITE":1,"VENDIDO":2}'),
--- ("EDIT", "marca"        , 0, '', '{}'),
-("EDIT", "tipo_vehiculo", 0, '', '{}'),
-("EDIT", "modelo"       , 0, '', '{}'),
-("EDIT", "generacion"   , 1, '', '{}'),
-("EDIT", "condicion"    , 4, '', '{"NUEVO":0,"USADO":1}'),
-("EDIT", "precio"       , 1, '0', '{}')
+("FILTER", "marca"        , 0, '', '{}', TRUE),
+("FILTER", "tipo_vehiculo", 0, '', '{}', TRUE),
+("FILTER", "modelo"       , 0, '', '{}', TRUE),
+("FILTER", "generacion"   , 1, '', '{}', TRUE),
+("FILTER", "condicion"    , 4, '', '{"NUEVO":0,"USADO":1}', TRUE),
+("FILTER", "fecha"        , 2, '', '{}', TRUE),
+("FILTER", "precio"       , 1, '0', '{}', TRUE),
+("FILTER", "estado"       , 4, '', '{"DISPONIBLE":0,"EN TRAMITE":1,"VENDIDO":2}', TRUE),
+
+("EDIT", "marca"        , 0, '', '{}', FALSE),
+("EDIT", "id_from_marca", 0, '', '{}', FALSE),
+("EDIT", "tipo_vehiculo", 0, '', '{}', TRUE),
+("EDIT", "modelo"       , 0, '', '{}', TRUE),
+("EDIT", "generacion"   , 1, '', '{}', TRUE),
+("EDIT", "condicion"    , 4, '', '{"NUEVO":0,"USADO":1}', TRUE),
+("EDIT", "precio"       , 1, '0', '{}', TRUE),
+("EDIT", "cantidad"     , 1, '1', '{}', TRUE),
+
+("REG", "tipo_vehiculo", 0, '', '{}', TRUE),
+("REG", "modelo"       , 0, '', '{}', TRUE),
+("REG", "generacion"   , 1, '', '{}', TRUE),
+("REG", "condicion"    , 4, '', '{"NUEVO":0,"USADO":1}', TRUE),
+("REG", "precio"       , 1, '0', '{}', TRUE),
+("REG", "cantidad"     , 1, '1', '{}', TRUE)
 ;
 
 

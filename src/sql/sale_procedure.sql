@@ -82,7 +82,6 @@ BEGIN
 	SET @p_tax      = @p_subtotal * (@p_tax_perce/100);
 
 	SET @p_total = @p_subtotal - @p_discount + @p_tax;
-	-- SELECT @p_subtotal, @p_discount, @p_tax, @p_total;
 
 	-- insert
 

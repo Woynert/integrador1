@@ -22,7 +22,6 @@ CREATE PROCEDURE vehicle_update_or_register (
 	IN ar_condicion  CHAR(250),
 	IN ar_precio     BIGINT UNSIGNED,
 	IN ar_cantidad   INT UNSIGNED
-	-- IN ar_id         INT
 )
 BEGIN
 
@@ -81,8 +80,8 @@ CREATE PROCEDURE vehicle_update_row (
 	IN ar_modelo     CHAR(250),
 	IN ar_generacion CHAR(250),
 	IN ar_condicion  CHAR(250),
-	IN ar_precio     BIGINT UNSIGNED
-	-- IN ar_id         INT
+	IN ar_precio     BIGINT UNSIGNED,
+	IN ar_cantidad   INT UNSIGNED
 )
 BEGIN
 
@@ -103,7 +102,8 @@ BEGIN
 		modelo     = IF (ISNULL(ar_modelo), modelo, ar_modelo),
 		generacion = IF (ISNULL(ar_generacion), generacion, ar_generacion),
 		condicion  = IF (ISNULL(ar_condicion), condicion, ar_condicion),
-		precio     = IF (ISNULL(ar_precio), precio, ar_precio)
+		precio     = IF (ISNULL(ar_precio), precio, ar_precio),
+		cantidad   = IF (ISNULL(ar_cantidad), cantidad, ar_cantidad)
 	WHERE
 		marca = ar_marca AND
 		id_from_marca = ar_id_from_marca;
@@ -252,6 +252,7 @@ BEGIN
 	fecha         BETWEEN ar_fecha_inicio AND ar_fecha_fin AND
 	precio <= IF ( ar_precio_max = 0 , @precio_max , ar_precio_max ) AND
 	estado        LIKE CONCAT('%',ar_estado,'%')
+	ORDER BY marca
 	LIMIT p_range OFFSET p_offset
 	;
 

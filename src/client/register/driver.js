@@ -35,7 +35,7 @@ class driver_module_register
 
 			// only EDIT events
 
-			if (rows_type[i].event != "EDIT")
+			if (rows_type[i].event != "REG")
 				continue;
 
 
@@ -102,6 +102,11 @@ class driver_module_register
 					td.appendChild(input);
                     break;
 			}
+
+
+
+
+
 
 			tr.appendChild(td);
 

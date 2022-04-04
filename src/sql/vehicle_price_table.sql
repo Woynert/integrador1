@@ -14,7 +14,5 @@ CREATE TABLE IF NOT EXISTS vehicle_price
 	id_from_marca INT NOT NULL,
 	fecha         DATETIME DEFAULT CURRENT_TIMESTAMP(),
 	precio        BIGINT UNSIGNED NOT NULL
-
-    -- FOREIGN KEY (id_vehicle)  REFERENCES vehicles(id)
 );
 

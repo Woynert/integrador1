@@ -124,6 +124,21 @@ class module_search_vehicle extends module_template
 		return this.selected_row;
 	}
 
+	row_click_custom_action()
+	{
+		var item = this.get_data_rows()[this.get_selected_row()];
+		console.log(item.marca);
+
+		if (item.marca == 'consbin')
+		{
+			this.btn_edit_row.classList.remove('hidden');
+		}
+		else{
+			this.btn_edit_row.classList.add('hidden');
+		}
+
+	}
+
 	toggle_dialog_custom_actions()
 	{
 		// activate

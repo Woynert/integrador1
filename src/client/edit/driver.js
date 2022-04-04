@@ -28,9 +28,9 @@ class driver_module_edit
 
 		tr = document.createElement('tr');
 
-		// create disable id field
+		// create disabled id field
 
-		checkbox = document.createElement('input');
+		/*checkbox = document.createElement('input');
 		checkbox.type = 'checkbox';
 		checkbox.disabled = true;
 		td = document.createElement('td');
@@ -55,7 +55,7 @@ class driver_module_edit
 		tr.appendChild(td);
 
 		module.tbl_properties.appendChild(tr);
-		module.input_elements['id'] = [input];
+		module.input_elements['id'] = [input];*/
 
 		// create editable values
 
@@ -72,6 +72,8 @@ class driver_module_edit
 
 			checkbox = document.createElement('input');
 			checkbox.type = 'checkbox';
+			checkbox.classList.add("srh_filter_checkbox");
+
 			td = document.createElement('td');
 			td.appendChild(checkbox);
 			tr.appendChild(td);
@@ -147,21 +149,6 @@ class driver_module_edit
                     break;
             }
 
-			// disable input on check
-
-			let inputarr = module.input_elements[rows_type[i].property];
-
-			checkbox.addEventListener('change', (event) => {
-
-				var enabled = !event.currentTarget.checked;
-
-				for (var k = 0; k < inputarr.length; k++)
-				{
-					inputarr[k].disabled = enabled;
-				}
-			});
-
-
 			// fill data
 
 			switch (rows_type[i].datatype)
@@ -194,6 +181,28 @@ class driver_module_edit
                 	}
                 	break;
              }
+
+			// disable input on check
+
+			let inputarr = module.input_elements[rows_type[i].property];
+
+			checkbox.addEventListener('change', (event) => {
+
+				var enabled = !event.currentTarget.checked;
+
+				for (var k = 0; k < inputarr.length; k++)
+				{
+					inputarr[k].disabled = enabled;
+				}
+			});
+
+			// disable edit for specific
+
+			if (!rows_type[i].editable)
+			{
+				checkbox.checked = true;
+				checkbox.disabled = true;
+			}
 
 
 			tr.appendChild(td);
@@ -229,11 +238,11 @@ class driver_module_edit
         for (var value in module.input_elements)
         {
 			// is id
-			if (value == 'id')
+			/*if (value == 'id')
 			{
 	            value_list[value] = in_creator.get_value(module.input_elements[value][0]);
 				continue;
-			}
+			}*/
 
 			// not checked
 			if (!module.input_elements_check[value].checked)
