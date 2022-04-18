@@ -1,0 +1,16 @@
+
+# bind
+
+## reset nameserver
+
+sudo systemctl reload bind9 && sudo rndc reload && sudo systemctl -n 99999 status bind9 | tail -n 20
+
+## checks
+
+sudo named-checkconf
+sudo named-checkzone conbin.autoupb.co /etc/bind/local/db.local
+sudo named-checkzone 80.168.192.in-addr.arpa /etc/bind/local/db.reverse
+
+nslookup google.com
+nslookup www.conbin.autoupb.co
+nslookup 192.168.80.2
