@@ -1,0 +1,3 @@
+#!/bin/sh
+
+exec /opt/node/bin/node /root/dev/int/src/server 2>&1

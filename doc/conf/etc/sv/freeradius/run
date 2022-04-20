@@ -1,4 +1,4 @@
 #!/bin/sh
 
 sv check dbus >/dev/null || exit 1
-exec /usr/sbin/freeradius -f -l stdout
+exec /usr/sbin/freeradius -f -l stdout 2>&1

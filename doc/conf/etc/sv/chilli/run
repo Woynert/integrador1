@@ -66,7 +66,7 @@ echo "*/$HS_ADMINTERVAL * * * * $0 radconfig") | crontab - 2>&-
 test ${HS_LANIF_KEEPADDR:-0} -eq 0 && ip address add 0.0.0.0 dev $HS_LANIF
 
 #daemon -- $exec -c $CONFIG
-exec $exec -c $CONFIG -f
+exec $exec -c $CONFIG -f 2>&1
 #retval=$?
 #echo
 # [ $retval -eq 0 ] && touch $lockfile
