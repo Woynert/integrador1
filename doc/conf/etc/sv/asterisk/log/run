@@ -1,0 +1,8 @@
+#!/bin/sh
+
+S="asterisk"
+mkdir -p /var/log/runit/$S
+chown _runit-log:adm /var/log/runit/$S
+chmod 750 /var/log/runit/$S
+exec chpst -u _runit-log svlogd -tt /var/log/runit/$S
+
