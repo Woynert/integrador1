@@ -1,0 +1,4 @@
+# /etc/default/isc-dhcp-server
+
+INTERFACES="enp2s0"
+#INTERFACESv4="enp2s0"

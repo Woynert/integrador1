@@ -1,0 +1,19 @@
+# /etc/netplan
+
+network:
+    version: 2
+    renderer: networkd
+    ethernets:
+        enp8s0:
+            addresses:
+                - 192.168.80.2/24
+                - "2801:0:2E0:F::2/64"
+            nameservers:
+                addresses: [ 192.168.80.2 ]
+                search: [ conbin.autoupb.co ]
+            #gateway4: 192.168.80.1
+            routes:
+                - to: default
+                  via: 192.168.80.1
+                - to: default
+                  via: "2801:0:2E0:F::1/64"

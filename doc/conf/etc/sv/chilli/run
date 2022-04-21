@@ -1,0 +1,74 @@
+#!/bin/sh
+#
+# chilli - CoovaChilli
+#
+# chkconfig: 2345 65 35
+# description: CoovaChilli
+
+# Source function library.
+. /opt/chilli/etc/chilli/functions
+
+exec="/opt/chilli/sbin/chilli"
+prog=$(basename $exec)
+
+[ -e /etc/sysconfig/$prog ] && . /etc/sysconfig/$prog
+
+lockfile=/var/lock/subsys/$prog
+
+MULTI=$(ls /opt/chilli/etc/chilli/*/chilli.conf 2>/dev/null)
+[ -z "$DHCPIF" ] && [ -n "$MULTI" ] && {
+    for c in $MULTI;
+    do
+        echo "Found configuration $c"
+        DHCPIF=$(basename $(echo $c|sed 's#/chilli.conf##'))
+        export DHCPIF
+        echo "Running DHCPIF=$DHCPIF $0 $*"
+        sh $0 $*
+    done
+    exit
+}
+
+pidfile=/opt/chilli/var/run/chilli.pid
+CONFIG=/opt/chilli/etc/chilli.conf
+
+if [ -n "$DHCPIF" ]; then
+    CONFIG=/opt/chilli/etc/chilli/$DHCPIF/chilli.conf
+    pidfile=/opt/chilli/var/run/chilli.$DHCPIF.pid
+fi
+
+[ -f $CONFIG ] || {
+    echo "$CONFIG not found"
+    exit 0
+}
+
+
+# start()
+
+echo -n $"Starting $prog: "
+
+check_required
+
+/sbin/modprobe tun >/dev/null 2>&1
+echo 1 > /proc/sys/net/ipv4/ip_forward
+
+[ -e /dev/net/tun ] || {
+(cd /dev; mkdir net; cd net; mknod tun c 10 200)
+}
+
+writeconfig
+radiusconfig
+
+test ${HS_ADMINTERVAL:-0} -gt 0 && {
+(crontab -l 2>&- | grep -v $0
+echo "*/$HS_ADMINTERVAL * * * * $0 radconfig") | crontab - 2>&-
+}
+
+test ${HS_LANIF_KEEPADDR:-0} -eq 0 && ip address add 0.0.0.0 dev $HS_LANIF
+
+#daemon -- $exec -c $CONFIG
+exec $exec -c $CONFIG -f 2>&1
+#retval=$?
+#echo
+# [ $retval -eq 0 ] && touch $lockfile
+#return $retval
+

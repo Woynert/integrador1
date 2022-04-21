@@ -1,0 +1,19 @@
+;
+; BIND reverse data file for local loopback interface
+;
+$TTL	604800
+@	IN	SOA	dns.conbin.autoupb.co. ( ; mname
+	admin.conbin.autoupb.co.	; rname (email)
+	7				; serial
+	604800				; refresh
+	86400				; retry
+	2419200				; expire
+	604800 )			; negative cache ttl
+;
+	IN	NS	dns.conbin.autoupb.co.
+
+dns.conbin.autoupb.co.	IN	A	192.168.80.2
+
+host1.conbin.autoupb.co.	IN	A	192.168.80.2
+
+www.conbin.autoupb.co.	IN	A	192.168.80.2

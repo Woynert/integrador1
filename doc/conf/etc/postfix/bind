@@ -1,0 +1,1000 @@
+ 1012  nano /etc/sv/nodejs/run
+ 1013  nano /etc/sv/mariadb/run
+ 1014  nano /etc/sv/nodejs/run
+ 1015  chmod u+x /etc/sv/nodejs/run
+ 1016  chmod u+x /etc/sv/mariadb/run
+ 1017  chmod u+x /etc/sv/lighttpd/run
+ 1018  mkdir /etc/sv/nodejs/log
+ 1019  cp /etc/sv/lighttpd/log/run /etc/sv/nodejs/log/run
+ 1020  nano /etc/sv/nodejs/log/run
+ 1021  ls -Rlh
+ 1022  ls -Rlh /etc/sv/
+ 1023  ls -Rlh /etc/sv/lighttpd/
+ 1024  ls -Rlh /etc/sv/nodejs/
+ 1025  ls -Rlh /etc/sv/mariadb/
+ 1026  ln -s /etc/sv/nodejs /etc/runit/runsvdir/default/
+ 1027  lsv
+ 1028  cat /var/log/runit/lighttpd/current 
+ 1029  netstat -m
+ 1030  netstat 
+ 1031  lsv
+ 1032  ps -aux | grep light
+ 1033  update-rc.d -f serccviwcade remove
+ 1034  cat /etc/init.d/
+ 1035  ls /etc/init.d/
+ 1036  update-rc.d -f lighttpd remove
+ 1037  update-rc.d -f mariadb remove
+ 1038  lsv
+ 1039  ls /etc/init.d/
+ 1040  /etc/init.d/lighttpd stop
+ 1041  ps -aux | grep light
+ 1042  killall lighttpd
+ 1043  ps -aux | grep light
+ 1044  killall lighttpd
+ 1045  ps -aux | grep light
+ 1046  lsv
+ 1047  sv down lighttpd 
+ 1048  lsv
+ 1049  ps -aux | grep light
+ 1050  sv up lighttpd 
+ 1051  ps -aux | grep light
+ 1052  lighttpd --help
+ 1053  lsv
+ 1054  cat /var/log/runit/nodejs/current 
+ 1055  nano /etc/sv/*/run
+ 1056  lsv
+ 1057  nano /etc/sv/*/run
+ 1058  sv
+ 1059  lsv
+ 1060  nano /etc/lighttpd/lighttpd.conf
+ 1061  cat /etc/shadow
+ 1062  nano /etc/lighttpd/lighttpd.conf
+ 1063  cd /etc/ssl
+ 1064  ls
+ 1065  openssl req -new -newkey rsa:2048 -nodes -keyout /etc/ssl/conbin.autoupb.com.key -out /etc/ssl/conbin.autoupb.com.csr
+ 1066  openssl x509 -req -days 365 -in /etc/ssl/conbin.autoupb.com.csr -signkey /etc/ssl/conbin.autoupb.com.key -out /etc/ssl/conbin.autoupb.com.crt
+ 1067  cat /etc/ssl/conbin.autoupb.com.key /etc/ssl/conbin.autoupb.com.crt > /etc/ssl/conbin.autoupb.com.pem
+ 1068  nano /etc/lighttpd/lighttpd.conf
+ 1069  sv restart lighttpd 
+ 1070  lsv
+ 1071  lighttpd -f -t /etc/lighttpd/lighttpd.conf
+ 1072  lighttpd -t -f /etc/lighttpd/lighttpd.conf
+ 1073  nano /etc/lighttpd/lighttpd.conf
+ 1074  lighttpd -t -f /etc/lighttpd/lighttpd.conf
+ 1075  nano /etc/lighttpd/lighttpd.conf
+ 1076  lighttpd -t -f /etc/lighttpd/lighttpd.conf
+ 1077  lsv
+ 1078  sv restart lighttpd 
+ 1079  lsv
+ 1080  lighttpd -t -f /etc/lighttpd/lighttpd.conf
+ 1081  cat /var/log/runit/lighttpd/current 
+ 1082  ls /usr/lib/lighttpd/mod_openssl.so
+ 1083  ls /usr/lib/lighttpd/
+ 1084  echo apt install lighttpd-mod-openssl 
+ 1085  nano ~/pack/packlist 
+ 1086  apt install lighttpd-mod-openssl 
+ 1087  lsv
+ 1088  free -g
+ 1089  free -h
+ 1090  history
+ 1091  cat /var/log/runit/lighttpd/current
+ 1092  nano /etc/lighttpd/lighttpd.conf
+ 1093  cd 
+ 1094  ls
+ 1095  ls -l
+ 1096  cd dev/
+ 1097  ls
+ 1098  ls -l
+ 1099  cd int
+ 1100  ls
+ 1101  ls -l
+ 1102  cd ..
+ 1103  ls
+ 1104  chmod a+r dev/
+ 1105  cd ..
+ 1106  ls -l
+ 1107  ls /data/
+ 1108  ls
+ 1109  lsblk
+ 1110  ls /data/root
+ 1111  ls /
+ 1112  mkdir pro
+ 1113  cd pro
+ 1114  mv ~/dev/* .
+ 1115  ls
+ 1116  nano /etc/lighttpd/lighttpd.conf 
+ 1117  lsv
+ 1118  exit
+ 1119  free -h
+ 1120  lsv
+ 1121  ps -aux | grep bind
+ 1122  killall bind
+ 1123  killall named
+ 1124  lsv
+ 1125  uname -m
+ 1126  free -h
+ 1127  lsv
+ 1128  htop
+ 1129  ls
+ 1130  ps
+ 1131  ps -a
+ 1132  ps -au
+ 1133  ps -u
+ 1134  ps -au
+ 1135  ps -uax
+ 1136  ps -uax | grep tar
+ 1137  df -h
+ 1138  df -m
+ 1139  clear
+ 1140  free -h
+ 1141  lsv
+ 1142  sv down bind9
+ 1143  ps -uax | grep bind
+ 1144  top
+ 1145  htop
+ 1146  top -i
+ 1147  clear
+ 1148  free -h
+ 1149  htop
+ 1150  ls
+ 1151  cd
+ 1152  ls
+ 1153  cd dev/
+ 1154  ls
+ 1155  cd Integrador1/
+ 1156  git status
+ 1157  git push
+ 1158  cd doc/conf/etc/
+ 1159  ls
+ 1160  cd ..
+ 1161  tree
+ 1162  ls
+ 1163  cd etc/
+ 1164  ls
+ 1165  ls -1
+ 1166  git pull
+ 1167  git status
+ 1168  git push
+ 1169  ls -1
+ 1170  cd dhcp/
+ 1171  ls
+ 1172  nano *
+ 1173  cd ..
+ 1174  ls
+ 1175  cat lighttpd/lighttpd.conf 
+ 1176  d ..
+ 1177  cd ..
+ 1178  ls
+ 1179  cd etc/
+ 1180  ls
+ 1181  cd ssh/
+ 1182  ls
+ 1183  cd ..
+ 1184  ls
+ 1185  git status
+ 1186  git add .
+ 1187  git status
+ 1188  git commit -m 'Add. DNS on dhcp'
+ 1189  git push
+ 1190  ls
+ 1191  nano svftp.conf
+ 1192  mv svftp.conf vsftpd.conf
+ 1193  nano vsftpd.chroot_list
+ 1194  ls
+ 1195  mkdir vsftpd
+ 1196  ;s
+ 1197  ls
+ 1198  mv vsftpd.c* vsftpd/.
+ 1199  ls
+ 1200  cp -r /etc/sv .
+ 1201  ls
+ 1202  cd sv
+ 1203  ls
+ 1204  rm -r getty-tty*
+ 1205  ls
+ 1206  tree
+ 1207  find . -name 'supervise'
+ 1208  find . -name 'supervise' | rm -r
+ 1209  find . -name 'supervise' | rm 
+ 1210  rm find . -name 'supervise'
+ 1211  rm `find . -name 'supervise'`
+ 1212  rm -r `find . -name 'supervise'`
+ 1213  tree
+ 1214  cd ..
+ 1215  git status
+ 1216  git add .
+ 1217  git commit -m 'Add. conf files RUNIT VSFTPD'
+ 1218  git push
+ 1219  ls
+ 1220  cd lighttpd/
+ 1221  ls
+ 1222  nano lighttpd.conf 
+ 1223  git status
+ 1224  git add .
+ 1225  git status
+ 1226  git commit -m 'Add. Lighttpd SSL support'
+ 1227  git push
+ 1228  lsv
+ 1229  cd
+ 1230  free -h
+ 1231  ls
+ 1232  cd
+ 1233  ls
+ 1234  free -h
+ 1235  cd /opt/
+ 1236  ls
+ 1237  cd /opt/
+ 1238  free -h
+ 1239  wget https://nodejs.org/dist/v17.7.2/node-v17.7.2-linux-arm64.tar.xz
+ 1240  ls
+ 1241  tree node
+ 1242  tar -xf ./node-v17.7.2-linux-arm64.tar.xz 
+ 1243  free -h
+ 1244  ls
+ 1245  cd node-v17.7.2-linux-arm64/
+ 1246  ls
+ 1247  cd bin/
+ 1248  ls
+ 1249  ./node -v
+ 1250  ./npm -v
+ 1251  echo $PATH
+ 1252  PATH=$PATH:/opt/node/bin
+ 1253  echo $PATH
+ 1254  cd ..
+ 1255  ls
+ 1256  rm node
+ 1257  rmdir node
+ 1258  mv node-v17.7.2-linux-arm64 node
+ 1259  ls
+ 1260  node
+ 1261  npm
+ 1262  npm -v
+ 1263  cd 
+ 1264  history | tail
+ 1265  history | tail -n 20
+ 1266  nano .bashrc 
+ 1267  ls
+ 1268  cd dev/
+ 1269  ls
+ 1270  cd Integrador1/
+ 1271  ls
+ 1272  cd src/
+ 1273  ls
+ 1274  cd server/
+ 1275  ls
+ 1276  npm install mariadb-server
+ 1277  npm install mariadb-serverasd
+ 1278  cat ../../README.md 
+ 1279  npm install mariadb
+ 1280  npm install express body_parser
+ 1281  npm install express body-parser
+ 1282  lsv
+ 1283  ls
+ 1284  node server
+ 1285  node server.js 
+ 1286  history | tail -n 30
+ 1287  history | tail -n 100
+ 1288  history | grep install
+ 1289  pwd
+ 1290  cd ..
+ 1291  mv Integrador1/ int
+ 1292  cd int
+ 1293  cd src/
+ 1294  cd server/
+ 1295  git status
+ 1296  ls
+ 1297  pwd
+ 1298  free -h
+ 1299  which dbus-daemon 
+ 1300  which dbus-uuidgen 
+ 1301  which lighttpd
+ 1302  which mysqld
+ 1303  which NetworkManager 
+ 1304  which node
+ 1305  git status
+ 1306  cd ..
+ 1307  ls
+ 1308  cd ..
+ 1309  cd doc/conf/etc/
+ 1310  ls
+ 1311  mv sv sv.bk
+ 1312  cp -r /etc/sv .
+ 1313  cd sv
+ 1314  ls
+ 1315  rm -r ./getty-tty*
+ 1316  ls
+ 1317  find . -name supervise
+ 1318  rm -r | find ./ -name supervise
+ 1319  rm -r `find ./ -name supervise`
+ 1320  tree
+ 1321  git status
+ 1322  git add mariadb/ nodejs/
+ 1323  git status
+ 1324  cd ..
+ 1325  git add sv
+ 1326  git status
+ 1327  git commit -m 'Add. Mariadb Lighttpd Nodejs startup scripts'
+ 1328  git pusg
+ 1329  git push
+ 1330  ls
+ 1331  cp lighttpd/lighttpd.conf /etc/lighttpd/lighttpd.conf 
+ 1332  pwd
+ 1333  cd ..
+ 1334  ls
+ 1335  pwd
+ 1336  cd src/client/
+ 1337  cd /root/dev/int/src/client
+ 1338  ls
+ 1339  sv restart lighttpd 
+ 1340  lsv
+ 1341  ls
+ 1342  cat /root/dev/int/src/client/session_manager.html 
+ 1343  ls -l
+ 1344  cd /var/www/html/
+ 1345  ls
+ 1346  ls -l
+ 1347  cd ..
+ 1348  ls -l
+ 1349  sv restart lighttpd 
+ 1350  cd /root/dev/int/src/client
+ 1351  ls
+ 1352  sudo chmod www-data: -r ./*
+ 1353  sudo chown www-data: -r ./*
+ 1354  sudo chown www-data: -R ./*
+ 1355  ls -l
+ 1356  sudo chown www-data:root -R ./*
+ 1357  ls -l
+ 1358  sv restart lighttpd 
+ 1359  ls
+ 1360  ls -l
+ 1361  chmod a+r ./* -r
+ 1362  chmod a+r ./* -R
+ 1363  ls -l
+ 1364  sv restart lighttpd 
+ 1365  ls -l
+ 1366  sudo chown www-data: -R ./*
+ 1367  ls -l
+ 1368  sv restart lighttpd 
+ 1369  lsv
+ 1370  cat /etc/sha
+ 1371  cat /etc/shadow
+ 1372  ls
+ 1373  cd ..
+ 1374  ls -l
+ 1375  sudo chown www-data: -R ./*
+ 1376  ls -l
+ 1377  sv restart lighttpd 
+ 1378  git status
+ 1379  su www-data
+ 1380  su woynert
+ 1381  lsv
+ 1382  sv down lighttpd 
+ 1383  sv up lighttpd 
+ 1384  cd /var/www/
+ 1385  ls
+ 1386  ls -l
+ 1387  cd html/
+ 1388  ls
+ 1389  nano index.lighttpd.html 
+ 1390  ls -l
+ 1391  sv restart lighttpd 
+ 1392  ls
+ 1393  cp ~/dev/int/src/client/session_manager.html .
+ 1394  ls
+ 1395  ls -l
+ 1396  sv restart lighttpd 
+ 1397  cd /root/
+ 1398  ls
+ 1399  ls -l
+ 1400  cd ..
+ 1401  ls -l
+ 1402  chmod a+r root/
+ 1403  ls -l
+ 1404  cd root/
+ 1405  ls
+ 1406  ls -r
+ 1407  ls -l
+ 1408  su woynert
+ 1409  ls
+ 1410  cd dev/
+ 1411  ls
+ 1412  cd ..
+ 1413  ls
+ 1414  cd /pro
+ 1415  ls
+ 1416  sudo su
+ 1417  su woynert
+ 1418  sv restart lighttpd 
+ 1419  free -h
+ 1420  lsv
+ 1421  poweroff
+ 1422  ls -l
+ 1423  lsv
+ 1424  free -h
+ 1425  ls /etc/sv/mariadb/
+ 1426  lsv
+ 1427  cat /var/log/runit/mariadb/current 
+ 1428  ps -aux | grep mariadb
+ 1429  ps -aux | grep mysql
+ 1430  lsv
+ 1431  sv up mariadb
+ 1432  lsv
+ 1433  sv down mariadb
+ 1434  touch /etc/sv/lighttpd/down
+ 1435  touch /etc/sv/nodejs/down
+ 1436  nano /etc/sv/nodejs/run
+ 1437  ls /pro
+ 1438  nano /etc/sv/nodejs/run
+ 1439  lsv
+ 1440  sv down nodejs
+ 1441  sv down lighttpd
+ 1442  lsv
+ 1443  touch /etc/sv/bind9/down
+ 1444  sv down bind9 
+ 1445  lsv
+ 1446  free -g
+ 1447  free -h
+ 1448  lsv
+ 1449  ps -aux | grep mysql
+ 1450  ps -aux | grep node
+ 1451  ps -aux | grep light
+ 1452  ps -aux | grep asteri
+ 1453  ps -aux | grep bind
+ 1454  lsv
+ 1455  killall named
+ 1456  /etc/init.d/named stop
+ 1457  ps -aux | grep bind
+ 1458  /etc/init.d/named start
+ 1459  ps -aux | grep bin
+ 1460  /etc/init.d/named stop
+ 1461  date
+ 1462  ls /etc/init.d
+ 1463  update-rc.d -f named remove
+ 1464  free -h
+ 1465  poweroff
+ 1466  lsv
+ 1467  free -h
+ 1468  nano /etc/postfix/{main.cf,master.cf}
+ 1469  postmulti -l -a | awk '($3=="y") { print $1}'
+ 1470  mkdir /etc/sv/postfix
+ 1471  nano /etc/sv/postfix/run
+ 1472  chmod u+x /etc/sv/postfix/run
+ 1473  mkdir /etc/sv/postfix/log
+ 1474  cp /etc/sv/freeradius/log/run /etc/sv/postfix/log/run
+ 1475  nano /etc/sv/postfix/log/run
+ 1476  history | grep ln
+ 1477  ln -s /etc/sv/postfix /etc/runit/runsvdir/default/
+ 1478  ps -aux | grep post
+ 1479  lsv
+ 1480  sv down postfix 
+ 1481  ps -aux | grep post
+ 1482  sv up postfix 
+ 1483  ps -aux | grep post
+ 1484  ls /usr/lib/postfix/
+ 1485  less /var/log/runit/postfix/current 
+ 1486  lsv
+ 1487  /etc/postfix/postfix-script check
+ 1488  nano /etc/sv/postfix/run
+ 1489  lsv
+ 1490  ps -aux | grep post
+ 1491  nano /etc/sv/postfix/run
+ 1492  sv restart postfix 
+ 1493  ps -aux | grep post
+ 1494  ls /usr/lib/postfix/master
+ 1495  ls /usr/lib/postfix/
+ 1496  nano /usr/lib/postfix/configure-instance.sh 
+ 1497  /usr/lib/postfix/configure-instance.sh
+ 1498  ls /usr/sbin/ | grep post
+ 1499  ls /usr/sbin/ | grep fix
+ 1500  man postmulti 
+ 1501  less /var/log/runit/postfix/current 
+ 1502  lsv
+ 1503  less /var/log/runit/postfix/current 
+ 1504  sv status postfix 
+ 1505  ps -aux | grep post
+ 1506  sv down postfix 
+ 1507  lsv
+ 1508  ps -aux | grep post
+ 1509  lsv
+ 1510  ps -aux | grep post
+ 1511  killall postfix
+ 1512  postmulti -p stop
+ 1513  ps -aux | grep post
+ 1514  kill 1195
+ 1515  ps -aux | grep post
+ 1516  lsv
+ 1517  nano /etc/init.d/postfix 
+ 1518  cat /etc/shadow
+ 1519  cat /etc/group
+ 1520  less /etc/postfix/postfix-script
+ 1521  ls /usr/lib/postfix
+ 1522  ls /var/spool/postfix/
+ 1523  nano /etc/sv/postfix/run 
+ 1524  echo %i
+ 1525  nano /etc/sv/postfix/run 
+ 1526  free -h
+ 1527  nano /etc/sv/postfix/run /etc/sv/postfix/finish
+ 1528  chmod u+x /etc/sv/postfix/run /etc/sv/postfix/finish
+ 1529  nano /etc/sv/postfix/run /etc/sv/postfix/finish
+ 1530  lsv
+ 1531  ps -aux | grep post
+ 1532  lsv
+ 1533  sv down postfix 
+ 1534  lsv
+ 1535  ps -aux | grep post
+ 1536  /usr/sbin/postmulti -i - -p stop 1>&2
+ 1537  ps -aux | grep post
+ 1538  sv restart postfix 
+ 1539  ps -aux | grep post
+ 1540  kill 1197
+ 1541  ps -aux | grep post
+ 1542  lsv
+ 1543  ps -aux | grep postfix
+ 1544  free -h
+ 1545  nano /etc/sv/postfix/finish
+ 1546  free -h
+ 1547  lsv
+ 1548  htop
+ 1549  sv down postfix
+ 1550  htop
+ 1551  ps -aux | grep post
+ 1552  ps -aux | grep -i network
+ 1553  sv down networkmanager 
+ 1554  ps -aux | grep -i network
+ 1555  lsv
+ 1556  ps -aux | grep -i network
+ 1557  htop
+ 1558  htop -i
+ 1559  top -i
+ 1560  lsv
+ 1561  ps -aux | grep mysql
+ 1562  ps -aux | grep -i mysql
+ 1563  ps -aux | grep mysql
+ 1564  ls /etc/init.d/
+ 1565  /etc/init.d/mariadb stop
+ 1566  ps -aux | grep -i mysql
+ 1567  lsv
+ 1568  sv down mariadb
+ 1569  ls /etc/init.d/
+ 1570  ls /etc/sv/mariadb/
+ 1571  touch /etc/sv/mariadb/down
+ 1572  update-rc.d -f mariadb remove
+ 1573  less /var/log/runit/mariadb/current 
+ 1574  ls /run/mysqld/mysqld.sock
+ 1575  ls /run/mysqld
+ 1576  nano /etc/sv/mariadb/run 
+ 1577  sv once mariadb
+ 1578  lsv
+ 1579  tail /var/log/runit/mariadb/current 
+ 1580  mariadb
+ 1581  nano /etc/sv/mariadb/run 
+ 1582  mysqld
+ 1583  nano /etc/mysql/my.cnf
+ 1584  mysqld
+ 1585  ls -l /var/lib/mysql
+ 1586  ls -l /run/mysqld/
+ 1587  ls -l /run/mysqld
+ 1588  ls -l /run/
+ 1589  ls /var/run
+ 1590  ls -l /var/run
+ 1591  ls -l /var/run/
+ 1592  echo chown -R mysql:root /run/mysqld
+ 1593  ls -l /run
+ 1594  chown -R mysql:root /run/mysqld
+ 1595  ls -l
+ 1596  ls -l /run
+ 1597  mysqld
+ 1598  lsv
+ 1599  sv once mariadb 
+ 1600  lsv
+ 1601  sv status mariadb
+ 1602  lsv
+ 1603  which lsv
+ 1604  nano `which lsv`
+ 1605  exit
+ 1606  free -h
+ 1607  watch -n 1 free -h
+ 1608  watch -n 0.5 free -h
+ 1609  watch -n 1 free -h
+ 1610  cd pr
+ 1611  cd /pro
+ 1612  ls
+ 1613  cd int
+ 1614  nano doc/conf/etc/my.cnf 
+ 1615  cat /etc/shadow
+ 1616  ps -aux | grep mysql
+ 1617  free -h
+ 1618  htop
+ 1619  killall mysqld
+ 1620  cat /etc/sv/mariadb/supervise/stat
+ 1621  cat /etc/sv/mariadb/supervise/stat | awk 'print {$1}'
+ 1622  cat /etc/sv/mariadb/supervise/stat | awk print '{$1}'
+ 1623  cat /etc/sv/mariadb/supervise/stat | awk "print {$1}"
+ 1624  cat /etc/sv/mariadb/supervise/stat | awk "{print $1}"
+ 1625  cat /etc/sv/mariadb/supervise/stat | awk "{print $2}"
+ 1626  cat /etc/sv/mariadb/supervise/stat | awk '{print $2}'
+ 1627  cat /etc/sv/mariadb/supervise/stat | awk '{print $1}'
+ 1628  lsv
+ 1629  cat /tmp/lsv.woynert
+ 1630  lsv
+ 1631  cat /tmp/lsv.woynert
+ 1632  lsv
+ 1633  column --help
+ 1634  column -s '\t' -t /tmp/lsv.woynert
+ 1635  column -t /tmp/lsv.woynert
+ 1636  column --help
+ 1637  column -s '|' -t /tmp/lsv.woynert
+ 1638  lsv
+ 1639  column -s '|' -t /tmp/lsv.woynert
+ 1640  lsv
+ 1641  cat /tmp/lsv.woynert
+ 1642  lsv
+ 1643  cat \e[31m%s\e[0masd
+ 1644  echo \e[31m%s\e[0masd
+ 1645  echo \e[31m%s\e[0 masd
+ 1646  printf '\e[31m%s\e[0 masd'
+ 1647  echoe[31m%s\e[0 masd'
+ 1648  echo '\e[31m%s\e[0 masd'
+ 1649  printf '\e[31m%s\e[0 masd'
+ 1650  nano /tmp/lsv.woynert 
+ 1651  column -s '|' -t /tmp/lsv.woynert
+ 1652  man column 
+ 1653  printf '\033[1;32m asd \t\033[00m'
+ 1654  nano /tmp/lsv.woynert 
+ 1655  column -s '|' -t /tmp/lsv.woynert
+ 1656  lsv
+ 1657  free -h
+ 1658  sv up asterisk 
+ 1659  lsv
+ 1660  tree /etc/sv/mariadb/
+ 1661  tree /etc/sv/asterisk/
+ 1662  man runit
+ 1663  mariadb
+ 1664  poweroff
+ 1665  ip ad
+ 1666  ping 192.168.80.2
+ 1667  ping 192.168.80.1
+ 1668  cd /etc/netplan/
+ 1669  ls
+ 1670  tree
+ 1671  nano static.yaml 
+ 1672  netplan apply
+ 1673  ip ad
+ 1674  ping 192.168.80.1
+ 1675  ping 192.168.80.2
+ 1676  lsv
+ 1677  sv up bind9 
+ 1678  lsv
+ 1679  nano /etc/bind/local/db.local
+ 1680  what
+ 1681  sv restart bind9 
+ 1682  rndc reload
+ 1683  nslookup www.conbin.autoupb.co
+ 1684  lsv
+ 1685  ip add
+ 1686  ping 10.10.30.1
+ 1687  poweroff
+ 1688  ls
+ 1689  lsv
+ 1690  nslookup www.conbin.autoupb.co
+ 1691  nslookup www.conbin.autoupb.com
+ 1692  sv restart bind9 
+ 1693  lsv
+ 1694  ps -aux | grep named
+ 1695  ps -aux | grep bind
+ 1696  sv down bind9 
+ 1697  lsv
+ 1698  tail /var/log/runit/bind9/current 
+ 1699  ps -aux
+ 1700  ps -aux | grep name
+ 1701  lsv
+ 1702  sv up bind9 
+ 1703  what
+ 1704  rndc reload
+ 1705  nslookup www.conbin.autoupb.com
+ 1706  nslookup www.conbin.autoupb.co
+ 1707  nslookup www.conbin.autoupb.com
+ 1708  cd /etc/bind
+ 1709  ls
+ 1710  nano named.conf.local 
+ 1711  nano named.conf.local local/db.local local/db.reverse
+ 1712  sv restart bind9 
+ 1713  rndc reload
+ 1714  nslookup www.conbin.autoupb.com
+ 1715  nslookup www.conbin.autoupb.co
+ 1716  nano named.conf.local local/db.local local/db.reverse
+ 1717  sv restart bind9 
+ 1718  rndc reload
+ 1719  nslookup www.conbin.autoupb.com
+ 1720  ping 10.10.70.1
+ 1721  ping 10.10.20.1
+ 1722  ping 10.10.20.2
+ 1723  ping 10.10.30.2
+ 1724  nslookup www.conbin.autoupb.com
+ 1725  ping 10.10.30.1
+ 1726  ls
+ 1727  lsv
+ 1728  sv up asterisk 
+ 1729  watch tail /var/log/runit/asterisk/current 
+ 1730  watch tail -N 30 /var/log/runit/asterisk/current 
+ 1731  watch tail -n 30 /var/log/runit/asterisk/current 
+ 1732  lsv
+ 1733  sv up lighttpd 
+ 1734  ip add
+ 1735  watch tail -n 30 /var/log/runit/asterisk/current 
+ 1736  cd /etc/asterisk/
+ 1737  ls
+ 1738  nano sip.conf extensions.conf
+ 1739  sv restart asterisk 
+ 1740  watch tail -n 30 /var/log/runit/asterisk/current 
+ 1741  nano sip.conf extensions.conf
+ 1742  ls | grep sip
+ 1743  nano pjsip*
+ 1744  nano pjsip.conf
+ 1745  nano sip.conf pjsip.conf extensions.conf
+ 1746  exit
+ 1747  lsv
+ 1748  free 'h
+ 1749  free -h
+ 1750  lsv
+ 1751  ps -aux | grep bind
+ 1752  ps -aux | grep name
+ 1753  sv up bind9 
+ 1754  rndc reload
+ 1755  nslookup www.conbin.autoupb.co
+ 1756  ip ad
+ 1757  cat /etc/resolv.conf 
+ 1758  ip add
+ 1759  nano /etc/netplan/static.yaml 
+ 1760  netplan apply
+ 1761  apt search
+ 1762  apt search cyrus-sasl
+ 1763  apt search sasl
+ 1764  apt update
+ 1765  apt search sasl2
+ 1766  apt search cyrus
+ 1767  armbian-config 
+ 1768  cd /etc/asterisk/
+ 1769  ls
+ 1770  mv sip.conf.bk.sil sip.conf
+ 1771  nano sip.conf
+ 1772  mv extensions.conf.bk.sil extensions.conf
+ 1773  nano sip.conf extensions.conf
+ 1774  nano sip.conf.bk
+ 1775  nano sip.conf.save
+ 1776  nano sip.conf extensions.conf
+ 1777  nano pjsip*
+ 1778  cp pjsip.conf pjsip.conf.bkwoy
+ 1779  cp pjsip.conf.bk pjsip.conf
+ 1780  nano sip.conf extensions.conf pjsip.conf
+ 1781  history
+ 1782  nano /etc/apt/sources.list
+ 1783  nano /etc/apt/sources.list.d/armbian.list 
+ 1784  apt-get update
+ 1785  apt search sasl2-bin
+ 1786  history | grep install
+ 1787  ls /opt
+ 1788  rm /opt/node-v16.14.2-linux-armv7l.tar.xz 
+ 1789  node -v
+ 1790  rm /opt/node-v17.7.2-linux-arm64.tar.xz 
+ 1791  ls /opt
+ 1792  apt install sasl2-bin
+ 1793  ls /etc/init.d/
+ 1794  nano /etc/init.d/saslauthd 
+ 1795  /etc/init.d/saslauthd start
+ 1796  nano /etc/init.d/saslauthd 
+ 1797  nano /etc/postfix/main.cf
+ 1798  nano ~/pack/packlist 
+ 1799  df -h
+ 1800  cd /etc/dovecot/
+ 1801  ls
+ 1802  cp dovecot.conf dovecot.conf.bk
+ 1803  nano dovecot.conf
+ 1804  ls
+ 1805  tree
+ 1806  nano dovecot.conf
+ 1807  nano /usr/share/dovecot/protocols.d/*.protocol
+ 1808  cd /etc/ssl
+ 1809  ls
+ 1810  pwd
+ 1811  sv restart postfix
+ 1812  cat /etc/sv/postfix/run 
+ 1813  /usr/lib/postfix/configure-instance.sh
+ 1814  sv down postfix 
+ 1815  lsv
+ 1816  exec /usr/sbin/postmulti -i - -p start 1>&2
+ 1817  exit
+ 1818  lsv
+ 1819  ps -aux | grep [pstg
+ 1820  ps -aux | grep post
+ 1821  netstat localhost 22
+ 1822  telnet localhost 22
+ 1823  sudo apt install telnetd -y
+ 1824  telnet
+ 1825  sudo apt install telnetd 
+ 1826  telnet localhost 25
+ 1827  apt install telnet
+ 1828  telnet localhost 25
+ 1829  nslookup 192.168.80.2
+ 1830  nslookup 192.168.80.3
+ 1831  nslookup 192.168.1.3
+ 1832  nslookup 192.168.1.2
+ 1833  nslookup 192.168.1.80
+ 1834  sv restart bind9
+ 1835  rndc reload
+ 1836  nslookup 192.168.1.80
+ 1837  nslookup 192.168.1.3
+ 1838  what
+ 1839  netstat -tulnp | grep 25
+ 1840  nano /etc/postfix/main.cf
+ 1841  sv restart postfix 
+ 1842  free -h
+ 1843  nslookup 192.168.1.80 25
+ 1844  telnet 192.168.1.80 25
+ 1845  telnet localhost 25
+ 1846  ps -aux | grep post
+ 1847  less /var/log/runit/postfix/current 
+ 1848  history
+ 1849  /usr/sbin/postmulti -i - -p start 1>&2
+ 1850  man postmulti 
+ 1851  postmulti -p status
+ 1852  lsv
+ 1853  postmulti -p start
+ 1854  postmulti -p status
+ 1855  man postfix 
+ 1856  postfix -start-fg
+ 1857  postfix --start-fg
+ 1858  man postfix
+ 1859  postfix start-fg
+ 1860  postfix start-fg 1>&2
+ 1861  man postfix
+ 1862  postfix start-fg -v 1>&2
+ 1863  man postfix
+ 1864  nano /etc/postfix/main.cf
+ 1865  cd /etc/postfix/
+ 1866  grep -rin multi_instance_directories
+ 1867  postfix start-fg -v 1>&2
+ 1868  ps -aux | grep post
+ 1869  nano /etc/service/postfix/log/
+ 1870  nano /etc/service/postfix/log/run
+ 1871  cat /var/log/mail.log
+ 1872  tail /var/log/mail.log
+ 1873  exec /usr/lib/postfix/master -c /etc/postfix -d 2>&1
+ 1874  exec /usr/lib/postfix/sbin/master -c /etc/postfix -d 2>&1
+ 1875  tail /var/log/mail.
+ 1876  tail /var/log/mail.log
+ 1877  tail /var/log/mail.err
+ 1878  lsv
+ 1879  sv down postfix 
+ 1880  lsv
+ 1881  tail /var/log/mail.err
+ 1882  /etc/init.d/postfix start
+ 1883  tail /var/log/mail.err
+ 1884  tail /var/log/mail.info 
+ 1885  date
+ 1886  tail /var/log/mail.warn 
+ 1887  tail /var/log/mail.err 
+ 1888  /etc/init.d/postfix start
+ 1889  tail /var/log/mail.err 
+ 1890  /etc/init.d/postfix stop
+ 1891  tail /var/log/mail.err 
+ 1892  ps -aux | grep post
+ 1893  cat /etc/sv/postfix/run 
+ 1894  tail /var/log/mail.*
+ 1895  htop 1194
+ 1896  sv once postfix 
+ 1897  tail /var/log/mail.*
+ 1898  ps -aux | grep post
+ 1899  kill 1194
+ 1900  lsv
+ 1901  cd /etc/bind/
+ 1902  ls
+ 1903  cat ../replaceip 
+ 1904  cat named.conf.local 
+ 1905  grep -rin 192.168.80.3
+ 1906  ../replaceip 192.168.80.3 192.168.1.80
+ 1907  grep -rin 192.168.80.3
+ 1908  grep -rin 192.168.1.80
+ 1909  nano named.conf.local 
+ 1910  named-checkconf -zj
+ 1911  named-checkconf - zj
+ 1912  named-checkconf -zj
+ 1913  sv restart bind9 
+ 1914  rdnc reload
+ 1915  rndc reload
+ 1916  cat /etc/resolv.conf 
+ 1917  nslookup www.conbin.autoupb.com
+ 1918  nslookup voip.conbin.autoupb.com
+ 1919  nslookup mail.conbin.autoupb.com
+ 1920  nslookup email.conbin.autoupb.com
+ 1921  ps -aux | grep post
+ 1922  lsv
+ 1923  sv down postfix 
+ 1924  free -h
+ 1925  sv status postfix 
+ 1926  ps -aux | grep post
+ 1927  free -h
+ 1928  lsv
+ 1929  cd /etc/postfix/
+ 1930  ls
+ 1931  nano main.cf
+ 1932  nano master.cf
+ 1933  nano main.cf
+ 1934  nano main.cf.proto main.cf.bk 
+ 1935  nano main.cf
+ 1936  lsv
+ 1937  asterisk -cvvvvv
+ 1938  lsv
+ 1939  ls
+ 1940  nano main.cf
+ 1941  nano ~/pack/packlist 
+ 1942  lsv
+ 1943  nano ~/pack/packlist 
+ 1944  free -h
+ 1945  ps -aux | grep sasl
+ 1946  ps -aux | grep cy
+ 1947  ps -aux | grep sasl
+ 1948  free -h
+ 1949  ps -aux | grep sasl
+ 1950  saslauthd --help
+ 1951  man saslauthd 
+ 1952  saslauthd 
+ 1953  /etc/init.d/saslauthd start
+ 1954  nano /etc/default/saslauthd 
+ 1955  /etc/init.d/saslauthd start
+ 1956  ps -aux | grep sas
+ 1957  /etc/init.d/saslauthd start
+ 1958  nano /etc/default/saslauthd 
+ 1959  /etc/init.d/saslauthd start
+ 1960  ps -aux | grep sas
+ 1961  free -h
+ 1962  apt install dovecot-imapd dovecot-pop3d 
+ 1963  ps -aux | grep dove
+ 1964  /etc/init.d/dovecot start
+ 1965  ps -aux | grep dove
+ 1966  netstat -antup | grep dovecot 
+ 1967  netstat -antup | grep lighttpd
+ 1968  lsv
+ 1969  netstat -antup | grep bind
+ 1970  netstat -antup | grep named
+ 1971  lsv
+ 1972  netstat -antup | grep sas
+ 1973  ps -aux | grep sas
+ 1974  free -h
+ 1975  nano /etc/init.d/dovecot 
+ 1976  netstat -antup | grep dovecot 
+ 1977  nano `which what`
+ 1978  what
+ 1979  netstat -tulnp | grep 25
+ 1980  free -h
+ 1981  postmulti -v
+ 1982  postfix -v
+ 1983  postfix -V
+ 1984  postfix --help
+ 1985  man postfix 
+ 1986  lsv
+ 1987  sv start postfix
+ 1988  lsv
+ 1989  free -h
+ 1990  less /var/log/runit/postfix/current 
+ 1991  l
+ 1992  ls
+ 1993  nano main.cf
+ 1994  nano ~/pack/packlist 
+ 1995  cat /etc/init.d/postfix 
+ 1996  /etc/init.d/inetutils-inetd stop
+ 1997  /etc/init.d/inetutils-inetd start 
+ 1998  ps -aux | grep inet
+ 1999  nano /etc/bind/local/db.*
+ 2000  nano main.cf
+ 2001  s
+ 2002  cd /etc/postfix/
+ 2003  ls
+ 2004  grep -rin certs
+ 2005  nano main.cf
+ 2006  grep -rin NEW
+ 2007  grep -rin certs
+ 2008  nano main.cf
+ 2009  nano /etc/bind/local/{db.local,db.reverse}
+ 2010  history 
+ 2011  history > bind
