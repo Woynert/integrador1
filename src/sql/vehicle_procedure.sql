@@ -48,7 +48,8 @@ BEGIN
 			ar_modelo,
 			ar_generacion,
 			ar_condicion,
-			ar_precio
+			ar_precio,
+			ar_cantidad
 		);
 
 	ELSE

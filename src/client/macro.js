@@ -35,8 +35,11 @@ const macro =
 	EMPLOYEE_UPDATE_ROW : 19,
 	EMPLOYEE_INSERT_ROW : 20,
 
-	LOGIN : 21,
-	LOGOUT : 22
+	REPORT_MONEY : 21,
+	REPORT_INVENTORY : 22,
+
+	LOGIN : 23,
+	LOGOUT : 24
 };
 Object.freeze(macro);
 

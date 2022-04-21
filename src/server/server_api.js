@@ -33,7 +33,7 @@ BigInt.prototype.toJSON = function() { return this.toString() };
 
 // test
 
-app.get("/product/1",function(request,response)
+app.get("/inventory/1",function(request,response)
 {
 	var text = `
 {"succeed":true,"message":"","body":[
@@ -48,7 +48,7 @@ app.get("/product/1",function(request,response)
     response.json(JSON.parse(text));
 });
 
-app.get("/product/2",function(request,response)
+app.get("/inventory/2",function(request,response)
 {
 	var text = `
 {"succeed":true,"message":"","body":[
@@ -61,11 +61,15 @@ app.get("/product/2",function(request,response)
     response.json(JSON.parse(text));
 });
 
-app.get("/product/3",function(request,response)
+app.get("/inventory/3",function(request,response)
 {
 	var text = `
-{"succeed":true,"message":"","body":[]}
+{"succeed":true,"message":"","body":null}
 	`;
+
+	/*var text = `
+{"succeed":true,"message":"","body":[]}
+	`;*/
 
     response.json(JSON.parse(text));
 });

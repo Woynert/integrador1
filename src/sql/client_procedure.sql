@@ -98,8 +98,8 @@ BEGIN
 	DECLARE p_range  INT;
 	DECLARE p_offset INT;
 
-	SET p_range  = 10;
-	SET p_offset = ar_page_count * p_range;
+	SET p_range  = IF(ar_page_count<0,1000,10);
+	SET p_offset = IF(ar_page_count<0,0,ar_page_count) * p_range;
 
 	-- select values
 
