@@ -30,6 +30,7 @@ CREATE TABLE IF NOT EXISTS employees
 -- 1 admin
 -- 2 acesor comercial
 -- 3 cajero
+-- 4 contador
 
 -- Data type
 -- 0 string
@@ -59,7 +60,7 @@ VALUES
 ("FILTER", "correo"          , 0, '', '{}', TRUE),
 ("FILTER", "fecha_nacimiento", 2, '', '{}', TRUE),
 ("FILTER", "fecha_registro"  , 2, '', '{}', TRUE),
-("FILTER", "role"            , 5, '0', '{"ADMINISTRADOR":1,"ASESOR COMERCIAL":2,"CAJERO":3}', TRUE),
+("FILTER", "role"            , 5, '0', '{"ADMINISTRADOR":1,"ASESOR COMERCIAL":2,"CAJERO":3,"CONTADOR":4}', TRUE),
 
 ("EDIT", "id"              , 0, '', '{}', FALSE),
 ("EDIT", "nombres"         , 0, '', '{}', TRUE), -- edit doesn't need defvalue
@@ -68,7 +69,7 @@ VALUES
 ("EDIT", "cedula"          , 0, '', '{}', TRUE),
 ("EDIT", "correo"          , 0, '', '{}', TRUE),
 ("EDIT", "fecha_nacimiento", 2, '', '{}', TRUE),
-("EDIT", "role"            , 5, '', '{"ADMINISTRADOR":1,"ASESOR COMERCIAL":2,"CAJERO":3}', TRUE),
+("EDIT", "role"            , 5, '', '{"ADMINISTRADOR":1,"ASESOR COMERCIAL":2,"CAJERO":3,"CONTADOR":4}', TRUE),
 ("EDIT", "password"        , 3, '', '{}', TRUE),
 
 ("REG", "nombres"         , 0, '', '{}', TRUE),
@@ -77,6 +78,6 @@ VALUES
 ("REG", "cedula"          , 0, '', '{}', TRUE),
 ("REG", "correo"          , 0, '', '{}', TRUE),
 ("REG", "fecha_nacimiento", 2, '', '{}', TRUE),
-("REG", "role"            , 5, '', '{"ADMINISTRADOR":1,"ASESOR COMERCIAL":2,"CAJERO":3}', TRUE),
+("REG", "role"            , 5, '', '{"ADMINISTRADOR":1,"ASESOR COMERCIAL":2,"CAJERO":3,"CONTADOR":4}', TRUE),
 ("REG", "password"        , 3, '', '{}', TRUE)
 ;

@@ -9,5 +9,5 @@ CALL employee_register("Bowser", "Firehell", "cll 50-15", "1006525354","bowser@c
 
 CALL employee_register("Jenny", "Walls", "crr 08-25", "1009525354","jenny@conbin.autoupb.com", '1998-05-15', 3, "jenny");
 
-CALL employee_register("Peter", "Pits", "crr 27-03", "1002525354","peter@conbin.autoupb.com", '2005-01-30', 3, "peter");
+CALL employee_register("Peter", "Pits", "crr 27-03", "1002525354","peter@conbin.autoupb.com", '2005-01-30', 4, "peter");
 

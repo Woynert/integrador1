@@ -254,6 +254,20 @@ function files_to_load_by_role()
 			files_to_load.push('facture_viewer')
 			break;
 
+		// contador
+		case '4':
+			selected_module = 'vehicle_search';
+			files_to_load.push('vehicle_search')
+
+			files_to_load.push('client_search')
+
+			files_to_load.push('sale_search')
+			files_to_load.push('facture_viewer')
+			files_to_load.push('report_money_viewer')
+			files_to_load.push('report_inventory_viewer')
+			break;
+
+
 		default:
 			selected_module = 'vehicle_search';
 			files_to_load.push('vehicle_search')
@@ -468,6 +482,34 @@ function read_file(){
 			objects_module.employee_search   = employee_search;
 			objects_module.employee_edit     = employee_edit;
 			objects_module.employee_register = employee_register;
+
+
+			// hide specific things
+			switch (USER.role)
+			{
+				// ADMIN
+				case '1':
+					break;
+
+				// asesor comercial
+				case '2':
+					break;
+
+				// cajero
+				case '3':
+					break;
+
+				// contador
+				case '4':
+					document.getElementById("srh_client_btn_edit_row").style="display:none;";
+					document.getElementById("srh_vehicle_btn_edit_row").style="display:none;";
+					document.getElementById("srh_sale_btn_make_payment").style="display:none;";
+					document.getElementById("srh_sale_btn_cancel_payment").style="display:none;";
+					break;
+
+				default:
+					break;
+			}
 
 			// show selected
 			show_module (selected_module);
