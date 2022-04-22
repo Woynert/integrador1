@@ -1,11 +1,42 @@
+
+#report_money_main_viewer > *,
+#report_money_main_viewer table tbody,
+#report_money_main_viewer table tbody tr,
+#report_money_main_viewer table tbody tr td,
+#report_inventory_main_viewer > *,
+#report_inventory_main_viewer table tbody,
+#report_inventory_main_viewer table tbody tr,
+#report_inventory_main_viewer table tbody tr td,
+#facture_main_viewer > *,
+#facture_main_viewer table tbody,
+#facture_main_viewer table tbody tr,
+#facture_main_viewer table tbody tr td
+{
+  visibility: visible !important;
+  background: none;
+  color: black;
+  font-size: 10;
+}
+
 *
 {
   margin:0;
   padding:0;
   visibility: hidden;
+  background: none;
 }
 
-#facture_main_viewer>*
+.container_module_selection
 {
-    visibility: visible;
+  display: block;
+}
+
+.module_selection
+{
+  display: none;
+}
+
+.content_container
+{
+  padding: 0;
 }

@@ -26,6 +26,8 @@ import {create_dialog_picker} from './sale/dialog_picker.js';
 
 import {create_module_payment} from './sale/payment.js';
 import {create_module_facture_viewer} from './sale/facture.js';
+import {create_module_report_money_viewer} from './sale/report_money.js';
+import {create_module_report_inventory_viewer} from './sale/report_inventory.js';
 
 import {input_creator} from './lib/input_creator.js';
 
@@ -81,6 +83,12 @@ var dialog_picker_div;
 var facture_viewer;
 var facture_viewer_div;
 
+var report_money_viewer;
+var report_money_viewer_div;
+
+var report_inventory_viewer;
+var report_inventory_viewer_div;
+
 // employee
 
 var employee_search;
@@ -117,6 +125,8 @@ const files =
 	sale_search    : './search/sale.html',
 	payment        : './sale/payment.html',
 	facture_viewer : './sale/facture.html',
+	report_money_viewer : './sale/report_money.html',
+	report_inventory_viewer : './sale/report_inventory.html',
 
 	employee_search   : './search/employee.html',
 	employee_edit     : './edit/employee.html',
@@ -138,6 +148,8 @@ elements_by_module.dialog_picker  = [];
 elements_by_module.sale_search    = ['btn_goto_sale_search', 'subtitle_sale'];
 elements_by_module.payment        = []; //['btn_goto_payment'];
 elements_by_module.facture_viewer = [];
+elements_by_module.report_money_viewer = [];
+elements_by_module.report_inventory_viewer = [];
 
 elements_by_module.employee_search   = ['btn_goto_employee_search', 'subtitle_employee'];
 elements_by_module.employee_edit     = []; //['btn_goto_employee_edit'];
@@ -209,6 +221,8 @@ function files_to_load_by_role()
 			files_to_load.push('sale_search')
 			files_to_load.push('payment')
 			files_to_load.push('facture_viewer')
+			files_to_load.push('report_money_viewer')
+			files_to_load.push('report_inventory_viewer')
 			break;
 
 		// asesor comercial
@@ -225,6 +239,8 @@ function files_to_load_by_role()
 			files_to_load.push('dialog_picker')
 			files_to_load.push('sale_search')
 			files_to_load.push('facture_viewer')
+			files_to_load.push('report_money_viewer')
+			files_to_load.push('report_inventory_viewer')
 			//files_to_load.push('payment')
 			break;
 
@@ -348,6 +364,16 @@ function read_file(){
 				employee_register_div.innerHTML = reader.responseText;
 		       	employee_register = create_module_register_employee (post_request);
 				break;
+
+			case files.report_money_viewer:
+				report_money_viewer_div.innerHTML = reader.responseText;
+		       	report_money_viewer = create_module_report_money_viewer (post_request);
+				break;
+
+			case files.report_inventory_viewer:
+				report_inventory_viewer_div.innerHTML = reader.responseText;
+		       	report_inventory_viewer = create_module_report_inventory_viewer (post_request);
+				break;
 		}
 
 
@@ -367,6 +393,7 @@ function read_file(){
 				vehicle_search.set_dom_element (vehicle_search_div);
 				vehicle_search.set_dom_original_parent (vehicle_search_div.parentElement);
 				driver_module_search.fetch_table_list_types (vehicle_search);
+				vehicle_search.set_mod_report_inventory_viewer (report_inventory_viewer);
 			}
 
 			if (vehicle_edit){
@@ -414,6 +441,7 @@ function read_file(){
 			if (sale_search){
 				sale_search.set_mod_payment (payment);
 				sale_search.set_mod_facture_viewer (facture_viewer);
+				sale_search.set_mod_report_money_viewer (report_money_viewer);
 				driver_module_search.fetch_table_list_types (sale_search);
 			}
 
@@ -434,6 +462,8 @@ function read_file(){
 			objects_module.sale_search    = sale_search;
 			objects_module.payment        = payment;
 			objects_module.facture_viewer = facture_viewer;
+			objects_module.report_money_viewer = report_money_viewer;
+			objects_module.report_inventory_viewer = report_inventory_viewer;
 
 			objects_module.employee_search   = employee_search;
 			objects_module.employee_edit     = employee_edit;
@@ -665,6 +695,8 @@ function init()
 	dialog_picker_div     = document.getElementById("module_dialog_picker");
 	payment_div           = document.getElementById("module_payment");
 	facture_viewer_div    = document.getElementById("module_facture_viewer");
+	report_money_viewer_div = document.getElementById("module_report_money_viewer");
+	report_inventory_viewer_div = document.getElementById("module_report_inventory_viewer");
 	employee_search_div   = document.getElementById("module_employee_search");
 	employee_edit_div     = document.getElementById("module_employee_edit");
 	employee_register_div = document.getElementById("module_employee_register");
@@ -680,6 +712,8 @@ function init()
 	available_modules['sale_search'] = sale_search_div;
 	available_modules['payment'] = payment_div;
 	available_modules['facture_viewer'] = facture_viewer_div;
+	available_modules['report_money_viewer'] = report_money_viewer_div;
+	available_modules['report_inventory_viewer'] = report_inventory_viewer_div;
 	available_modules['employee_search'] = employee_search_div;
 	available_modules['employee_edit'] = employee_edit_div;
 	available_modules['employee_register'] = employee_register_div;
@@ -700,6 +734,8 @@ function init()
 	sale_search_div.style.display = "none";
 	payment_div.style.display = "none";
 	facture_viewer_div.style.display = "none";
+	report_money_viewer_div.style.display = "none";
+	report_inventory_viewer_div.style.display = "none";
 
 	employee_search_div.style.display   = "none";
 	employee_edit_div.style.display     = "none";

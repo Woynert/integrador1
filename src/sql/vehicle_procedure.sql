@@ -157,7 +157,7 @@ BEGIN
 
 		-- local
 
-		SELECT max(id) + 1 INTO p_id_from_marca FROM vehicles WHERE marca = "consbin";
+		SELECT max(id) + 1 INTO p_id_from_marca FROM vehicles WHERE marca = "conbin";
 
 	END IF;
 

@@ -330,6 +330,28 @@ p{
 
 /* facture_viewer */
 
+#report_money_main_viewer,
+#report_inventory_main_viewer{
+	background: white;
+	border: black;
+	    border-top-style: none;
+	    border-top-width: medium;
+	    border-right-style: none;
+	    border-right-width: medium;
+	    border-bottom-style: none;
+	    border-bottom-width: medium;
+	    border-left-style: none;
+	    border-left-width: medium;
+	border-style: solid;
+	padding: 5px;
+	border-width: 2px;
+	font-size: 1.2em;
+	/*width: 500px;*/
+	margin-left: auto;
+	margin-right: auto;
+	font-family: mono;
+}
+
 #facture_main_viewer{
 	background: white;
 	border: black;
@@ -351,14 +373,20 @@ p{
 	font-family: mono;
 }
 
+.report_money_fmt_left,
+.report_inventory_fmt_left,
 .facture_fmt_left{
 	display: inline-block;
 }
 
+.report_money_fmt_right,
+.report_inventory_fmt_right,
 .facture_fmt_right{
 	float: right;
 }
 
+.report_money_fmt_center,
+.report_inventory_fmt_center,
 .facture_fmt_center{
 	height: 1em;
 	width: 100%;

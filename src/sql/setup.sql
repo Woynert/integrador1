@@ -20,6 +20,7 @@ SOURCE ./vehicle_procedure.sql;
 SOURCE ./sale_procedure.sql;
 SOURCE ./employee_procedure.sql;
 SOURCE ./login_procedure.sql;
+SOURCE ./report_procedure.sql;
 
 SOURCE ./vehicle_sample_data.sql;
 SOURCE ./client_sample_data.sql;

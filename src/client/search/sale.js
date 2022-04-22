@@ -32,6 +32,7 @@ class module_search_sale extends module_template
 		this.tbl_resume;
 		this.btn_edit_row;
 		this.btn_see_facture;
+		this.btn_see_report_money;
 		this.lbl_no_result;
 
 		this.btn_back;
@@ -47,6 +48,7 @@ class module_search_sale extends module_template
 		this.mod_register;
 		this.mod_payment;
 		this.mod_facture_viewer;
+		this.mod_report_money_viewer;
 		this.post_request;
 
 		// request
@@ -75,6 +77,7 @@ class module_search_sale extends module_template
 		this.btn_make_payment   = document.getElementById ("srh_sale_btn_make_payment");
 		this.btn_cancel_payment = document.getElementById ("srh_sale_btn_cancel_payment");
 		this.btn_see_facture    = document.getElementById ("srh_sale_btn_see_facture");
+		this.btn_see_report_money = document.getElementById ("srh_sale_btn_see_report_money");
 		this.lbl_no_result = document.getElementById ("srh_sale_lbl_no_result");
 
 		this.btn_back = document.getElementById ("srh_sale_btn_back");
@@ -102,6 +105,10 @@ class module_search_sale extends module_template
 
 	set_mod_facture_viewer(mod_facture_viewer){
 		this.mod_facture_viewer = mod_facture_viewer;
+	}
+
+	set_mod_report_money_viewer(mod_report_money_viewer){
+		this.mod_report_money_viewer = mod_report_money_viewer;
 	}
 
 	set_dom_element (dom_element){
@@ -235,6 +242,24 @@ function create_module_search_sale (post_request)
 			// goto facture viewer
 			show_module('facture_viewer');
 			module.mod_facture_viewer.setup(item.id,
+				function(){
+					// return to this module
+					console.log("MY CALLBACK");
+					show_module('sale_search');
+				}
+			)
+		}
+	);
+
+	module.btn_see_report_money.addEventListener('click',
+		function(){
+
+			console.log("report money");
+
+
+			// goto facture viewer
+			show_module('report_money_viewer');
+			module.mod_report_money_viewer.setup(
 				function(){
 					// return to this module
 					console.log("MY CALLBACK");

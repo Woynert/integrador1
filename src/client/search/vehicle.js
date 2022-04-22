@@ -52,6 +52,8 @@ class module_search_vehicle extends module_template
 		this.mod_edit;
 		this.mod_register;
 		this.post_request;
+		this.mod_report_inventory_viewer;
+
 
 		// request
 
@@ -106,6 +108,10 @@ class module_search_vehicle extends module_template
 		this.mod_register = mod_register;
 	}
 
+	set_mod_report_inventory_viewer(mod_report_inventory_viewer){
+		this.mod_report_inventory_viewer = mod_report_inventory_viewer;
+	}
+
 	set_dom_element (dom_element){
 		this.dom_element = dom_element;
 	}
@@ -129,7 +135,7 @@ class module_search_vehicle extends module_template
 		var item = this.get_data_rows()[this.get_selected_row()];
 		console.log(item.marca);
 
-		if (item.marca == 'consbin')
+		if (item.marca == 'conbin')
 		{
 			this.btn_edit_row.classList.remove('hidden');
 		}
@@ -285,7 +291,18 @@ function create_module_search_vehicle (post_request)
 
 	module.btn_export_inventory.addEventListener('click',
 		function(){
-			console.log("Mega");
+
+			console.log("report inventory");
+
+			// goto facture viewer
+			show_module('report_inventory_viewer');
+			module.mod_report_inventory_viewer.setup(
+				function(){
+					// return to this module
+					console.log("MY CALLBACK");
+					show_module('vehicle_search');
+				}
+			)
 		}
 	);
 

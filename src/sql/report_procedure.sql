@@ -78,6 +78,8 @@ DELIMITER //
 CREATE PROCEDURE report_inventory ()
 BEGIN
 
+	-- listar vehiculos por empresa origen
+
 	SELECT
 		marca,
 		id_from_marca,
@@ -89,8 +91,9 @@ BEGIN
 		cantidad
 	FROM
 		view_vehicles
-	WHERE
-		cantidad > 0
+	-- WHERE
+	-- 	cantidad > 0
+	ORDER BY marca
 	;
 
 END ;

@@ -119,7 +119,7 @@ app.post ('/endpoint', function(req, res)
 		case macro.VEHICLE_INSERT_ROW:
 
 			sql = "CALL vehicle_register ( ";
-			sql += "'consbin', 0,";
+			sql += "'conbin', 0,";
 
 			for (var value in data)
 			{
