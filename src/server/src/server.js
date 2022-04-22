@@ -339,6 +339,11 @@ app.post ('/endpoint', function(req, res)
 			sql = "CALL report_inventory()";
 			break;
 
+		case macro.CONTACT:
+			console.log("SEND MAIL");
+			sql = "SELECT true";
+			break;
+
 		default:
 			console.log("WARNING: invalid request id");
 			return;

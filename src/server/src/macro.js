@@ -39,7 +39,8 @@ const macro =
 	REPORT_INVENTORY : 22,
 
 	LOGIN : 23,
-	LOGOUT : 24
+	LOGOUT : 24,
+	CONTACT : 25
 };
 Object.freeze(macro);
 
