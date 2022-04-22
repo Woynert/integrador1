@@ -225,6 +225,22 @@ BEGIN
 		id = ar_id_sale
 	;
 
+	-- return info
+
+	SELECT
+		v.marca AS `marca`,
+		v.id_from_marca AS `id_vehiculo`,
+		s.subtotal AS `precio_venta`,
+		DATE_FORMAT(s.payed, '%Y/%m/%d') AS `fecha_venta`
+	FROM
+		sales s,
+		vehicles v
+	WHERE
+		s.id = ar_id_sale AND
+		v.id_from_marca = s.id_from_marca AND
+		v.marca = s.marca
+	;
+
 END ;
 //
 DELIMITER ;

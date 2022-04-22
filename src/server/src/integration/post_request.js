@@ -8,7 +8,8 @@ class mod_post_request
 {
 	constructor()
 	{
-		this.url = "/endpoint";
+		// this.url = "/endpoint";
+		this.url = "http://192.168.1.3:44363/private/sales";
 		this.xhr = new XMLHttpRequest();
 		this.callback_pool = {};
 

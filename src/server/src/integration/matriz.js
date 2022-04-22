@@ -148,7 +148,51 @@ class matriz_api{
 			}
 		);
 	}
+
+	static report_sale(module, data)
+	{
+
+		var valuelist = {
+			"id_vehiculo"  : data.id_vehiculo,
+			"precio_venta" : data.precio_venta,
+			"fecha_venta"  : data.fecha_venta
+		}
+
+		/*
+		var valuelist = {
+			"id_vehiculo"  : 1,
+			"precio_venta" : 20000,
+			"fecha_venta"  : "2000/03/17"
+		}*/
+
+
+		console.log(valuelist);
+
+		// create object
+        var postObj = {
+            id: macro.CLIENT_FILTER_SEARCH,
+            data: valuelist
+        };
+
+		module.post_request.request(postObj,
+			function(rows)
+			{
+				// show search result
+
+				if (!rows.data){
+					return;
+				}
+
+				console.log("API RETURNED");
+				console.log(rows.data);
+			}
+		);
+
+		return;
+	}
 }
+
+
 
 /*setTimeout(function(){
 	get_inventory(1);

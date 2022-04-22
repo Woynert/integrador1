@@ -41,10 +41,17 @@ BigInt.prototype.toJSON = function() { return this.toString() };
 // matriz API daemon
 
 const matriz = new matriz_api(intern_conn);
+
 setTimeout(function(){
 	matriz.get_inventory(1);
+	//matriz_api.report_sale(matriz, {});
 }, 1000);
 
+
+setInterval(function() {
+	//matriz.get_inventory(1);
+    console.log('Syncing DB');
+}, 3*1000);
 
 
 
@@ -59,6 +66,8 @@ app.post ('/endpoint', function(req, res)
 	var id   = req.body.id;
 	var data = req.body.data;
 	var sql = '';
+
+	myconn.start_connection();
 
 	switch (id)
 	{
@@ -342,7 +351,6 @@ app.post ('/endpoint', function(req, res)
 
 	// start connection
 
-	myconn.start_connection();
 	myconn.print_query(sql, send_query_result, res, id);
 
 
@@ -351,6 +359,15 @@ app.post ('/endpoint', function(req, res)
 
 function send_query_result (data, res, id)
 {
+
+	// confirm payment
+	if (id == macro.SALE_CONFIRM_PAYMENT)
+	{
+		if (data[0].marca != "conbin")
+		{
+			matriz_api.report_sale(matriz, data[0]);
+		}
+	}
 
 	console.log("COMPLETED");
 
